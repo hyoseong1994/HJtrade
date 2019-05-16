@@ -7,7 +7,6 @@ import java.sql.SQLException;
 
 public class LoginDAO {
 
-	// 로그인
 	public boolean getLogin(String loginId, String loginPassword) throws Exception {
 
 		String sql = "select * from employee2 where id = ? and password = ?";
@@ -23,7 +22,7 @@ public class LoginDAO {
 			pstmt.setString(2, loginPassword);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				loginResult = true; // 아이디와 패스워드가 일치한다.
+				loginResult = true; 
 			}
 
 		} catch (SQLException e) {
@@ -32,7 +31,6 @@ public class LoginDAO {
 			System.out.println("e=[" + e + "]");
 		} finally {
 			try {
-				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
 				if (rs != null)
 					rs.close();
 				if (pstmt != null)
@@ -68,7 +66,6 @@ public class LoginDAO {
 			System.out.println("e=[" + e + "]");
 		} finally {
 			try {
-				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
 				if (rs != null)
 					rs.close();
 				if (pstmt != null)
