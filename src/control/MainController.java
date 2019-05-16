@@ -17,10 +17,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import control.StudentTabController;
-import control.SubjectTabController;
-import control.LessonTabController;
-import control.TraineeTotalTabController;
 import javafx.application.Platform;
 
 public class MainController implements Initializable {
@@ -28,29 +24,31 @@ public class MainController implements Initializable {
 	@FXML
 	private TabPane mainPane;
 	@FXML
-	private Tab subject;
+	private Tab trade;
 	@FXML
-	private SubjectTabController subjectTabController; // ���������� �ο� ���: include�� ����� id+"Controller"
+	private Tab money;
 	@FXML
-	private Tab student;
+	private Tab receipe;
 	@FXML
-	private StudentTabController studentTabController;
-	@FXML
-	private Tab lesson;
-	@FXML
-	private LessonTabController lessonTabController;
-	@FXML
-	private Tab traineeTotal;
-	@FXML
-	private TraineeTotalTabController traineeTotalTabController;
+	private Tab product;
 
-	// �޴�
+	// 메뉴
 	@FXML
-	private MenuItem menuExit;
+	private MenuItem e_menuImportion;
 	@FXML
-	private MenuItem menuLogout;
+	private MenuItem e_menuAccount;
+	@FXML
+	private MenuItem e_menuTotalMoney;
+	@FXML
+	private MenuItem p_menuImportion;
+	@FXML
+	private MenuItem p_menuAccount;
+	@FXML
+	private MenuItem p_menuTotalMoney;
 	@FXML
 	private MenuItem menuInfo;
+	@FXML
+	private MenuItem menuLogout;
 	
 
 	@Override
@@ -60,28 +58,28 @@ public class MainController implements Initializable {
 			mainPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 				@Override
 				public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
-					if(newValue == subject) {
-						System.out.println("�а�");
+					if(newValue == trade) {
+						System.out.println("DB 연결 성공");
 						try {
-							subjectTabController.subjectTotalList();
+							TradeTabController.subjectTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-					}else if(newValue == student) {
+					}else if(newValue == money) {
 						try {
-							studentTabController.studentTotalList();
+							MoneyTabController.studentTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-					}else if(newValue == lesson) {
+					}else if(newValue == receipe) {
 						try {
-							lessonTabController.lessonTotalList();
+							ReceipeTabController.lessonTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}	
-					}else if(newValue == traineeTotal) {
+					}else if(newValue == product) {
 						try {
-							traineeTotalTabController.traineeTotalList();
+							ProductTotalTabController.traineeTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -89,8 +87,7 @@ public class MainController implements Initializable {
 				}
 			});
 
-			// �޴� �̺�Ʈ ���
-			menuExit.setOnAction(event -> handlerMenuExitAction(event));
+			// 기능 메뉴바 이벤트
 			menuLogout.setOnAction(event -> handlerMenuLogoutAction(event));
 			menuInfo.setOnAction(event -> handlerMenuInfoAction(event));
 
@@ -99,14 +96,14 @@ public class MainController implements Initializable {
 		}
 	}
 
-	// �޴� �̺�Ʈ �ڵ鷯
+	// 로그아웃 메뉴 이벤트 핸들러
 	public void handlerMenuLogoutAction(ActionEvent event) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/login.fxml"));
 			Parent mainView = (Parent) loader.load();
 			Scene scane = new Scene(mainView);
 			Stage mainMtage = new Stage();
-			mainMtage.setTitle("�̷� ���б� �л����");
+			mainMtage.setTitle("육류 유통관리 프로그램");
 			mainMtage.setResizable(false);
 			mainMtage.setScene(scane);
 			Stage oldStage = (Stage) mainPane.getScene().getWindow();
@@ -120,23 +117,10 @@ public class MainController implements Initializable {
 	public void handlerMenuInfoAction(ActionEvent event) {
 		Alert alert;
 		alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("�̷� ���б�");
-		alert.setHeaderText("�̷� ���б� ������û ���α׷�");
-		alert.setContentText("Future Universit Register Courses Version 0.01");
+		alert.setTitle("도움말");
+		alert.setHeaderText("육류 유통관리 프로그램");
+		alert.setContentText("beaf distribution Version 0.01");
 		alert.setResizable(false);
 		alert.showAndWait();
 	}
-
-	public void handlerMenuExitAction(ActionEvent event) {
-		Alert alert;
-		alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("�̷� ���б�");
-		alert.setHeaderText("�̷� ���б� ������û ���α׷� ����");
-		alert.setContentText("Ȯ�� ��ư�� Ŭ���ϸ� �̷� ���б� ������û ���α׷� �����մϴ�.");
-		alert.setResizable(false);
-		alert.showAndWait();
-		
-		Platform.exit();
-	}
-
 }
