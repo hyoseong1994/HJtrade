@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/"
+	prefHeight="700.0" prefWidth="1000.0">
+	<top>
+		<VBox>
+			<children>
+				<MenuBar>
+					<menus>
+						<Menu text="엑셀">
+							<items>
+								<MenuItem text="매입업체" fx:id="menuImportion">
+								</MenuItem>
+								<MenuItem text="판매업체" fx:id="menuAccount">
+								</MenuItem>
+								<MenuItem text="총 매출" fx:id="menuTotalMoney">
+								</MenuItem>
+							</items>
+						</Menu>
+					</menus>
+					<menus>
+						<Menu text="PDF">
+							<items>
+								<MenuItem text="매입업체" fx:id="menuImportion">
+								</MenuItem>
+								<MenuItem text="판매업체" fx:id="menuAccount">
+								</MenuItem>
+								<MenuItem text="총 매출" fx:id="menuTotalMoney">
+								</MenuItem>
+							</items>
+						</Menu>
+					</menus>
+					<Menu text="기	능">
+						<items>
+							<MenuItem text="도 움 말" fx:id="menuInfo">
+							</MenuItem>
+							<MenuItem text="로그아웃" fx:id="menulogout">
+							</MenuItem>
+						</items>
+					</Menu>
+				</MenuBar>
+			</children>
+		</VBox>
+	</top>
+
+	<center>
+		<TabPane tabClosingPolicy="UNAVAILABLE" fx:id="mainPane">
+			<tabs>
+				<Tab text="거래처 " fx:id="trade">
+					<content>
+						<fx:include fx:id="tradeTab" source="tradeTab.fxml" />
+					</content>
+				</Tab>
+				<Tab text="금	전" fx:id="money">
+					<content>
+						<fx:include fx:id="moneyTab" source="moneyTab.fxml" />
+					</content>
+				</Tab>
+				<Tab text="전	표 " fx:id="receipe">
+					<content>
+						<fx:include fx:id="receipeTab"
+							source="receipeTab.fxml" />
+					</content>
+				</Tab>
+				<Tab text="재	고" fx:id="product">
+					<content>
+						<fx:include fx:id="productTab" source="productTab.fxml" />
+					</content>
+				</Tab>
+			</tabs>
+		</TabPane>
+	</center>
+</BorderPane>

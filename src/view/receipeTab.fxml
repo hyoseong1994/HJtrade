@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
+	<!-- TODO Add Nodes -->
+	<VBox>
+		<padding>
+			<Insets top="20" left="20" bottom="20" right="20" />
+		</padding>
+		<HBox>
+			<VBox>
+			<padding>
+				<Insets top="10" left="20" bottom="10" right="20" />
+			</padding>
+				<ComboBox promptText="거래처 선택"></ComboBox>
+				<ComboBox promptText="종류"></ComboBox>
+				<ComboBox promptText="브랜드"></ComboBox>
+				<ComboBox promptText="부위"></ComboBox>
+				<Label text="수	량 : " layoutX="50.0" layoutY="102.0" />
+				<TextField promptText="숫자만 입력" />
+				<Label text="중	량 : " layoutX="50.0" layoutY="132.0" />
+				<TextField promptText="숫자만 입력" />
+				<Label text="단	가 : " layoutX="50.0" layoutY="162.0" />
+				<TextField promptText="숫자만 입력" />
+				<Label text="총	액 :" />
+				<HBox>
+					<Button text="입고주문" />
+					<Button text="반품" />
+				</HBox>
+			</VBox>
+			<VBox>
+			<padding>
+				<Insets top="10" left="20" bottom="10" right="20" />
+			</padding>
+				<ComboBox promptText="거래처 선택"></ComboBox>
+				<Label text="주소			:" />
+				<Label text="업태			:" />
+				<Label text="대표자번호	:" />
+
+				<children>
+					<Label text="입고 목록" />
+					<TableView prefHeight="200" prefWidth="500">
+					</TableView>
+				</children>
+				<VBox prefWidth="100">
+					<HBox alignment="BOTTOM_RIGHT">
+						<Label text="합계 금액	:" />
+					</HBox>
+				</VBox>
+			</VBox>
+
+		</HBox>
+		<Separator prefHeight="50" prefWidth="500" />
+
+		<VBox>
+			<padding>
+				<Insets top="10" left="20" bottom="10" right="20" />
+			</padding>
+			<ComboBox promptText="거래처 선택"></ComboBox>
+			<Label text="주소			:" />
+			<Label text="업태			:" />
+			<Label text="대표자번호	:" />
+
+
+			<children>
+				<Label text="출고 목록" />
+				<TableView prefHeight="100" prefWidth="500">
+				</TableView>
+			</children>
+			<VBox prefWidth="100">
+				<HBox alignment="BOTTOM_RIGHT">
+					<Label text="합계 금액	:" />
+				</HBox>
+				<HBox alignment="BOTTOM_RIGHT">
+					<Button>차트</Button>
+					<Button>반품</Button>
+				</HBox>
+			</VBox>
+		</VBox>
+	</VBox>
+</AnchorPane>
+

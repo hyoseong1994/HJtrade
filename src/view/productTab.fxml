@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
+	<!-- TODO Add Nodes -->
+	<children>
+		<VBox>
+			<padding>
+				<Insets top="20" left="20" bottom="20" right="20" />
+			</padding>
+			<HBox>
+
+				<VBox prefWidth="150">
+					<padding>
+						<Insets top="10" left="10" bottom="10" right="20" />
+					</padding>
+					<Label text="종	류 : " layoutX="50.0" layoutY="72.0" />
+					<TextField promptText="소, 돼지" />
+					<Label text="브 랜 드 : " layoutX="50.0" layoutY="102.0" />
+					<TextField promptText="브 랜 드" />
+					<Label text="부	위 : " layoutX="50.0" layoutY="132.0" />
+					<TextField promptText="부	위 " />
+					<Label text="원 산 지 : " layoutX="50.0" layoutY="162.0" />
+					<TextField promptText="원 산 지" />
+					<Button text="등록" />
+				</VBox>
+				<VBox>
+					<padding>
+						<Insets top="10" left="20" bottom="10" right="20" />
+					</padding>
+					<Label text="상품 목록" />
+					<TableView prefHeight="170" prefWidth="300">
+					</TableView>
+				</VBox>
+			</HBox>
+			<Separator prefHeight="50" prefWidth="400" />
+			<HBox>
+				<VBox prefWidth="150">
+					<padding>
+						<Insets top="10" left="10" bottom="10" right="20" />
+					</padding>
+					<Label text="출고" layoutX="50.0" layoutY="30.0" />
+
+					<Label text="주문일자 : " layoutX="50.0" layoutY="72.0" />
+					<TextField promptText="날짜만 입력" />
+					<Label text="수	량 : " layoutX="50.0" layoutY="102.0" />
+					<TextField promptText="숫자만 입력" />
+					<Label text="중	량 : " layoutX="50.0" layoutY="132.0" />
+					<TextField promptText="숫자만 입력" />
+					<Label text="단	가 : " layoutX="50.0" layoutY="162.0" />
+					<TextField promptText="숫자만 입력" />
+
+					<Button layoutX="50.0" layoutY="150.0" text="출고" />
+				</VBox>
+				<VBox>
+					<padding>
+						<Insets top="20" left="20" bottom="20" right="20" />
+					</padding>
+					<ComboBox promptText="거래처 선택"></ComboBox>
+					<VBox>
+						<Label text="주소			:" />
+						<Label text="업태			:" />
+						<Label text="대표자번호	:" />
+					</VBox>
+					<Label text="재고 목록" />
+					<TableView prefHeight="170" prefWidth="300">
+					</TableView>
+				</VBox>
+			</HBox>
+		</VBox>
+	</children>
+</AnchorPane>
+

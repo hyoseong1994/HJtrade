@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
+	<HBox>
+		<padding>
+			<Insets top="20" left="20" bottom="20" right="20" />
+		</padding>
+		<VBox prefWidth="250">
+			<padding>
+				<Insets top="20" left="20" bottom="20" right="20" />
+			</padding>
+			<Label text="상 호 명 : " layoutX="50.0" layoutY="72.0" />
+			<TextField promptText="상 호 명" />
+			<Label text="사업자번호 : " layoutX="50.0" layoutY="102.0" />
+			<TextField promptText="사업자번호" />
+			<Label text="대표명 : " layoutX="50.0" layoutY="132.0" />
+			<TextField promptText="대표명 " />
+			<Label text="대표자번호 : " layoutX="50.0" layoutY="162.0" />
+			<TextField promptText="대표자번호" />
+			<Label text="담당자 : " layoutX="50.0" layoutY="192.0" />
+			<TextField promptText="담당자" />
+			<Label text="담당자번호 : " layoutX="50.0" layoutY="222.0" />
+			<TextField promptText="담당자번호" />
+			<Label text="주	소: " layoutX="50.0" layoutY="252.0" />
+			<TextField promptText="주	소: " />
+			<Label text="이 메 일 : " layoutX="50.0" layoutY="282.0" />
+			<TextField promptText="이 메 일" />
+			<Label text="업	태 : " layoutX="50.0" layoutY="282.0" />
+			<TextField promptText="업	태" />
+			<HBox>
+				<RadioButton text="입고"></RadioButton>
+				<RadioButton text="출고"></RadioButton>
+			</HBox>
+			<HBox>
+				<Button>사업자번호 중복검사</Button>
+				<Button>등록</Button>
+				<Button>수정</Button>
+			</HBox>
+		</VBox>
+		<VBox>
+			<padding>
+				<Insets top="20" left="20" bottom="20" right="20" />
+			</padding>
+			<children>
+				<Label text="매입업체 목록" layoutX="350.0" layoutY="50.0" />
+				<TableView prefHeight="170" prefWidth="500"
+					layoutX="350.0">
+				</TableView>
+			</children>
+			<VBox prefWidth="100">
+				<HBox alignment="BOTTOM_RIGHT">
+					<TextField promptText="매입금" prefWidth="150" />
+				</HBox>
+
+				<HBox alignment="BOTTOM_RIGHT">
+					<Button>삭제</Button>
+					<Button>차트</Button>
+					<Button>입금</Button>
+				</HBox>
+			</VBox>
+			<Separator prefHeight="50" prefWidth="500" />
+			<children>
+				<Label text="판매업체 목록" />
+				<TableView prefHeight="170" prefWidth="500">
+				</TableView>
+			</children>
+			<VBox prefWidth="100">
+				<HBox alignment="BOTTOM_RIGHT">
+					<TextField promptText="수금액" prefWidth="150" />
+				</HBox>
+				<HBox alignment="BOTTOM_RIGHT">
+					<Button>삭제</Button>
+					<Button>차트</Button>
+					<Button>수금</Button>
+				</HBox>
+			</VBox>
+		</VBox>
+	</HBox>
+</AnchorPane>
+
