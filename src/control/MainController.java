@@ -50,6 +50,9 @@ public class MainController implements Initializable {
 	@FXML
 	private MenuItem menuLogout;
 	
+	@FXML
+	private TradeTabController tradeTabController;
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -61,7 +64,7 @@ public class MainController implements Initializable {
 					if(newValue == trade) {
 						System.out.println("DB 연결 성공");
 						try {
-							TradeTabController.subjectTotalList();
+							tradeTabController.TradeTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

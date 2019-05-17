@@ -45,7 +45,7 @@ public class LoginDAO {
 	
 	public String getLoginName(String loginId) throws Exception {
 
-		String sql = "select name from employee2 where id = ?";
+		String sql = "select e_name from employee2 where id = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -61,7 +61,7 @@ public class LoginDAO {
 			}
 
 		} catch (SQLException e) {
-			System.out.println("e=[" + e + "]");
+			System.out.println("e=[" + e + "]1");
 		} catch (Exception e) {
 			System.out.println("e=[" + e + "]");
 		} finally {

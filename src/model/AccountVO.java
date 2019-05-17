@@ -1,114 +1,124 @@
 package model;
 
 public class AccountVO {
-	private String name;
-	private String businessNumber;
-	private String represent;
-	private String representPhone;
-	private String charge;
-	private String chargePhone;
-	private String adress;
-	private String email;
-	private String business;
-	private String payment;
+	private int a_no;
+	private String a_name;
+	private String a_businessNumber;
+	private String a_represent;
+	private String a_representPhone;
+	private String a_charge;
+	private String a_chargePhone;
+	private String a_adress;
+	private String a_email;
+	private String a_business;
+	private int a_collect;
 
 	public AccountVO() {
 		super();
 	}
 
-	public AccountVO(String name, String businessNumber, String represent, String representPhone, String charge,
-			String chargePhone, String adress, String email, String business, String payment) {
+	public AccountVO(int a_no, String a_name, String a_businessNumber, String a_represent, String a_representPhone,
+			String a_charge, String a_chargePhone, String a_adress, String a_email, String a_business, int a_collect) {
 		super();
-		this.name = name;
-		this.businessNumber = businessNumber;
-		this.represent = represent;
-		this.representPhone = representPhone;
-		this.charge = charge;
-		this.chargePhone = chargePhone;
-		this.adress = adress;
-		this.email = email;
-		this.business = business;
-		this.payment = payment;
+		this.a_no = a_no;
+		this.a_name = a_name;
+		this.a_businessNumber = a_businessNumber;
+		this.a_represent = a_represent;
+		this.a_representPhone = a_representPhone;
+		this.a_charge = a_charge;
+		this.a_chargePhone = a_chargePhone;
+		this.a_adress = a_adress;
+		this.a_email = a_email;
+		this.a_business = a_business;
+		this.a_collect = a_collect;
 	}
 
-	public String getName() {
-		return name;
+	public int getA_no() {
+		return a_no;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setA_no(int a_no) {
+		this.a_no = a_no;
 	}
 
-	public String getBusinessNumber() {
-		return businessNumber;
+	public String getA_name() {
+		return a_name;
 	}
 
-	public void setBusinessNumber(String businessNumber) {
-		this.businessNumber = businessNumber;
+	public void setA_name(String a_name) {
+		this.a_name = a_name;
 	}
 
-	public String getRepresent() {
-		return represent;
+	public String getA_businessNumber() {
+		return a_businessNumber;
 	}
 
-	public void setRepresent(String represent) {
-		this.represent = represent;
+	public void setA_businessNumber(String a_businessNumber) {
+		this.a_businessNumber = a_businessNumber;
 	}
 
-	public String getRepresentPhone() {
-		return representPhone;
+	public String getA_represent() {
+		return a_represent;
 	}
 
-	public void setRepresentPhone(String representPhone) {
-		this.representPhone = representPhone;
+	public void setA_represent(String a_represent) {
+		this.a_represent = a_represent;
 	}
 
-	public String getCharge() {
-		return charge;
+	public String getA_representPhone() {
+		return a_representPhone;
 	}
 
-	public void setCharge(String charge) {
-		this.charge = charge;
+	public void setA_representPhone(String a_representPhone) {
+		this.a_representPhone = a_representPhone;
 	}
 
-	public String getChargePhone() {
-		return chargePhone;
+	public String getA_charge() {
+		return a_charge;
 	}
 
-	public void setChargePhone(String chargePhone) {
-		this.chargePhone = chargePhone;
+	public void setA_charge(String a_charge) {
+		this.a_charge = a_charge;
 	}
 
-	public String getAdress() {
-		return adress;
+	public String getA_chargePhone() {
+		return a_chargePhone;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setA_chargePhone(String a_chargePhone) {
+		this.a_chargePhone = a_chargePhone;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getA_adress() {
+		return a_adress;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setA_adress(String a_adress) {
+		this.a_adress = a_adress;
 	}
 
-	public String getBusiness() {
-		return business;
+	public String getA_email() {
+		return a_email;
 	}
 
-	public void setBusiness(String business) {
-		this.business = business;
+	public void setA_email(String a_email) {
+		this.a_email = a_email;
 	}
 
-	public String getPayment() {
-		return payment;
+	public String getA_business() {
+		return a_business;
 	}
 
-	public void setPayment(String payment) {
-		this.payment = payment;
+	public void setA_business(String a_business) {
+		this.a_business = a_business;
+	}
+
+	public int getA_collect() {
+		return a_collect;
+	}
+
+	public void setA_collect(int a_collect) {
+		this.a_collect = a_collect;
 	}
 
 }
