@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import model.ImportionVO;
-import oracle.net.aso.i;;
 
 public class TradeTabDAO {
 	// 전체 리스트
@@ -37,7 +36,7 @@ public class TradeTabDAO {
 				iVo.setI_representPhone(rs.getString("i_representPhone"));
 				iVo.setI_charge(rs.getString("i_charge"));
 				iVo.setI_chargePhone(rs.getString("i_chargePhone"));
-				iVo.setI_address(rs.getString("i_adress"));
+				iVo.setI_address(rs.getString("i_address"));
 				iVo.setI_email(rs.getString("i_email"));
 				iVo.setI_business(rs.getString("i_business"));
 				iVo.setI_payment(rs.getInt("i_payment"));
@@ -47,6 +46,7 @@ public class TradeTabDAO {
 
 		} catch (SQLException se) {
 			System.out.println(se+"1");
+			se.printStackTrace();
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {

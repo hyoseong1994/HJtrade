@@ -73,58 +73,58 @@ public class TradeTabController implements Initializable {
 			colINo.setCellValueFactory(new PropertyValueFactory<>("i_no"));
 			
 			TableColumn colIName = new TableColumn("상 호 명");
-			colIName.setPrefWidth(160);
+			colIName.setPrefWidth(90);
 			colIName.setStyle("-fx-allignment: CENTER");
 			colIName.setCellValueFactory(new PropertyValueFactory<>("i_name"));
 
 
 			TableColumn colIBusinessNumber = new TableColumn("사업자 번호");
-			colIBusinessNumber.setPrefWidth(160);
+			colIBusinessNumber.setPrefWidth(90);
 			colIBusinessNumber.setStyle("-fx-allignment: CENTER");
 			colIBusinessNumber.setCellValueFactory(new PropertyValueFactory<>("i_businessNumber"));
 
 			TableColumn colIRepredent = new TableColumn("대 표 명");
-			colIRepredent.setPrefWidth(160);
+			colIRepredent.setPrefWidth(90);
 			colIRepredent.setStyle("-fx-allignment: CENTER");
 			colIRepredent.setCellValueFactory(new PropertyValueFactory<>("i_repredent"));
 
 			TableColumn colIRepredentPhone = new TableColumn("대표자 번호");
-			colIRepredentPhone.setPrefWidth(160);
+			colIRepredentPhone.setPrefWidth(90);
 			colIRepredentPhone.setStyle("-fx-allignment: CENTER");
 			colIRepredentPhone.setCellValueFactory(new PropertyValueFactory<>("i_repredentPhone"));
 
 			TableColumn colICharge = new TableColumn("담 당 자");
-			colICharge.setPrefWidth(160);
+			colICharge.setPrefWidth(90);
 			colICharge.setStyle("-fx-allignment: CENTER");
 			colICharge.setCellValueFactory(new PropertyValueFactory<>("i_charge"));
 
 			TableColumn colIChargePhone = new TableColumn("담당자 번호");
-			colIChargePhone.setPrefWidth(160);
+			colIChargePhone.setPrefWidth(90);
 			colIChargePhone.setStyle("-fx-allignment: CENTER");
 			colIChargePhone.setCellValueFactory(new PropertyValueFactory<>("i_chargePhone"));
 
 			TableColumn colIAddress = new TableColumn("주	소");
-			colIAddress.setPrefWidth(160);
+			colIAddress.setPrefWidth(90);
 			colIAddress.setStyle("-fx-allignment: CENTER");
 			colIAddress.setCellValueFactory(new PropertyValueFactory<>("i_address"));
 
 			TableColumn colIEmail = new TableColumn("이 메 일");
-			colIEmail.setPrefWidth(160);
+			colIEmail.setPrefWidth(90);
 			colIEmail.setStyle("-fx-allignment: CENTER");
 			colIEmail.setCellValueFactory(new PropertyValueFactory<>("i_email"));
 
 			TableColumn colIBusiness = new TableColumn("업	태");
-			colIBusiness.setPrefWidth(160);
+			colIBusiness.setPrefWidth(90);
 			colIBusiness.setStyle("-fx-allignment: CENTER");
 			colIBusiness.setCellValueFactory(new PropertyValueFactory<>("i_business"));
 
 			TableColumn colIPayment = new TableColumn("매입 미지급액");
-			colIPayment.setPrefWidth(160);
+			colIPayment.setPrefWidth(90);
 			colIPayment.setStyle("-fx-allignment: CENTER");
 			colIPayment.setCellValueFactory(new PropertyValueFactory<>("i_payment"));
 
 			ImportionTableView.setItems(ImportionDataList);
-			ImportionTableView.getColumns().addAll(colINo, colIBusinessNumber, colIRepredent, colIRepredentPhone,
+			ImportionTableView.getColumns().addAll(colINo, colIName, colIBusinessNumber, colIRepredent, colIRepredentPhone,
 					colICharge, colIChargePhone, colIAddress, colIEmail, colIBusiness, colIPayment);
 
 			// 거래처 전체 목록

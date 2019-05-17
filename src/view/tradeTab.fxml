@@ -53,7 +53,7 @@ fx:controller="control.TradeTabController">
 			</padding>
 			<children>
 				<Label text="매입업체 목록" layoutX="350.0" layoutY="50.0" />
-				<TableView prefHeight="170" prefWidth="500"
+				<TableView prefHeight="170" prefWidth="990"
 					layoutX="350.0" fx:id="ImportionTableView">
 				</TableView>
 			</children>
