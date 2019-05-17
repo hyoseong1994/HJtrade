@@ -1,14 +1,14 @@
 package model;
 
 public class ImportionVO {
-	private int I_no;
+	private int i_no;
 	private String i_name;
 	private String i_businessNumber;
 	private String i_represent;
 	private String i_representPhone;
 	private String i_charge;
 	private String i_chargePhone;
-	private String i_adress;
+	private String i_address;
 	private String i_email;
 	private String i_business;
 	private int i_payment;
@@ -17,30 +17,59 @@ public class ImportionVO {
 		super();
 	}
 
-	public ImportionVO(int I_no, String i_name, String i_businessNumber, String i_represent, String i_representPhone,
-			String i_charge, String i_chargePhone, String i_adress, String i_email, String i_business, int i_payment) {
+	public ImportionVO(String i_name, String i_businessNumber, String i_represent, String i_representPhone,
+			String i_charge, String i_chargePhone, String i_address, String i_email, String i_business, int i_payment) {
 		super();
-		this.I_no = I_no;
 		this.i_name = i_name;
 		this.i_businessNumber = i_businessNumber;
 		this.i_represent = i_represent;
 		this.i_representPhone = i_representPhone;
 		this.i_charge = i_charge;
 		this.i_chargePhone = i_chargePhone;
-		this.i_adress = i_adress;
+		this.i_address = i_address;
 		this.i_email = i_email;
 		this.i_business = i_business;
 		this.i_payment = i_payment;
 	}
 
 	
+	public ImportionVO(int i_no, String i_name, String i_businessNumber, String i_represent, String i_representPhone,
+			String i_charge, String i_chargePhone, String i_address, String i_email, String i_business) {
+		super();
+		this.i_no = i_no;
+		this.i_name = i_name;
+		this.i_businessNumber = i_businessNumber;
+		this.i_represent = i_represent;
+		this.i_representPhone = i_representPhone;
+		this.i_charge = i_charge;
+		this.i_chargePhone = i_chargePhone;
+		this.i_address = i_address;
+		this.i_email = i_email;
+		this.i_business = i_business;
+	}
+
+	public ImportionVO(int i_no, String i_name, String i_businessNumber, String i_represent, String i_representPhone,
+			String i_charge, String i_chargePhone, String i_address, String i_email, String i_business, int i_payment) {
+		super();
+		this.i_no = i_no;
+		this.i_name = i_name;
+		this.i_businessNumber = i_businessNumber;
+		this.i_represent = i_represent;
+		this.i_representPhone = i_representPhone;
+		this.i_charge = i_charge;
+		this.i_chargePhone = i_chargePhone;
+		this.i_address = i_address;
+		this.i_email = i_email;
+		this.i_business = i_business;
+		this.i_payment = i_payment;
+	}
 
 	public int getI_no() {
-		return I_no;
+		return i_no;
 	}
 
 	public void setI_no(int i_no) {
-		I_no = i_no;
+		this.i_no = i_no;
 	}
 
 	public String getI_name() {
@@ -91,12 +120,12 @@ public class ImportionVO {
 		this.i_chargePhone = i_chargePhone;
 	}
 
-	public String getI_adress() {
-		return i_adress;
+	public String getI_address() {
+		return i_address;
 	}
 
-	public void setI_adress(String i_adress) {
-		this.i_adress = i_adress;
+	public void setI_address(String i_address) {
+		this.i_address = i_address;
 	}
 
 	public String getI_email() {

@@ -9,7 +9,8 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.geometry.Insets?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+fx:controller="control.TradeTabController">
 	<HBox>
 		<padding>
 			<Insets top="20" left="20" bottom="20" right="20" />
@@ -25,11 +26,11 @@
 			<Label text="대표명 : " layoutX="50.0" layoutY="132.0" />
 			<TextField promptText="대표명 " fx:id="txt_represent" />
 			<Label text="대표자번호 : " layoutX="50.0" layoutY="162.0" />
-			<TextField promptText="대표자번호" fx:id="txt_representNumber" />
+			<TextField promptText="대표자번호" fx:id="txt_representPhone" />
 			<Label text="담당자 : " layoutX="50.0" layoutY="192.0" />
 			<TextField promptText="담당자" fx:id="txt_charge" />
 			<Label text="담당자번호 : " layoutX="50.0" layoutY="222.0" />
-			<TextField promptText="담당자번호" fx:id="txt_chargeNumber" />
+			<TextField promptText="담당자번호" fx:id="txt_chargePhone" />
 			<Label text="주	소: " layoutX="50.0" layoutY="252.0" />
 			<TextField promptText="주	소: " fx:id="txt_address" />
 			<Label text="이 메 일 : " layoutX="50.0" layoutY="282.0" />

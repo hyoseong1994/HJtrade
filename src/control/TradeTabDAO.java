@@ -17,7 +17,7 @@ public class TradeTabDAO {
 	public ArrayList<ImportionVO> getImportionVOTotalList() throws Exception {
 		ArrayList<ImportionVO> list = new ArrayList<>();
 
-		String sql = "select * from importion order by no";
+		String sql = "select * from importion order by i_no";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -30,23 +30,23 @@ public class TradeTabDAO {
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				iVo = new ImportionVO();
-				iVo.setI_no(rs.getInt("I_no"));
-				iVo.setI_name(rs.getString("I_name"));
-				iVo.setI_businessNumber(rs.getString("I_businessNumber"));
-				iVo.setI_represent(rs.getString("I_represent"));
-				iVo.setI_representPhone(rs.getString("I_representPhone"));
-				iVo.setI_charge(rs.getString("I_charge"));
-				iVo.setI_chargePhone(rs.getString("I_chargePhone"));
-				iVo.setI_adress(rs.getString("I_adress"));
-				iVo.setI_email(rs.getString("I_email"));
-				iVo.setI_business(rs.getString("I_business"));
-				iVo.setI_payment(rs.getInt("I_payment"));
+				iVo.setI_no(rs.getInt("i_no"));
+				iVo.setI_name(rs.getString("i_name"));
+				iVo.setI_businessNumber(rs.getString("i_businessNumber"));
+				iVo.setI_represent(rs.getString("i_represent"));
+				iVo.setI_representPhone(rs.getString("i_representPhone"));
+				iVo.setI_charge(rs.getString("i_charge"));
+				iVo.setI_chargePhone(rs.getString("i_chargePhone"));
+				iVo.setI_address(rs.getString("i_adress"));
+				iVo.setI_email(rs.getString("i_email"));
+				iVo.setI_business(rs.getString("i_business"));
+				iVo.setI_payment(rs.getInt("i_payment"));
 
 				list.add(iVo);
 			}
 
 		} catch (SQLException se) {
-			System.out.println(se);
+			System.out.println(se+"1");
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -66,9 +66,10 @@ public class TradeTabDAO {
 	// 등록
 	public void getImportionRegiste(ImportionVO iVo) throws Exception {
 
-		String sql = "insert into Importion " + "(i_no,  i_name, i_businessNumber, I_represent,I_representPhone,"
-				+ "I_charge, I_chargePhone, I_adress, I_email, I_business)" + " values "
-				+ "(Importion_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into Importion" 
+				+ "(i_no,  i_name, i_businessNumber, I_represent, i_representPhone, "
+				+ "I_charge, I_chargePhone, I_address, I_email, I_business, I_payment)" + " values "
+				+ "(importion_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -76,16 +77,16 @@ public class TradeTabDAO {
 
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, iVo.getI_no());
-			pstmt.setString(2, iVo.getI_name());
-			pstmt.setString(3, iVo.getI_businessNumber());
-			pstmt.setString(4, iVo.getI_represent());
-			pstmt.setString(5, iVo.getI_representPhone());
-			pstmt.setString(6, iVo.getI_charge());
-			pstmt.setString(7, iVo.getI_chargePhone());
-			pstmt.setString(8, iVo.getI_adress());
-			pstmt.setString(9, iVo.getI_email());
-			pstmt.setString(10, iVo.getI_business());
+			pstmt.setString(1, iVo.getI_name());
+			pstmt.setString(2, iVo.getI_businessNumber());
+			pstmt.setString(3, iVo.getI_represent());
+			pstmt.setString(4, iVo.getI_representPhone());
+			pstmt.setString(5, iVo.getI_charge());
+			pstmt.setString(6, iVo.getI_chargePhone());
+			pstmt.setString(7, iVo.getI_address());
+			pstmt.setString(8, iVo.getI_email());
+			pstmt.setString(9, iVo.getI_business());
+			pstmt.setInt(10, iVo.getI_payment());
 
 			int i = pstmt.executeUpdate();
 
@@ -157,9 +158,9 @@ public class TradeTabDAO {
 	}
 
 	// 거래처 수정
-	public boolean getImportionUpdate(String i_name, String i_businessNumber, String i_represent,
+	public boolean getImportionUpdate(int i_no, String i_name, String i_businessNumber, String i_represent,
 			String i_representPhone, String i_charge, String i_chargePhone, String i_adress, String i_email,
-			String i_business, int i_no) throws Exception {
+			String i_business) throws Exception {
 
 		String sql = "update Importion set i_name, i_businessNumber, I_represent,I_representPhone,"
 				+ "I_charge, I_chargePhone, I_adress, I_email, I_business where i_no=?";
@@ -300,4 +301,6 @@ public class TradeTabDAO {
 		}
 		return imporiontDeleteSucess;
 	}
+
+	
 }
