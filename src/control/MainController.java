@@ -19,11 +19,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MainController implements Initializable {
-	
+
 	@FXML
 	private TabPane mainPane;
 	@FXML
-	private Tab trade;
+	private Tab importion;
+	@FXML
+	private Tab account;
 	@FXML
 	private Tab money;
 	@FXML
@@ -40,38 +42,48 @@ public class MainController implements Initializable {
 	private MenuItem menuInfo;
 	@FXML
 	private MenuItem menuLogout;
-	
+
 	@FXML
-	private ImportionTabController tradeTabController;
-	
+	private ImportionTabController importionTabController;
+	@FXML
+	private AccountTabController accountTabController;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
-			
+
 			mainPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 				@Override
 				public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
-					if(newValue == trade) {
+					if (newValue == importion) {
 						System.out.println("DB 연결 성공");
 						try {
-							tradeTabController.TradeTotalList();
+							importionTabController.TradeTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-					}else if(newValue == money) {
+
+					}
+					if (newValue == account) {
+						System.out.println("DB 연결 성공");
+						try {
+							accountTabController.TradeTotalList();
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					} else if (newValue == money) {
 						try {
 							MoneyTabController.studentTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-					}else if(newValue == receipe) {
+					} else if (newValue == receipe) {
 						try {
 							ReceipeTabController.lessonTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
-						}	
-					}else if(newValue == product) {
+						}
+					} else if (newValue == product) {
 						try {
 							ProductTotalTabController.traineeTotalList();
 						} catch (Exception e) {
