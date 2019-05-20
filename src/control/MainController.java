@@ -52,6 +52,8 @@ public class MainController implements Initializable {
 	
 	@FXML
 	private TradeTabController tradeTabController;
+	@FXML
+	private ProductTotalTabController ProductTotalTabController;
 	
 
 	@Override
@@ -76,13 +78,13 @@ public class MainController implements Initializable {
 						}
 					}else if(newValue == receipe) {
 						try {
-							ReceipeTabController.lessonTotalList();
+	
 						} catch (Exception e) {
 							e.printStackTrace();
 						}	
 					}else if(newValue == product) {
 						try {
-							ProductTotalTabController.traineeTotalList();
+							ProductTotalTabController.productTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
