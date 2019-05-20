@@ -12,6 +12,7 @@ public class ImportionVO {
 	private String i_email;
 	private String i_business;
 	private int i_payment;
+	private String rbImportion;
 
 	public ImportionVO() {
 		super();
@@ -152,4 +153,13 @@ public class ImportionVO {
 		this.i_payment = i_payment;
 	}
 
+	public String getRbImportion() {
+		return rbImportion;
+	}
+
+	public void setRbImportion(String rbImportion) {
+		this.rbImportion = rbImportion;
+	}
+
+	
 }

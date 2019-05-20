@@ -33,24 +33,16 @@ public class MainController implements Initializable {
 
 	// 메뉴
 	@FXML
-	private MenuItem e_menuImportion;
+	private MenuItem m_excel;
 	@FXML
-	private MenuItem e_menuAccount;
-	@FXML
-	private MenuItem e_menuTotalMoney;
-	@FXML
-	private MenuItem p_menuImportion;
-	@FXML
-	private MenuItem p_menuAccount;
-	@FXML
-	private MenuItem p_menuTotalMoney;
+	private MenuItem m_pdf;
 	@FXML
 	private MenuItem menuInfo;
 	@FXML
 	private MenuItem menuLogout;
 	
 	@FXML
-	private TradeTabController tradeTabController;
+	private ImportionTabController tradeTabController;
 	
 
 	@Override
