@@ -19,7 +19,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MainController implements Initializable {
-	
+
 	@FXML
 	private TabPane mainPane;
 	@FXML
@@ -40,44 +40,39 @@ public class MainController implements Initializable {
 	private MenuItem menuInfo;
 	@FXML
 	private MenuItem menuLogout;
-	
-	@FXML
-<<<<<<< HEAD
-	private TradeTabController tradeTabController;
+
 	@FXML
 	private ProductTotalTabController ProductTotalTabController;
-=======
-	private ImportionTabController tradeTabController;
->>>>>>> 3117e8eef3f22b54fc0a26a45bf54701f83947a6
+	@FXML
+	private ImportionTabController importionTabController;
 	
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
-			
+
 			mainPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 				@Override
 				public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
-					if(newValue == trade) {
+					if (newValue == trade) {
 						System.out.println("DB 연결 성공");
 						try {
 							tradeTabController.TradeTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-					}else if(newValue == money) {
+					} else if (newValue == money) {
 						try {
 							MoneyTabController.studentTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-					}else if(newValue == receipe) {
+					} else if (newValue == receipe) {
 						try {
-	
+
 						} catch (Exception e) {
 							e.printStackTrace();
-						}	
-					}else if(newValue == product) {
+						}
+					} else if (newValue == product) {
 						try {
 							ProductTotalTabController.productTotalList();
 						} catch (Exception e) {
