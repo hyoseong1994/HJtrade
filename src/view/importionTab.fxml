@@ -10,7 +10,7 @@
 <?import javafx.geometry.Insets?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-fx:controller="control.TradeTabController">
+	fx:controller="control.ImportionTabController">
 	<HBox>
 		<padding>
 			<Insets top="20" left="20" bottom="20" right="20" />
@@ -19,32 +19,28 @@ fx:controller="control.TradeTabController">
 			<padding>
 				<Insets top="20" left="20" bottom="20" right="20" />
 			</padding>
-			<Label text="상 호 명 : " layoutX="50.0" layoutY="72.0" />
-			<TextField promptText="상 호 명" fx:id="txt_name" />
 			<Label text="사업자번호 : " layoutX="50.0" layoutY="102.0" />
-			<TextField promptText="사업자번호" fx:id="txt_businessNumber" />
+			<TextField promptText="사업자번호" fx:id="txt_I_businessNumber" />
+			<Label text="상 호 명 : " layoutX="50.0" layoutY="72.0" />
+			<TextField promptText="상 호 명" fx:id="txt_I_name" />
 			<Label text="대표명 : " layoutX="50.0" layoutY="132.0" />
-			<TextField promptText="대표명 " fx:id="txt_represent" />
+			<TextField promptText="대표명 " fx:id="txt_I_represent" />
 			<Label text="대표자번호 : " layoutX="50.0" layoutY="162.0" />
-			<TextField promptText="대표자번호" fx:id="txt_representPhone" />
+			<TextField promptText="대표자번호" fx:id="txt_I_representPhone" />
 			<Label text="담당자 : " layoutX="50.0" layoutY="192.0" />
-			<TextField promptText="담당자" fx:id="txt_charge" />
+			<TextField promptText="담당자" fx:id="txt_I_charge" />
 			<Label text="담당자번호 : " layoutX="50.0" layoutY="222.0" />
-			<TextField promptText="담당자번호" fx:id="txt_chargePhone" />
+			<TextField promptText="담당자번호" fx:id="txt_I_chargePhone" />
 			<Label text="주	소: " layoutX="50.0" layoutY="252.0" />
-			<TextField promptText="주	소: " fx:id="txt_address" />
+			<TextField promptText="주	소: " fx:id="txt_I_address" />
 			<Label text="이 메 일 : " layoutX="50.0" layoutY="282.0" />
-			<TextField promptText="이 메 일" fx:id="txt_email" />
+			<TextField promptText="이 메 일" fx:id="txt_I_email" />
 			<Label text="업	태 : " layoutX="50.0" layoutY="282.0" />
-			<TextField promptText="업	태" fx:id="txt_business" />
+			<TextField promptText="업	태" fx:id="txt_I_business" />
 			<HBox>
-				<RadioButton text="입고"></RadioButton>
-				<RadioButton text="출고"></RadioButton>
-			</HBox>
-			<HBox>
-				<Button>사업자번호 중복검사</Button>
-				<Button fx:id="btn_register">등록</Button>
-				<Button fx:id="btn_update">수정</Button>
+				<Button fx:id="btn_I_overlapBN">사업자번호 중복검사</Button>
+				<Button fx:id="btn_I_register">등록</Button>
+				<Button fx:id="btn_I_update">수정</Button>
 			</HBox>
 		</VBox>
 		<VBox>
@@ -53,7 +49,7 @@ fx:controller="control.TradeTabController">
 			</padding>
 			<children>
 				<Label text="매입업체 목록" layoutX="350.0" layoutY="50.0" />
-				<TableView prefHeight="170" prefWidth="990"
+				<TableView prefHeight="550" prefWidth="990"
 					layoutX="350.0" fx:id="ImportionTableView">
 				</TableView>
 			</children>
@@ -63,25 +59,8 @@ fx:controller="control.TradeTabController">
 				</HBox>
 
 				<HBox alignment="BOTTOM_RIGHT">
-					<Button fx:id="btn_i_delete">삭제</Button>
-					<Button>차트</Button>
+					<Button fx:id="btn_I_delete">삭제</Button>
 					<Button>입금</Button>
-				</HBox>
-			</VBox>
-			<Separator prefHeight="50" prefWidth="500" />
-			<children>
-				<Label text="판매업체 목록" />
-				<TableView prefHeight="170" prefWidth="500">
-				</TableView>
-			</children>
-			<VBox prefWidth="100">
-				<HBox alignment="BOTTOM_RIGHT">
-					<TextField promptText="수금액" prefWidth="150" />
-				</HBox>
-				<HBox alignment="BOTTOM_RIGHT">
-					<Button>삭제</Button>
-					<Button>차트</Button>
-					<Button>수금</Button>
 				</HBox>
 			</VBox>
 		</VBox>

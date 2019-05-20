@@ -17,7 +17,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.application.Platform;
 
 public class MainController implements Initializable {
 	
@@ -34,26 +33,22 @@ public class MainController implements Initializable {
 
 	// 메뉴
 	@FXML
-	private MenuItem e_menuImportion;
+	private MenuItem m_excel;
 	@FXML
-	private MenuItem e_menuAccount;
-	@FXML
-	private MenuItem e_menuTotalMoney;
-	@FXML
-	private MenuItem p_menuImportion;
-	@FXML
-	private MenuItem p_menuAccount;
-	@FXML
-	private MenuItem p_menuTotalMoney;
+	private MenuItem m_pdf;
 	@FXML
 	private MenuItem menuInfo;
 	@FXML
 	private MenuItem menuLogout;
 	
 	@FXML
+<<<<<<< HEAD
 	private TradeTabController tradeTabController;
 	@FXML
 	private ProductTotalTabController ProductTotalTabController;
+=======
+	private ImportionTabController tradeTabController;
+>>>>>>> 3117e8eef3f22b54fc0a26a45bf54701f83947a6
 	
 
 	@Override

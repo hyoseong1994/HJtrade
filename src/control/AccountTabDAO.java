@@ -9,18 +9,18 @@ import java.util.ArrayList;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import model.ImportionVO;
+import model.AccountVO;
 
-public class TradeTabDAO {
+public class AccountTabDAO {
 	// 전체 리스트
-	public ArrayList<ImportionVO> getImportionVOTotalList() throws Exception {
-		ArrayList<ImportionVO> list = new ArrayList<>();
+	public ArrayList<AccountVO> getaccountVOTotalList() throws Exception {
+		ArrayList<AccountVO> list = new ArrayList<>();
 
-		String sql = "select * from importion order by i_no";
+		String sql = "select * from account order by A_no";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ImportionVO iVo = null;
+		AccountVO aVo = null;
 
 		try {
 
@@ -28,24 +28,24 @@ public class TradeTabDAO {
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				iVo = new ImportionVO();
-				iVo.setI_no(rs.getInt("i_no"));
-				iVo.setI_name(rs.getString("i_name"));
-				iVo.setI_businessNumber(rs.getString("i_businessNumber"));
-				iVo.setI_represent(rs.getString("i_represent"));
-				iVo.setI_representPhone(rs.getString("i_representPhone"));
-				iVo.setI_charge(rs.getString("i_charge"));
-				iVo.setI_chargePhone(rs.getString("i_chargePhone"));
-				iVo.setI_address(rs.getString("i_address"));
-				iVo.setI_email(rs.getString("i_email"));
-				iVo.setI_business(rs.getString("i_business"));
-				iVo.setI_payment(rs.getInt("i_payment"));
+				aVo = new AccountVO();
+				aVo.setA_no(rs.getInt("A_no"));
+				aVo.setA_name(rs.getString("A_name"));
+				aVo.setA_businessNumber(rs.getString("A_businessNumber"));
+				aVo.setA_represent(rs.getString("A_represent"));
+				aVo.setA_representPhone(rs.getString("A_representPhone"));
+				aVo.setA_charge(rs.getString("A_charge"));
+				aVo.setA_chargePhone(rs.getString("A_chargePhone"));
+				aVo.setA_address(rs.getString("A_address"));
+				aVo.setA_email(rs.getString("A_email"));
+				aVo.setA_business(rs.getString("A_business"));
+				aVo.setA_collect(rs.getInt("A_collect"));
 
-				list.add(iVo);
+				list.add(aVo);
 			}
 
 		} catch (SQLException se) {
-			System.out.println(se+"1");
+			System.out.println(se);
 			se.printStackTrace();
 		} catch (Exception e) {
 			System.out.println(e);
@@ -64,12 +64,11 @@ public class TradeTabDAO {
 	}
 
 	// 등록
-	public void getImportionRegiste(ImportionVO iVo) throws Exception {
+	public void getAccountRegiste(AccountVO aVo) throws Exception {
 
-		String sql = "insert into Importion" 
-				+ "(i_no,  i_name, i_businessNumber, I_represent, i_representPhone, "
-				+ "I_charge, I_chargePhone, I_address, I_email, I_business, I_payment)" + " values "
-				+ "(importion_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into Account" + "(A_no,  A_name, A_businessNumber, A_represent, A_representPhone, "
+				+ "A_charge, A_chargePhone, A_address, A_email, A_business, A_collect)" + " values "
+				+ "(Account_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
@@ -77,23 +76,23 @@ public class TradeTabDAO {
 
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, iVo.getI_name());
-			pstmt.setString(2, iVo.getI_businessNumber());
-			pstmt.setString(3, iVo.getI_represent());
-			pstmt.setString(4, iVo.getI_representPhone());
-			pstmt.setString(5, iVo.getI_charge());
-			pstmt.setString(6, iVo.getI_chargePhone());
-			pstmt.setString(7, iVo.getI_address());
-			pstmt.setString(8, iVo.getI_email());
-			pstmt.setString(9, iVo.getI_business());
-			pstmt.setInt(10, iVo.getI_payment());
+			pstmt.setString(1, aVo.getA_name());
+			pstmt.setString(2, aVo.getA_businessNumber());
+			pstmt.setString(3, aVo.getA_represent());
+			pstmt.setString(4, aVo.getA_representPhone());
+			pstmt.setString(5, aVo.getA_charge());
+			pstmt.setString(6, aVo.getA_chargePhone());
+			pstmt.setString(7, aVo.getA_address());
+			pstmt.setString(8, aVo.getA_email());
+			pstmt.setString(9, aVo.getA_business());
+			pstmt.setInt(10, aVo.getA_collect());
 
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("거래처 등록");
-				alert.setHeaderText(iVo.getI_name() + " 등록 완료.");
+				alert.setHeaderText(aVo.getA_name() + " 등록 완료.");
 				alert.setContentText("거래처 등록 성공!!!");
 				alert.showAndWait();
 			} else {
@@ -121,10 +120,10 @@ public class TradeTabDAO {
 	}
 
 	// 데이터베이스에서 거래처 테이블의 컬럼의 갯수
-	public ArrayList<String> getImportionColumnName() throws Exception {
+	public ArrayList<String> getaccountColumnName() throws Exception {
 		ArrayList<String> columnName = new ArrayList<String>();
 
-		String sql = "select * from importion";
+		String sql = "select * from account";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -158,38 +157,38 @@ public class TradeTabDAO {
 	}
 
 	// 거래처 수정
-	public boolean getImportionUpdate(int i_no, String i_name, String i_businessNumber, String i_represent,
-			String i_representPhone, String i_charge, String i_chargePhone, String i_adress, String i_email,
-			String i_business) throws Exception {
+	public boolean getaccountUpdate(int A_no, String A_name, String A_businessNumber, String A_represent,
+			String A_representPhone, String A_charge, String A_chargePhone, String A_adress, String A_email,
+			String A_business) throws Exception {
 
-		String sql = "update Importion set i_name, i_businessNumber, I_represent,I_representPhone,"
-				+ "I_charge, I_chargePhone, I_adress, I_email, I_business where i_no=?";
+		String sql = "update account set A_name=?, A_businessNumber=?, A_represent=? ,A_representPhone=?,"
+				+ "A_charge=?, A_chargePhone=?, A_address=?, A_email=?, A_business=? where A_no=?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		boolean importionUpdateSucess = false;
+		boolean accountUpdateSucess = false;
 
 		try {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, i_name);
-			pstmt.setString(2, i_businessNumber);
-			pstmt.setString(3, i_represent);
-			pstmt.setString(4, i_representPhone);
-			pstmt.setString(5, i_charge);
-			pstmt.setString(6, i_chargePhone);
-			pstmt.setString(7, i_adress);
-			pstmt.setString(8, i_email);
-			pstmt.setString(9, i_business);
-			pstmt.setInt(10, i_no);
+			pstmt.setString(1, A_name);
+			pstmt.setString(2, A_businessNumber);
+			pstmt.setString(3, A_represent);
+			pstmt.setString(4, A_representPhone);
+			pstmt.setString(5, A_charge);
+			pstmt.setString(6, A_chargePhone);
+			pstmt.setString(7, A_adress);
+			pstmt.setString(8, A_email);
+			pstmt.setString(9, A_business);
+			pstmt.setInt(10, A_no);
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("거래처 수정");
-				alert.setHeaderText(i_name + " 거래처 수정 완료.");
+				alert.setHeaderText(A_name + " 거래처 수정 완료.");
 				alert.setContentText("거래처 수정 성공!!!");
 				alert.showAndWait();
-				importionUpdateSucess = true;
+				accountUpdateSucess = true;
 			} else {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("거래처 수정");
@@ -211,28 +210,28 @@ public class TradeTabDAO {
 			} catch (SQLException e) {
 			}
 		}
-		return importionUpdateSucess;
+		return accountUpdateSucess;
 	}
 
 	// 거래처 번호
-	public String getImportionNum(String i_name) throws Exception {
+	public String getaccountNum(String A_name) throws Exception {
 
-		String sql = "select i_no from Importion where i_name = ?";
+		String sql = "select A_no from account where A_name = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		String i_no = "";
+		String A_no = "";
 
 		try {
 
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, i_name);
+			pstmt.setString(1, A_name);
 
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				i_no = rs.getString("i_no");
+				A_no = rs.getString("A_no");
 			}
 
 		} catch (SQLException se) {
@@ -250,14 +249,14 @@ public class TradeTabDAO {
 			} catch (SQLException se) {
 			}
 		}
-		return i_no;
+		return A_no;
 	}
 
 	// 거래처 삭제
-	public boolean getImportionDelete(int i_no) throws Exception {
+	public boolean getaccountDelete(int A_no) throws Exception {
 
 		StringBuffer sql = new StringBuffer();
-		sql.append("delete from Importion where i_no = ?");
+		sql.append("delete from account where A_no = ?");
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -267,7 +266,7 @@ public class TradeTabDAO {
 			con = DBUtil.getConnection();
 
 			pstmt = con.prepareStatement(sql.toString());
-			pstmt.setInt(1, i_no);
+			pstmt.setInt(1, A_no);
 
 			int i = pstmt.executeUpdate();
 
@@ -302,5 +301,40 @@ public class TradeTabDAO {
 		return imporiontDeleteSucess;
 	}
 
-	
+	// 아이디 중복 체크
+	public boolean getOverlapBN(String searchBN) throws Exception {
+
+		String sql = "select * from account where A_businessNumber = ?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean BNOverlapResult = false;
+
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, searchBN);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				BNOverlapResult = true; // 중복된 사업자번호가 있다.
+			}
+
+		} catch (SQLException e) {
+			System.out.println("e=[" + e + "]");
+		} catch (Exception e) {
+			System.out.println("e=[" + e + "]");
+		} finally {
+			try {
+				// ⑥ 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+			}
+		}
+		return BNOverlapResult;
+	}
 }

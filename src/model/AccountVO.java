@@ -8,17 +8,18 @@ public class AccountVO {
 	private String a_representPhone;
 	private String a_charge;
 	private String a_chargePhone;
-	private String a_adress;
+	private String a_address;
 	private String a_email;
 	private String a_business;
 	private int a_collect;
+	private String rbAccount;
 
 	public AccountVO() {
 		super();
 	}
 
 	public AccountVO(int a_no, String a_name, String a_businessNumber, String a_represent, String a_representPhone,
-			String a_charge, String a_chargePhone, String a_adress, String a_email, String a_business, int a_collect) {
+			String a_charge, String a_chargePhone, String a_address, String a_email, String a_business) {
 		super();
 		this.a_no = a_no;
 		this.a_name = a_name;
@@ -27,7 +28,22 @@ public class AccountVO {
 		this.a_representPhone = a_representPhone;
 		this.a_charge = a_charge;
 		this.a_chargePhone = a_chargePhone;
-		this.a_adress = a_adress;
+		this.a_address = a_address;
+		this.a_email = a_email;
+		this.a_business = a_business;
+	}
+
+	public AccountVO(int a_no, String a_name, String a_businessNumber, String a_represent, String a_representPhone,
+			String a_charge, String a_chargePhone, String a_address, String a_email, String a_business, int a_collect) {
+		super();
+		this.a_no = a_no;
+		this.a_name = a_name;
+		this.a_businessNumber = a_businessNumber;
+		this.a_represent = a_represent;
+		this.a_representPhone = a_representPhone;
+		this.a_charge = a_charge;
+		this.a_chargePhone = a_chargePhone;
+		this.a_address = a_address;
 		this.a_email = a_email;
 		this.a_business = a_business;
 		this.a_collect = a_collect;
@@ -89,12 +105,12 @@ public class AccountVO {
 		this.a_chargePhone = a_chargePhone;
 	}
 
-	public String getA_adress() {
-		return a_adress;
+	public String getA_address() {
+		return a_address;
 	}
 
-	public void setA_adress(String a_adress) {
-		this.a_adress = a_adress;
+	public void setA_address(String a_address) {
+		this.a_address = a_address;
 	}
 
 	public String getA_email() {
@@ -119,6 +135,14 @@ public class AccountVO {
 
 	public void setA_collect(int a_collect) {
 		this.a_collect = a_collect;
+	}
+
+	public String getRbAccount() {
+		return rbAccount;
+	}
+
+	public void setRbAccount(String rbAccount) {
+		this.rbAccount = rbAccount;
 	}
 
 }
