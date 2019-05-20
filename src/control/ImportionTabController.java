@@ -144,7 +144,7 @@ public class ImportionTabController implements Initializable {
 					colIRepredentPhone, colICharge, colIChargePhone, colIAddress, colIEmail, colIBusiness, colIPayment);
 
 			// 거래처 전체 목록
-			TradeTotalList();
+			ImportionTotalList();
 
 			// 거래처 키 이벤트 등록
 			txt_I_name.setOnKeyPressed(event -> handlerTxtNameKeyPressed(event));
@@ -323,7 +323,7 @@ public class ImportionTabController implements Initializable {
 	}
 
 	// 거래처 전체 리스트
-	public void TradeTotalList() throws Exception {
+	public void ImportionTotalList() throws Exception {
 		ImportionDataList.removeAll(ImportionDataList);
 
 		ImportionTabDAO tDao = new ImportionTabDAO();
@@ -362,7 +362,7 @@ public class ImportionTabController implements Initializable {
 
 			if (tDao != null) {
 
-				TradeTotalList();
+				ImportionTotalList();
 
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("거래처 입력");
@@ -407,7 +407,7 @@ public class ImportionTabController implements Initializable {
 					txt_I_business.getText().trim());
 			if (sucess) {
 				ImportionDataList.removeAll(ImportionDataList);
-				TradeTotalList();
+				ImportionTotalList();
 
 				txt_I_name.clear();
 				txt_I_businessNumber.clear();
@@ -438,7 +438,7 @@ public class ImportionTabController implements Initializable {
 			sucess = tDao.getImportionDelete(selectedIndex);
 			if (sucess) {
 				ImportionDataList.removeAll(ImportionDataList);
-				TradeTotalList();
+				ImportionTotalList();
 
 				btn_I_register.setDisable(false);
 				btn_I_update.setDisable(true);

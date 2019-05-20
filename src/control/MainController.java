@@ -46,18 +46,9 @@ public class MainController implements Initializable {
 	@FXML
 	private ImportionTabController importionTabController;
 	@FXML
-<<<<<<< HEAD
 	private AccountTabController accountTabController;
-=======
-<<<<<<< HEAD
-	private TradeTabController tradeTabController;
 	@FXML
 	private ProductTotalTabController ProductTotalTabController;
-=======
-	private ImportionTabController tradeTabController;
->>>>>>> 3117e8eef3f22b54fc0a26a45bf54701f83947a6
-	
->>>>>>> 136f6e41ba22cef577ac8e0d9f3b920c41334c2a
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -69,7 +60,7 @@ public class MainController implements Initializable {
 					if (newValue == importion) {
 						System.out.println("DB 연결 성공");
 						try {
-							importionTabController.TradeTotalList();
+							importionTabController.ImportionTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -78,7 +69,7 @@ public class MainController implements Initializable {
 					if (newValue == account) {
 						System.out.println("DB 연결 성공");
 						try {
-							accountTabController.TradeTotalList();
+							accountTabController.AccountTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -90,7 +81,7 @@ public class MainController implements Initializable {
 						}
 					} else if (newValue == receipe) {
 						try {
-	
+
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

@@ -137,7 +137,7 @@ public class AccountTabController implements Initializable {
 					colARepredentPhone, colACharge, colAChargePhone, colAAddress, colAEmail, colABusiness, colACollect);
 
 			// 거래처 전체 목록
-			TradeTotalList();
+			AccountTotalList();
 
 			// 거래처 키 이벤트 등록
 			txt_A_name.setOnKeyPressed(event -> handlerTxtNameKeyPressed(event));
@@ -315,7 +315,7 @@ public class AccountTabController implements Initializable {
 	}
 
 	// 거래처 전체 리스트
-	public void TradeTotalList() throws Exception {
+	public void AccountTotalList() throws Exception {
 		accountDataList.removeAll(accountDataList);
 
 		AccountTabDAO aDao = new AccountTabDAO();
@@ -354,7 +354,7 @@ public class AccountTabController implements Initializable {
 
 			if (aDao != null) {
 
-				TradeTotalList();
+				AccountTotalList();
 
 				Alert alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("거래처 입력");
@@ -398,7 +398,7 @@ public class AccountTabController implements Initializable {
 					txt_A_address.getText().trim(), txt_A_email.getText().trim(), txt_A_business.getText().trim());
 			if (sucess) {
 				accountDataList.removeAll(accountDataList);
-				TradeTotalList();
+				AccountTotalList();
 
 				txt_A_name.clear();
 				txt_A_businessNumber.clear();
@@ -429,7 +429,7 @@ public class AccountTabController implements Initializable {
 			sucess = aDao.getaccountDelete(selectedIndex);
 			if (sucess) {
 				accountDataList.removeAll(accountDataList);
-				TradeTotalList();
+				AccountTotalList();
 
 				btn_A_register.setDisable(false);
 				btn_A_update.setDisable(true);
