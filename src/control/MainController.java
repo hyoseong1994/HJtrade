@@ -43,13 +43,6 @@ public class MainController implements Initializable {
 	@FXML
 	private MenuItem menuLogout;
 
-<<<<<<< HEAD
-	@FXML
-	private ProductTotalTabController ProductTotalTabController;
-	@FXML
-	private ImportionTabController importionTabController;
-	
-=======
 	@FXML
 	private ImportionTabController importionTabController;
 	@FXML
@@ -57,7 +50,6 @@ public class MainController implements Initializable {
 	@FXML
 	private ProductTotalTabController ProductTotalTabController;
 
->>>>>>> 1a158ff23ff4038094d6d7aa1ec464f3183b52be
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
@@ -65,9 +57,6 @@ public class MainController implements Initializable {
 			mainPane.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
 				@Override
 				public void changed(ObservableValue<? extends Tab> observable, Tab oldValue, Tab newValue) {
-<<<<<<< HEAD
-					if (newValue == trade) {
-=======
 					if (newValue == importion) {
 						System.out.println("DB 연결 성공");
 						try {
@@ -78,7 +67,6 @@ public class MainController implements Initializable {
 
 					}
 					if (newValue == account) {
->>>>>>> 1a158ff23ff4038094d6d7aa1ec464f3183b52be
 						System.out.println("DB 연결 성공");
 						try {
 							accountTabController.AccountTotalList();
