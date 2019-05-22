@@ -10,7 +10,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.geometry.Insets?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="control.BuyTabController">
 	<!-- TODO Add Nodes -->
 	<VBox>
 		<padding>
@@ -18,29 +19,34 @@
 		</padding>
 		<HBox>
 			<VBox>
-			<padding>
-				<Insets top="10" left="20" bottom="10" right="20" />
-			</padding>
-				<ComboBox promptText="거래처 선택"></ComboBox>
-				<ComboBox promptText="종류"></ComboBox>
-				<ComboBox promptText="브랜드"></ComboBox>
-				<ComboBox promptText="부위"></ComboBox>
-				<Label text="수	량 : " layoutX="50.0" layoutY="102.0" />
-				<TextField promptText="숫자만 입력" />
-				<Label text="중	량 : " layoutX="50.0" layoutY="132.0" />
-				<TextField promptText="숫자만 입력" />
-				<Label text="단	가 : " layoutX="50.0" layoutY="162.0" />
-				<TextField promptText="숫자만 입력" />
+				<padding>
+					<Insets top="10" left="20" bottom="10" right="20" />
+				</padding>
+				<ComboBox fx:id="cbx_b_importion" promptText="거래처 선택"></ComboBox>
+				<ComboBox fx:id="cbx_b_type" promptText="종류"></ComboBox>
+				<ComboBox fx:id="cbx_b_origin" promptText="원산지"></ComboBox>
+				<ComboBox fx:id="cbx_b_brand" promptText="브랜드"></ComboBox>
+				<ComboBox fx:id="cbx_b_part" promptText="부위"></ComboBox>
+				<Label text="주문일자" layoutX="50.0" layoutY="102.0" />
+				<TextField fx:id="txt_b_buydate" promptText="YYYY/MM/DD" />
+				<Label text="식별 번호" layoutX="50.0" layoutY="132.0"/>
+				<TextField fx:id="txt_b_code" promptText="상품 식별 번호"/>
+				<Label text="수	량 : " layoutX="50.0" layoutY="162.0" />
+				<TextField fx:id="txt_b_number" promptText="숫자만 입력" />
+				<Label text="중	량 : " layoutX="50.0" layoutY="192.0" />
+				<TextField fx:id="txt_b_kg" promptText="숫자만 입력" />
+				<Label text="단	가 : " layoutX="50.0" layoutY="222.0" />
+				<TextField fx:id="txt_b_cost" promptText="숫자만 입력" />
 				<Label text="총	액 :" />
 				<HBox>
-					<Button text="입고주문" />
-					<Button text="반품" />
+					<Button fx:id="btn_b_order" text="입고주문" />
+					<Button fx:id="btn_b_return" text="반품" />
 				</HBox>
 			</VBox>
 			<VBox>
-			<padding>
-				<Insets top="10" left="20" bottom="10" right="20" />
-			</padding>
+				<padding>
+					<Insets top="10" left="20" bottom="10" right="20" />
+				</padding>
 				<ComboBox promptText="거래처 선택"></ComboBox>
 				<Label text="주소			:" />
 				<Label text="업태			:" />
@@ -48,7 +54,8 @@
 
 				<children>
 					<Label text="입고 목록" />
-					<TableView prefHeight="200" prefWidth="500">
+					<TableView prefHeight="200" prefWidth="970"
+						fx:id="BuyTableView">
 					</TableView>
 				</children>
 				<VBox prefWidth="100">
@@ -81,7 +88,6 @@
 					<Label text="합계 금액	:" />
 				</HBox>
 				<HBox alignment="BOTTOM_RIGHT">
-					<Button>차트</Button>
 					<Button>반품</Button>
 				</HBox>
 			</VBox>
