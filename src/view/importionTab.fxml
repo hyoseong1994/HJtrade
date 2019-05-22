@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1"
 	fx:controller="control.ImportionTabController">
@@ -15,7 +16,7 @@
 		<padding>
 			<Insets top="20" left="20" bottom="20" right="20" />
 		</padding>
-		<VBox prefWidth="250">
+		<VBox prefWidth="300">
 			<padding>
 				<Insets top="20" left="20" bottom="20" right="20" />
 			</padding>
@@ -41,6 +42,7 @@
 				<Button fx:id="btn_I_overlapBN">사업자번호 중복검사</Button>
 				<Button fx:id="btn_I_register">등록</Button>
 				<Button fx:id="btn_I_update">수정</Button>
+				<Button fx:id="btn_I_clear">초기화</Button>
 			</HBox>
 		</VBox>
 		<VBox>

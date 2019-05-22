@@ -71,6 +71,11 @@ public class MoneyTabController implements Initializable {
 			colCNo.setPrefWidth(90);
 			colCNo.setStyle("-fx-allignment: CENTER");
 			colCNo.setCellValueFactory(new PropertyValueFactory<>("c_no"));
+			
+			TableColumn colCDate = new TableColumn("수금 날짜");
+			colCDate.setPrefWidth(160);
+			colCDate.setStyle("-fx-allignment: CENTER");
+			colCDate.setCellValueFactory(new PropertyValueFactory<>("c_date"));
 
 			TableColumn colCName = new TableColumn("상 호 명");
 			colCName.setPrefWidth(90);
@@ -93,7 +98,7 @@ public class MoneyTabController implements Initializable {
 			colCCollectMoney.setCellValueFactory(new PropertyValueFactory<>("c_collectMoney"));
 
 			collectTableView.setItems(collcetDataList);
-			collectTableView.getColumns().addAll(colCNo, colCName, colCBusinessNumber, colCBusiness, colCCollectMoney);
+			collectTableView.getColumns().addAll(colCNo, colCDate, colCName, colCBusinessNumber, colCBusiness, colCCollectMoney);
 
 			// 거래처 전체 목록
 			CollectTotalList();
@@ -103,6 +108,11 @@ public class MoneyTabController implements Initializable {
 			colPNo.setPrefWidth(90);
 			colPNo.setStyle("-fx-allignment: CENTER");
 			colPNo.setCellValueFactory(new PropertyValueFactory<>("p_no"));
+
+			TableColumn colPDate = new TableColumn("입금 날짜");
+			colPDate.setPrefWidth(160);
+			colPDate.setStyle("-fx-allignment: CENTER");
+			colPDate.setCellValueFactory(new PropertyValueFactory<>("p_date"));
 
 			TableColumn colPName = new TableColumn("상 호 명");
 			colPName.setPrefWidth(90);
@@ -119,13 +129,13 @@ public class MoneyTabController implements Initializable {
 			colPBusiness.setStyle("-fx-allignment: CENTER");
 			colPBusiness.setCellValueFactory(new PropertyValueFactory<>("p_business"));
 
-			TableColumn colPCollect = new TableColumn("입 금 액");
-			colPCollect.setPrefWidth(90);
-			colPCollect.setStyle("-fx-allignment: CENTER");
-			colPCollect.setCellValueFactory(new PropertyValueFactory<>("p_payment"));
+			TableColumn colPPayment = new TableColumn("입 금 액");
+			colPPayment.setPrefWidth(90);
+			colPPayment.setStyle("-fx-allignment: CENTER");
+			colPPayment.setCellValueFactory(new PropertyValueFactory<>("p_paymentMoney"));
 
 			paymentTableView.setItems(paymentDataList);
-			paymentTableView.getColumns().addAll(colPNo, colPName, colPBusinessNumber, colPBusiness, colPCollect);
+			paymentTableView.getColumns().addAll(colPNo, colPDate, colPName, colPBusinessNumber, colPBusiness, colPPayment);
 
 			// 거래처 전체 목록
 			PaymentTotalList();

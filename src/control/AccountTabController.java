@@ -55,9 +55,11 @@ public class AccountTabController implements Initializable {
 	@FXML
 	private Button btn_A_overlapBN;// 사업자번호 중복 검사
 	@FXML
-	private Button btn_A_collect;//수금 버튼
+	private Button btn_A_collect;// 수금 버튼
 	@FXML
-	private TextField txt_A_collect;//수금 텍스트
+	private TextField txt_A_collect;// 수금 텍스트
+	@FXML
+	private Button btn_A_clear;// 초가화버튼
 
 	public static ObservableList<AccountVO> accountDataList = FXCollections.observableArrayList();
 	ObservableList<AccountVO> selectAccount = null; // 매입거래처 테이블에서 선택한 정보 저장
@@ -67,6 +69,7 @@ public class AccountTabController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
 			// 거래처등록 초기화
+			btn_A_register.setDisable(true);
 			btn_A_update.setDisable(true);
 			btn_A_delete.setDisable(true);
 			AccountTableView.setEditable(false);
@@ -159,7 +162,8 @@ public class AccountTabController implements Initializable {
 			AccountTableView.setOnMouseClicked(event -> handlerAccountTableViewAction(event));
 			btn_A_overlapBN.setOnAction(event -> handlerBtnOverlapBNAction(event));
 			btn_A_collect.setOnAction(event -> handlerbtn_A_collectAction(event));
-			
+			btn_A_clear.setOnAction(event -> handlerbtn_A_clearAction(event));
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -244,6 +248,8 @@ public class AccountTabController implements Initializable {
 				txt_A_business.setEditable(true);
 				txt_A_name.requestFocus();
 
+				btn_A_register.setDisable(false);
+
 			} else if (searchBN.equals("")) {
 				btn_A_register.setDisable(true);
 				btn_A_overlapBN.setDisable(false);
@@ -273,6 +279,7 @@ public class AccountTabController implements Initializable {
 			alert.showAndWait();
 		}
 	}
+
 	// 판매 거래처 테이블뷰 더블클릭 선택 이벤트 핸들러
 	public void handlerAccountTableViewAction(MouseEvent event) {
 		if (event.getClickCount() == 2) {
@@ -338,6 +345,60 @@ public class AccountTabController implements Initializable {
 
 	// 판매 거래처 등록 이벤트 핸들러
 	public void handlerbtn_A_registerAction(ActionEvent event) {
+		Alert alert = null; // 알럿 객체 null 초기화
+
+		if (txt_A_name.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("상호명를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_A_represent.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("대표자를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_A_representPhone.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("대표자번호를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_A_charge.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("담당자를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_A_chargePhone.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("담당자번호를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_A_address.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("주소를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_A_email.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("이메일를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_A_business.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("업태를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		}
+		if (alert != null) {
+			return;
+		}
 		try {
 			selectAccount = AccountTableView.getSelectionModel().getSelectedItems();
 
@@ -347,9 +408,9 @@ public class AccountTabController implements Initializable {
 			AccountTabDAO aDao = null;
 
 			aVo = new AccountVO(selectedIndex, txt_A_name.getText().trim(), txt_A_businessNumber.getText().trim(),
-					txt_A_represent.getText().trim(), txt_A_representPhone.getText().trim(), txt_A_charge.getText().trim(),
-					txt_A_chargePhone.getText().trim(), txt_A_address.getText().trim(), txt_A_email.getText().trim(),
-					txt_A_business.getText().trim());
+					txt_A_represent.getText().trim(), txt_A_representPhone.getText().trim(),
+					txt_A_charge.getText().trim(), txt_A_chargePhone.getText().trim(), txt_A_address.getText().trim(),
+					txt_A_email.getText().trim(), txt_A_business.getText().trim());
 			aDao = new AccountTabDAO();
 			aDao.getAccountRegiste(aVo);
 
@@ -357,7 +418,7 @@ public class AccountTabController implements Initializable {
 
 				AccountTotalList();
 
-				Alert alert = new Alert(AlertType.INFORMATION);
+				alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("거래처 입력");
 				alert.setHeaderText(txt_A_name.getText() + " 거래처가 성공적으로 추가되었습니다..");
 				alert.setContentText("다음 거래처를 입력하세요");
@@ -373,12 +434,12 @@ public class AccountTabController implements Initializable {
 				txt_A_email.clear();
 				txt_A_business.clear();
 				txt_A_businessNumber.requestFocus();
-				
+
 				txt_A_businessNumber.setDisable(false);
 			}
 
 		} catch (Exception e) {
-			Alert alert = new Alert(AlertType.WARNING);
+			alert = new Alert(AlertType.WARNING);
 			alert.setTitle("거래처 정보 입력");
 			alert.setHeaderText("거래처 정보를 정확히 입력하시오.");
 			alert.setContentText("다음에는 주의하세요!");
@@ -388,6 +449,60 @@ public class AccountTabController implements Initializable {
 
 	// 거래처 수정 이벤트 핸들러
 	public void handlerbtn_A_updateAction(ActionEvent event) {
+		Alert alert = null; // 알럿 객체 null 초기화
+
+		if (txt_A_name.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("상호명를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_A_represent.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("대표자를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_A_representPhone.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("대표자번호를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_A_charge.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("담당자를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_A_chargePhone.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("담당자번호를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_A_address.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("주소를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_A_email.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("이메일를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_A_business.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("업태를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		}
+		if (alert != null) {
+			return;
+		}
 		try {
 
 			boolean sucess;
@@ -395,8 +510,9 @@ public class AccountTabController implements Initializable {
 			AccountTabDAO aDao = new AccountTabDAO();
 			sucess = aDao.getaccountUpdate(selectedIndex, txt_A_name.getText().trim(),
 					txt_A_businessNumber.getText().trim(), txt_A_represent.getText().trim(),
-					txt_A_representPhone.getText().trim(), txt_A_charge.getText().trim(), txt_A_chargePhone.getText().trim(),
-					txt_A_address.getText().trim(), txt_A_email.getText().trim(), txt_A_business.getText().trim());
+					txt_A_representPhone.getText().trim(), txt_A_charge.getText().trim(),
+					txt_A_chargePhone.getText().trim(), txt_A_address.getText().trim(), txt_A_email.getText().trim(),
+					txt_A_business.getText().trim());
 			if (sucess) {
 				accountDataList.removeAll(accountDataList);
 				AccountTotalList();
@@ -415,10 +531,46 @@ public class AccountTabController implements Initializable {
 				btn_A_register.setDisable(false);
 				btn_A_update.setDisable(true);
 				btn_A_delete.setDisable(true);
+				txt_A_businessNumber.setEditable(true);
+				txt_A_businessNumber.requestFocus();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void handlerbtn_A_clearAction(ActionEvent event) {
+
+		txt_A_businessNumber.clear();
+		txt_A_name.clear();
+		txt_A_represent.clear();
+		txt_A_representPhone.clear();
+		txt_A_charge.clear();
+		txt_A_chargePhone.clear();
+		txt_A_address.clear();
+		txt_A_email.clear();
+		txt_A_business.clear();
+
+		txt_A_businessNumber.requestFocus();
+
+		btn_A_register.setDisable(true);
+		btn_A_update.setDisable(true);
+		btn_A_delete.setDisable(true);
+		btn_A_overlapBN.setDisable(false);
+
+		txt_A_businessNumber.setDisable(false);
+		txt_A_businessNumber.setEditable(true);
+		txt_A_name.setEditable(false);
+		txt_A_represent.setEditable(false);
+		txt_A_representPhone.setEditable(false);
+		txt_A_charge.setEditable(false);
+		txt_A_chargePhone.setEditable(false);
+		txt_A_address.setEditable(false);
+		txt_A_email.setEditable(false);
+		txt_A_business.setEditable(false);
+		
+		
+
 	}
 
 	// 거래처 삭제 이벤트 핸들러
@@ -441,15 +593,15 @@ public class AccountTabController implements Initializable {
 		}
 	}
 
-	//수금 버튼 이벤트 핸들러
+	// 수금 버튼 이벤트 핸들러
 	public void handlerbtn_A_collectAction(ActionEvent event) {
 		try {
 
 			boolean sucess;
 
 			AccountTabDAO aDao = new AccountTabDAO();
-			sucess = aDao.getCollect(selectedIndex, txt_A_name.getText().trim(),
-					txt_A_businessNumber.getText().trim(), txt_A_business.getText().trim(), txt_A_collect.getText().trim());
+			sucess = aDao.getCollect(selectedIndex, txt_A_name.getText().trim(), txt_A_businessNumber.getText().trim(),
+					txt_A_business.getText().trim(), txt_A_collect.getText().trim());
 			if (sucess) {
 				accountDataList.removeAll(accountDataList);
 				AccountTotalList();
@@ -472,8 +624,8 @@ public class AccountTabController implements Initializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		//거래처 미수금액 변경
+
+		// 거래처 미수금액 변경
 		try {
 
 			boolean sucess;
@@ -503,6 +655,4 @@ public class AccountTabController implements Initializable {
 			e.printStackTrace();
 		}
 	}
-	}
-
-
+}

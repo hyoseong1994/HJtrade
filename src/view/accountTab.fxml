@@ -16,7 +16,7 @@ fx:controller="control.AccountTabController">
 		<padding>
 			<Insets top="20" left="20" bottom="20" right="20" />
 		</padding>
-		<VBox prefWidth="250">
+		<VBox prefWidth="300">
 			<padding>
 				<Insets top="20" left="20" bottom="20" right="20" />
 			</padding>
@@ -42,6 +42,7 @@ fx:controller="control.AccountTabController">
 				<Button fx:id="btn_A_overlapBN">사업자번호 중복검사</Button>
 				<Button fx:id="btn_A_register">등록</Button>
 				<Button fx:id="btn_A_update">수정</Button>
+				<Button fx:id="btn_A_clear">초기화</Button>
 			</HBox>
 		</VBox>
 		<VBox>

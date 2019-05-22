@@ -58,6 +58,8 @@ public class ImportionTabController implements Initializable {
 	private Button btn_I_payment;// 입금 버튼
 	@FXML
 	private TextField txt_I_payment;// 입금 텍스트
+	@FXML
+	private Button btn_I_clear;// 초가화버튼
 
 	public static ObservableList<ImportionVO> ImportionDataList = FXCollections.observableArrayList();
 	ObservableList<ImportionVO> selectImportion = null; // 매입거래처 테이블에서 선택한 정보 저장
@@ -67,6 +69,7 @@ public class ImportionTabController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
 			// 거래처등록 초기화
+			btn_I_register.setDisable(true);
 			btn_I_update.setDisable(true);
 			btn_I_delete.setDisable(true);
 			ImportionTableView.setEditable(false);
@@ -159,7 +162,8 @@ public class ImportionTabController implements Initializable {
 			ImportionTableView.setOnMouseClicked(event -> handlerImportionTableViewActoion(event));
 			btn_I_overlapBN.setOnAction(event -> handlerBtnOverlapBNActoion(event));
 			btn_I_payment.setOnAction(event -> handlerbtn_I_paymentAction(event));
-
+			btn_I_clear.setOnAction(event -> handlerbtn_I_clearAction(event));
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -234,6 +238,7 @@ public class ImportionTabController implements Initializable {
 
 				btn_I_register.setDisable(false);
 				btn_I_overlapBN.setDisable(true);
+				
 				txt_I_name.setEditable(true);
 				txt_I_represent.setEditable(true);
 				txt_I_representPhone.setEditable(true);
@@ -243,6 +248,7 @@ public class ImportionTabController implements Initializable {
 				txt_I_email.setEditable(true);
 				txt_I_business.setEditable(true);
 				txt_I_name.requestFocus();
+
 
 			} else if (searchBN.equals("")) {
 				btn_I_register.setDisable(true);
@@ -339,6 +345,60 @@ public class ImportionTabController implements Initializable {
 
 	// 매입거래처 등록 이벤트 핸들러
 	public void handlerbtn_I_registerActoion(ActionEvent event) {
+		Alert alert = null; // 알럿 객체 null 초기화
+
+		if (txt_I_name.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("상호명를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_I_represent.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("대표자를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_I_representPhone.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("대표자번호를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_I_charge.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("담당자를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_I_chargePhone.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("담당자번호를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_I_address.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("주소를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_I_email.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("이메일를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_I_business.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("업태를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		}
+		if (alert != null) {
+			return;
+		}
 		try {
 			selectImportion = ImportionTableView.getSelectionModel().getSelectedItems();
 
@@ -358,7 +418,7 @@ public class ImportionTabController implements Initializable {
 
 				ImportionTotalList();
 
-				Alert alert = new Alert(AlertType.INFORMATION);
+				alert = new Alert(AlertType.INFORMATION);
 				alert.setTitle("거래처 입력");
 				alert.setHeaderText(txt_I_name.getText() + " 거래처가 성공적으로 추가되었습니다..");
 				alert.setContentText("다음 거래처를 입력하세요");
@@ -379,7 +439,7 @@ public class ImportionTabController implements Initializable {
 			}
 
 		} catch (Exception e) {
-			Alert alert = new Alert(AlertType.WARNING);
+			alert = new Alert(AlertType.WARNING);
 			alert.setTitle("거래처 정보 입력");
 			alert.setHeaderText("거래처 정보를 정확히 입력하시오.");
 			alert.setContentText("다음에는 주의하세요!");
@@ -389,6 +449,60 @@ public class ImportionTabController implements Initializable {
 
 	// 거래처 수정 이벤트 핸들러
 	public void handlerbtn_I_updateActoion(ActionEvent event) {
+		Alert alert = null; // 알럿 객체 null 초기화
+
+		if (txt_I_name.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("상호명를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_I_represent.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("대표자를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_I_representPhone.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("대표자번호를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_I_charge.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("담당자를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_I_chargePhone.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("담당자번호를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_I_address.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("주소를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_I_email.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("이메일를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		} else if (txt_I_business.getText().trim().equals("")) {
+			alert = new Alert(AlertType.WARNING);
+			alert.setTitle("거래처등록");
+			alert.setHeaderText("업태를를 입력하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		}
+		if (alert != null) {
+			return;
+		}
 		try {
 
 			boolean sucess;
@@ -417,10 +531,44 @@ public class ImportionTabController implements Initializable {
 				btn_I_register.setDisable(false);
 				btn_I_update.setDisable(true);
 				btn_I_delete.setDisable(true);
+				txt_I_businessNumber.setEditable(true);
+				txt_I_businessNumber.requestFocus();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void handlerbtn_I_clearAction(ActionEvent event) {
+
+		txt_I_businessNumber.clear();
+		txt_I_name.clear();
+		txt_I_represent.clear();
+		txt_I_representPhone.clear();
+		txt_I_charge.clear();
+		txt_I_chargePhone.clear();
+		txt_I_address.clear();
+		txt_I_email.clear();
+		txt_I_business.clear();
+
+		txt_I_businessNumber.requestFocus();
+
+		btn_I_register.setDisable(true);
+		btn_I_update.setDisable(true);
+		btn_I_delete.setDisable(true);
+		btn_I_overlapBN.setDisable(false);
+
+		txt_I_businessNumber.setDisable(false);
+		txt_I_businessNumber.setEditable(true);
+		txt_I_name.setEditable(false);
+		txt_I_represent.setEditable(false);
+		txt_I_representPhone.setEditable(false);
+		txt_I_charge.setEditable(false);
+		txt_I_chargePhone.setEditable(false);
+		txt_I_address.setEditable(false);
+		txt_I_email.setEditable(false);
+		txt_I_business.setEditable(false);
+
 	}
 
 	// 거래처 삭제 이벤트 핸들러
