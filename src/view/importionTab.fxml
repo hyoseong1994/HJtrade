@@ -55,12 +55,13 @@
 			</children>
 			<VBox prefWidth="100">
 				<HBox alignment="BOTTOM_RIGHT">
-					<TextField promptText="매입금" prefWidth="150" />
+					<TextField promptText="매입금" prefWidth="150" 
+					fx:id="txt_I_payment"/>
 				</HBox>
 
 				<HBox alignment="BOTTOM_RIGHT">
 					<Button fx:id="btn_I_delete">삭제</Button>
-					<Button>입금</Button>
+					<Button fx:id="btn_I_payment">입금</Button>
 				</HBox>
 			</VBox>
 		</VBox>

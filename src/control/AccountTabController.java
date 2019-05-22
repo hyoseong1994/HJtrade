@@ -54,6 +54,10 @@ public class AccountTabController implements Initializable {
 	private Button btn_A_delete; // 거래처 삭제
 	@FXML
 	private Button btn_A_overlapBN;// 사업자번호 중복 검사
+	@FXML
+	private Button btn_A_collect;//수금 버튼
+	@FXML
+	private TextField txt_A_collect;//수금 텍스트
 
 	public static ObservableList<AccountVO> accountDataList = FXCollections.observableArrayList();
 	ObservableList<AccountVO> selectAccount = null; // 매입거래처 테이블에서 선택한 정보 저장
@@ -95,12 +99,12 @@ public class AccountTabController implements Initializable {
 			TableColumn colARepredent = new TableColumn("대 표 명");
 			colARepredent.setPrefWidth(90);
 			colARepredent.setStyle("-fx-allignment: CENTER");
-			colARepredent.setCellValueFactory(new PropertyValueFactory<>("A_repredent"));
+			colARepredent.setCellValueFactory(new PropertyValueFactory<>("A_represent"));
 
 			TableColumn colARepredentPhone = new TableColumn("대표자 번호");
 			colARepredentPhone.setPrefWidth(90);
 			colARepredentPhone.setStyle("-fx-allignment: CENTER");
-			colARepredentPhone.setCellValueFactory(new PropertyValueFactory<>("A_repredentPhone"));
+			colARepredentPhone.setCellValueFactory(new PropertyValueFactory<>("A_representPhone"));
 
 			TableColumn colACharge = new TableColumn("담 당 자");
 			colACharge.setPrefWidth(90);
@@ -149,12 +153,13 @@ public class AccountTabController implements Initializable {
 			txt_A_email.setOnKeyPressed(event -> handlerTxtEmailKeyPressed(event));
 
 			// 거래처 등록, 수정, 삭제 이벤트 등록
-			btn_A_register.setOnAction(event -> handlerbtn_A_registerActoion(event));
-			btn_A_delete.setOnAction(event -> handlerbtn_A_deleteActoion(event));
-			btn_A_update.setOnAction(event -> handlerbtn_A_updateActoion(event));
-			AccountTableView.setOnMouseClicked(event -> handlerAccountTableViewActoion(event));
-			btn_A_overlapBN.setOnAction(event -> handlerBtnOverlapBNActoion(event));
-
+			btn_A_register.setOnAction(event -> handlerbtn_A_registerAction(event));
+			btn_A_delete.setOnAction(event -> handlerbtn_A_deleteAction(event));
+			btn_A_update.setOnAction(event -> handlerbtn_A_updateAction(event));
+			AccountTableView.setOnMouseClicked(event -> handlerAccountTableViewAction(event));
+			btn_A_overlapBN.setOnAction(event -> handlerBtnOverlapBNAction(event));
+			btn_A_collect.setOnAction(event -> handlerbtn_A_collectAction(event));
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -205,7 +210,7 @@ public class AccountTabController implements Initializable {
 	}
 
 	// 사업자등록번호 중복 검사
-	public void handlerBtnOverlapBNActoion(ActionEvent event) {
+	public void handlerBtnOverlapBNAction(ActionEvent event) {
 		btn_A_register.setDisable(false);
 		btn_A_overlapBN.setDisable(true);
 
@@ -269,7 +274,7 @@ public class AccountTabController implements Initializable {
 		}
 	}
 	// 판매 거래처 테이블뷰 더블클릭 선택 이벤트 핸들러
-	public void handlerAccountTableViewActoion(MouseEvent event) {
+	public void handlerAccountTableViewAction(MouseEvent event) {
 		if (event.getClickCount() == 2) {
 			try {
 				selectAccount = AccountTableView.getSelectionModel().getSelectedItems();
@@ -320,11 +325,7 @@ public class AccountTabController implements Initializable {
 
 		AccountTabDAO aDao = new AccountTabDAO();
 		AccountVO aVo = null;
-		ArrayList<String> title;
 		ArrayList<AccountVO> list;
-
-		title = aDao.getaccountColumnName();
-		int columnCount = title.size();
 
 		list = aDao.getaccountVOTotalList();
 		int rowCount = list.size();
@@ -336,7 +337,7 @@ public class AccountTabController implements Initializable {
 	}
 
 	// 판매 거래처 등록 이벤트 핸들러
-	public void handlerbtn_A_registerActoion(ActionEvent event) {
+	public void handlerbtn_A_registerAction(ActionEvent event) {
 		try {
 			selectAccount = AccountTableView.getSelectionModel().getSelectedItems();
 
@@ -386,7 +387,7 @@ public class AccountTabController implements Initializable {
 	}
 
 	// 거래처 수정 이벤트 핸들러
-	public void handlerbtn_A_updateActoion(ActionEvent event) {
+	public void handlerbtn_A_updateAction(ActionEvent event) {
 		try {
 
 			boolean sucess;
@@ -421,7 +422,7 @@ public class AccountTabController implements Initializable {
 	}
 
 	// 거래처 삭제 이벤트 핸들러
-	public void handlerbtn_A_deleteActoion(ActionEvent event) {
+	public void handlerbtn_A_deleteAction(ActionEvent event) {
 		try {
 			boolean sucess;
 
@@ -440,4 +441,68 @@ public class AccountTabController implements Initializable {
 		}
 	}
 
-}
+	//수금 버튼 이벤트 핸들러
+	public void handlerbtn_A_collectAction(ActionEvent event) {
+		try {
+
+			boolean sucess;
+
+			AccountTabDAO aDao = new AccountTabDAO();
+			sucess = aDao.getCollect(selectedIndex, txt_A_name.getText().trim(),
+					txt_A_businessNumber.getText().trim(), txt_A_business.getText().trim(), txt_A_collect.getText().trim());
+			if (sucess) {
+				accountDataList.removeAll(accountDataList);
+				AccountTotalList();
+
+				txt_A_name.clear();
+				txt_A_businessNumber.clear();
+				txt_A_represent.clear();
+				txt_A_representPhone.clear();
+				txt_A_charge.clear();
+				txt_A_chargePhone.clear();
+				txt_A_address.clear();
+				txt_A_email.clear();
+				txt_A_business.clear();
+				txt_A_name.requestFocus();
+
+				btn_A_register.setDisable(false);
+				btn_A_update.setDisable(true);
+				btn_A_delete.setDisable(true);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		//거래처 미수금액 변경
+		try {
+
+			boolean sucess;
+
+			AccountTabDAO aDao = new AccountTabDAO();
+			sucess = aDao.getaccountUpdateCollect(selectedIndex, txt_A_collect.getText().trim());
+			if (sucess) {
+				accountDataList.removeAll(accountDataList);
+				AccountTotalList();
+
+				txt_A_name.clear();
+				txt_A_businessNumber.clear();
+				txt_A_represent.clear();
+				txt_A_representPhone.clear();
+				txt_A_charge.clear();
+				txt_A_chargePhone.clear();
+				txt_A_address.clear();
+				txt_A_email.clear();
+				txt_A_business.clear();
+				txt_A_name.requestFocus();
+
+				btn_A_register.setDisable(false);
+				btn_A_update.setDisable(true);
+				btn_A_delete.setDisable(true);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	}
+
+

@@ -49,6 +49,8 @@ public class MainController implements Initializable {
 	private AccountTabController accountTabController;
 	@FXML
 	private ProductTotalTabController ProductTotalTabController;
+	@FXML
+	private MoneyTabController moneyTabController;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -75,7 +77,8 @@ public class MainController implements Initializable {
 						}
 					} else if (newValue == money) {
 						try {
-							MoneyTabController.studentTotalList();
+							MoneyTabController.CollectTotalList();
+							MoneyTabController.PaymentTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -87,7 +90,6 @@ public class MainController implements Initializable {
 						}
 					} else if (newValue == product) {
 						try {
-							ProductTotalTabController.productTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

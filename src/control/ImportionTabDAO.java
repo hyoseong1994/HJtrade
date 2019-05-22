@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import model.AccountVO;
 import model.ImportionVO;
 
 public class ImportionTabDAO {
@@ -67,8 +66,7 @@ public class ImportionTabDAO {
 	// 등록
 	public void getImportionRegiste(ImportionVO iVo) throws Exception {
 
-		String sql = "insert into Importion" 
-				+ "(i_no,  i_name, i_businessNumber, I_represent, i_representPhone, "
+		String sql = "insert into Importion" + "(i_no,  i_name, i_businessNumber, I_represent, i_representPhone, "
 				+ "I_charge, I_chargePhone, I_address, I_email, I_business, I_payment)" + " values "
 				+ "(importion_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		Connection con = null;
@@ -304,39 +302,134 @@ public class ImportionTabDAO {
 	}
 
 	// 아이디 중복 체크
-		public boolean getOverlapBN(String searchBN) throws Exception {
+	public boolean getOverlapBN(String searchBN) throws Exception {
 
-			String sql = "select * from importion where i_businessNumber = ?";
-			Connection con = null;
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			boolean BNOverlapResult = false;
+		String sql = "select * from importion where i_businessNumber = ?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		boolean BNOverlapResult = false;
 
-			try {
-				con = DBUtil.getConnection();
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, searchBN);
-				rs = pstmt.executeQuery();
-				if (rs.next()) {
-					BNOverlapResult = true;  // 중복된 사업자번호가 있다.
-				}
-				
-			} catch (SQLException e) {
-				System.out.println("e=[" + e + "]");
-			} catch (Exception e) {
-				System.out.println("e=[" + e + "]");
-			} finally {
-				try {
-					// ⑥ 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
-					if (rs != null)
-						rs.close();
-					if (pstmt != null)
-						pstmt.close();
-					if (con != null)
-						con.close();
-				} catch (SQLException e) {
-				}
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, searchBN);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				BNOverlapResult = true; // 중복된 사업자번호가 있다.
 			}
-			return BNOverlapResult;
+
+		} catch (SQLException e) {
+			System.out.println("e=[" + e + "]");
+		} catch (Exception e) {
+			System.out.println("e=[" + e + "]");
+		} finally {
+			try {
+				// ⑥ 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+			}
 		}
+		return BNOverlapResult;
+	}
+
+	public boolean getPayment(int P_no, String I_name, String I_businessNumber, 
+			String I_business, String I_payment)throws Exception {
+
+		String sql = "insert into Payment" + "(P_no, P_date, P_name, P_businessNumber, P_business, P_paymentMoney)"
+				+ " values " + "(payment_seq.nextval, sysdate, ?, ?, ?, ?)";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean paymentUpdateSucess = false;
+
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, I_name);
+			pstmt.setString(2, I_businessNumber);
+			pstmt.setString(3, I_business);
+			pstmt.setInt(4, Integer.parseInt(I_payment));
+			int i = pstmt.executeUpdate();
+
+			if (i == 1) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("입금 확인");
+				alert.setHeaderText(I_name + " 입금 완료.");
+				alert.setContentText("입금 성공!!!");
+				alert.showAndWait();
+				paymentUpdateSucess = true;
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("입금 확인");
+				alert.setHeaderText("입금 실패.");
+				alert.setContentText("입금 실패!!!");
+				alert.showAndWait();
+			}
+		} catch (SQLException e) {
+			System.out.println("e=[" + e + "]");
+		} catch (Exception e) {
+			System.out.println("e=[" + e + "]");
+		} finally {
+			try {
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+			}
+		}
+		return paymentUpdateSucess;
+	}
+
+	public boolean getaccountUpdateCollect(int I_no, String I_payment) throws Exception {
+
+		String sql = "update Importion set I_payment = I_payment+? where I_no=?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean importionUpdateSucess = false;
+
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(I_payment) * (-1));
+			pstmt.setInt(2, I_no);
+			int i = pstmt.executeUpdate();
+
+			if (i == 1) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("입금금액 수정");
+				alert.setHeaderText(" 입금금액 수정 완료.");
+				alert.setContentText("입금금액 수정 성공!!!");
+				alert.showAndWait();
+				importionUpdateSucess = true;
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("입금금액 수정");
+				alert.setHeaderText("입금금액 수정 실패.");
+				alert.setContentText("입금금액 수정 실패!!!");
+				alert.showAndWait();
+			}
+		} catch (SQLException e) {
+			System.out.println("e=[" + e + "]");
+		} catch (Exception e) {
+			System.out.println("e=[" + e + "]");
+		} finally {
+			try {
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+			}
+		}
+		return importionUpdateSucess;
+	}
 }

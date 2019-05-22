@@ -21,7 +21,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import model.AccountVO;
 import model.ImportionVO;
 
 public class ImportionTabController implements Initializable {
@@ -56,11 +55,9 @@ public class ImportionTabController implements Initializable {
 	@FXML
 	private Button btn_I_overlapBN;// 사업자번호 중복 검사
 	@FXML
-	private ToggleGroup tradeGroup;
+	private Button btn_I_payment;// 입금 버튼
 	@FXML
-	private RadioButton rbImportion;
-	@FXML
-	private RadioButton rbAccount;
+	private TextField txt_I_payment;// 입금 텍스트
 
 	public static ObservableList<ImportionVO> ImportionDataList = FXCollections.observableArrayList();
 	ObservableList<ImportionVO> selectImportion = null; // 매입거래처 테이블에서 선택한 정보 저장
@@ -102,12 +99,12 @@ public class ImportionTabController implements Initializable {
 			TableColumn colIRepredent = new TableColumn("대 표 명");
 			colIRepredent.setPrefWidth(90);
 			colIRepredent.setStyle("-fx-allignment: CENTER");
-			colIRepredent.setCellValueFactory(new PropertyValueFactory<>("i_repredent"));
+			colIRepredent.setCellValueFactory(new PropertyValueFactory<>("i_represent"));
 
 			TableColumn colIRepredentPhone = new TableColumn("대표자 번호");
 			colIRepredentPhone.setPrefWidth(90);
 			colIRepredentPhone.setStyle("-fx-allignment: CENTER");
-			colIRepredentPhone.setCellValueFactory(new PropertyValueFactory<>("i_repredentPhone"));
+			colIRepredentPhone.setCellValueFactory(new PropertyValueFactory<>("i_representPhone"));
 
 			TableColumn colICharge = new TableColumn("담 당 자");
 			colICharge.setPrefWidth(90);
@@ -161,6 +158,7 @@ public class ImportionTabController implements Initializable {
 			btn_I_update.setOnAction(event -> handlerbtn_I_updateActoion(event));
 			ImportionTableView.setOnMouseClicked(event -> handlerImportionTableViewActoion(event));
 			btn_I_overlapBN.setOnAction(event -> handlerBtnOverlapBNActoion(event));
+			btn_I_payment.setOnAction(event -> handlerbtn_I_paymentAction(event));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -328,11 +326,7 @@ public class ImportionTabController implements Initializable {
 
 		ImportionTabDAO tDao = new ImportionTabDAO();
 		ImportionVO iVo = null;
-		ArrayList<String> title;
 		ArrayList<ImportionVO> list;
-
-		title = tDao.getImportionColumnName();
-		int columnCount = title.size();
 
 		list = tDao.getImportionVOTotalList();
 		int rowCount = list.size();
@@ -380,7 +374,7 @@ public class ImportionTabController implements Initializable {
 				txt_I_email.clear();
 				txt_I_business.clear();
 				txt_I_businessNumber.requestFocus();
-				
+
 				txt_I_businessNumber.setDisable(false);
 			}
 
@@ -449,4 +443,65 @@ public class ImportionTabController implements Initializable {
 		}
 	}
 
+	// 수금 버튼 이벤트 핸들러
+	public void handlerbtn_I_paymentAction(ActionEvent event) {
+		try {
+			boolean sucess;
+
+			ImportionTabDAO iDao = new ImportionTabDAO();
+			sucess = iDao.getPayment(selectedIndex, txt_I_name.getText().trim(), txt_I_businessNumber.getText().trim(),
+					txt_I_business.getText().trim(), txt_I_payment.getText().trim());
+			if (sucess) {
+				ImportionDataList.removeAll(ImportionDataList);
+				ImportionTotalList();
+
+				txt_I_name.clear();
+				txt_I_businessNumber.clear();
+				txt_I_represent.clear();
+				txt_I_representPhone.clear();
+				txt_I_charge.clear();
+				txt_I_chargePhone.clear();
+				txt_I_address.clear();
+				txt_I_email.clear();
+				txt_I_business.clear();
+				txt_I_name.requestFocus();
+
+				btn_I_register.setDisable(false);
+				btn_I_update.setDisable(true);
+				btn_I_delete.setDisable(true);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		// 거래처 미수금액 변경
+		try {
+
+			boolean sucess;
+
+			ImportionTabDAO iDao = new ImportionTabDAO();
+			sucess = iDao.getaccountUpdateCollect(selectedIndex, txt_I_payment.getText().trim());
+			if (sucess) {
+				ImportionDataList.removeAll(ImportionDataList);
+				ImportionTotalList();
+
+				txt_I_name.clear();
+				txt_I_businessNumber.clear();
+				txt_I_represent.clear();
+				txt_I_representPhone.clear();
+				txt_I_charge.clear();
+				txt_I_chargePhone.clear();
+				txt_I_address.clear();
+				txt_I_email.clear();
+				txt_I_business.clear();
+				txt_I_name.requestFocus();
+
+				btn_I_register.setDisable(false);
+				btn_I_update.setDisable(true);
+				btn_I_delete.setDisable(true);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

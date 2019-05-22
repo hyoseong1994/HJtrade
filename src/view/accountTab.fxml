@@ -56,11 +56,12 @@ fx:controller="control.AccountTabController">
 			</children>
 			<VBox prefWidth="100">
 				<HBox alignment="BOTTOM_RIGHT">
-					<TextField promptText="수금액" prefWidth="150" />
+					<TextField promptText="수금액" prefWidth="150" 
+					fx:id="txt_A_collect"/>
 				</HBox>
 				<HBox alignment="BOTTOM_RIGHT">
 					<Button fx:id="btn_A_delete">삭제</Button>
-					<Button>수금</Button>
+					<Button fx:id="btn_A_collect">수금</Button>
 				</HBox>
 			</VBox>
 		</VBox>

@@ -12,10 +12,18 @@ public class AccountVO {
 	private String a_email;
 	private String a_business;
 	private int a_collect;
-	private String rbAccount;
 
 	public AccountVO() {
 		super();
+	}
+
+	public AccountVO(int a_no, String a_name, String a_businessNumber, String a_business, int a_collect) {
+		super();
+		this.a_no = a_no;
+		this.a_name = a_name;
+		this.a_businessNumber = a_businessNumber;
+		this.a_business = a_business;
+		this.a_collect = a_collect;
 	}
 
 	public AccountVO(int a_no, String a_name, String a_businessNumber, String a_represent, String a_representPhone,
@@ -48,6 +56,7 @@ public class AccountVO {
 		this.a_business = a_business;
 		this.a_collect = a_collect;
 	}
+	
 
 	public int getA_no() {
 		return a_no;
@@ -137,12 +146,5 @@ public class AccountVO {
 		this.a_collect = a_collect;
 	}
 
-	public String getRbAccount() {
-		return rbAccount;
-	}
-
-	public void setRbAccount(String rbAccount) {
-		this.rbAccount = rbAccount;
-	}
 
 }

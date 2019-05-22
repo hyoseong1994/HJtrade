@@ -213,6 +213,52 @@ public class AccountTabDAO {
 		return accountUpdateSucess;
 	}
 
+	// 거래처 미수금액 수정
+	public boolean getaccountUpdateCollect(int A_no, String A_collect) throws Exception {
+
+		String sql = "update account set A_collect = A_collect-? where A_no=?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean accountUpdateSucess = false;
+
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(A_collect));
+			pstmt.setInt(2, A_no);
+			int i = pstmt.executeUpdate();
+
+			if (i == 1) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("미수금액 수정");
+				alert.setHeaderText(" 미수금액 수정 완료.");
+				alert.setContentText("미수금액 수정 성공!!!");
+				alert.showAndWait();
+				accountUpdateSucess = true;
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("미수금액 수정");
+				alert.setHeaderText("미수금액 수정 실패.");
+				alert.setContentText("미수금액 수정 실패!!!");
+				alert.showAndWait();
+			}
+		} catch (SQLException e) {
+			System.out.println("e=[" + e + "]");
+		} catch (Exception e) {
+			System.out.println("e=[" + e + "]");
+		} finally {
+			try {
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+			}
+		}
+		return accountUpdateSucess;
+	}
+
 	// 거래처 번호
 	public String getaccountNum(String A_name) throws Exception {
 
@@ -336,5 +382,56 @@ public class AccountTabDAO {
 			}
 		}
 		return BNOverlapResult;
+	}
+
+	// 수금 등록
+	public boolean getCollect(int C_no, String A_name, String A_businessNumber, String A_business, String A_collect)
+			throws Exception {
+
+		String sql = "insert into Collect" + "(C_no, C_date, C_name, C_businessNumber, C_business, c_collectMoney)"
+				+ " values " + "(Collect_seq.nextval, sysdate, ?, ?, ?, ?)";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean collectUpdateSucess = false;
+
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, A_name);
+			pstmt.setString(2, A_businessNumber);
+			pstmt.setString(3, A_business);
+			pstmt.setInt(4, Integer.parseInt(A_collect));
+			int i = pstmt.executeUpdate();
+
+			if (i == 1) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("수금 확인");
+				alert.setHeaderText(A_name + " 수금 완료.");
+				alert.setContentText("수금 성공!!!");
+				alert.showAndWait();
+				collectUpdateSucess = true;
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("수금 확인");
+				alert.setHeaderText("수금 실패.");
+				alert.setContentText("수금 실패!!!");
+				alert.showAndWait();
+			}
+		} catch (SQLException e) {
+			System.out.println("e=[" + e + "]");
+		} catch (Exception e) {
+			System.out.println("e=[" + e + "]");
+		} finally {
+			try {
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+			}
+		}
+		return collectUpdateSucess;
 	}
 }
