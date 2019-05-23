@@ -13,7 +13,10 @@ public class CollectTabDAO {
 	public ArrayList<CollectVO> getCollectVOTotalList() {
 		ArrayList<CollectVO> list = new ArrayList<>();
 
-		String sql = "select * from collect order by c_no";
+		String sql = "select c.c_no, c.c_date, c.c_name, a.a_businessNumber, c.c_business, c.c_collectMoney"+
+		" from collect c, account a"+
+		" where c.a_no = a.a_no"+
+		" order by c_no";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -31,17 +34,16 @@ public class CollectTabDAO {
 				cVo.setC_no(rs.getInt("c_no"));
 				cVo.setC_date(rs.getString("c_date"));
 				cVo.setC_name(rs.getString("c_name"));
-				cVo.setC_businessNumber(rs.getString("c_businessNumber"));
+				cVo.setA_businessNumber(rs.getString("a_businessNumber"));
 				cVo.setC_business(rs.getString("c_business"));
 				cVo.setC_collectMoney(rs.getInt("c_collectMoney"));
 
-				// 필드값을 설정해준후 arraylist배열에 객체를 추갛ㄴ다.
+				// 필드값을 설정해준후 arraylist배열에 객체를 추가한다.
 				list.add(cVo);
 			}
 
 		} catch (SQLException se) {
-			System.out.println(se);
-			se.printStackTrace();
+			System.out.println(se+"3");
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
@@ -63,14 +65,15 @@ public class CollectTabDAO {
 		// ArrayList배열 생성
 		ArrayList<CollectVO> list = new ArrayList<>();
 		// 이름으로 데이터를 가져오는 sql문
-		String sql = "select * from collect where c_name = ?";
-
+		String sql = "select c.c_no, c.c_date, c.c_name, a.a_businessNumber, c.c_business, c.c_collectMoney" +
+				" from collect c , account a" +
+				" where c.a_no = a.a_no and c.c_name = ?" +
+				" order by c_no";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		// 인스턴스 생성
 		CollectVO cVo = null;
-
 		try {
 			// DB연동
 			con = DBUtil.getConnection();
@@ -88,13 +91,12 @@ public class CollectTabDAO {
 				cVo.setC_no(rs.getInt("c_no"));
 				cVo.setC_date(rs.getString("c_date"));
 				cVo.setC_name(rs.getString("c_name"));
-				cVo.setC_businessNumber(rs.getString("c_businessNumber"));
+				cVo.setA_businessNumber(rs.getString("a_businessNumber"));
 				cVo.setC_business(rs.getString("c_business"));
 				cVo.setC_collectMoney(rs.getInt("c_collectMoney"));
 
 				// 필드값을 설정해준후 arraylist배열에 객체를 추갛ㄴ다.
 				list.add(cVo);
-
 			}
 		} catch (SQLException se) {
 			System.out.println(se);

@@ -72,6 +72,7 @@ public class ImportionTabController implements Initializable {
 			btn_I_register.setDisable(true);
 			btn_I_update.setDisable(true);
 			btn_I_delete.setDisable(true);
+			btn_I_payment.setDisable(true);
 			ImportionTableView.setEditable(false);
 
 			txt_I_name.setEditable(false);
@@ -163,7 +164,7 @@ public class ImportionTabController implements Initializable {
 			btn_I_overlapBN.setOnAction(event -> handlerBtnOverlapBNActoion(event));
 			btn_I_payment.setOnAction(event -> handlerbtn_I_paymentAction(event));
 			btn_I_clear.setOnAction(event -> handlerbtn_I_clearAction(event));
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -238,7 +239,7 @@ public class ImportionTabController implements Initializable {
 
 				btn_I_register.setDisable(false);
 				btn_I_overlapBN.setDisable(true);
-				
+
 				txt_I_name.setEditable(true);
 				txt_I_represent.setEditable(true);
 				txt_I_representPhone.setEditable(true);
@@ -248,7 +249,6 @@ public class ImportionTabController implements Initializable {
 				txt_I_email.setEditable(true);
 				txt_I_business.setEditable(true);
 				txt_I_name.requestFocus();
-
 
 			} else if (searchBN.equals("")) {
 				btn_I_register.setDisable(true);
@@ -310,6 +310,7 @@ public class ImportionTabController implements Initializable {
 				btn_I_delete.setDisable(false);
 				btn_I_register.setDisable(true);
 				btn_I_overlapBN.setDisable(true);
+				btn_I_payment.setDisable(false);
 
 				txt_I_businessNumber.setEditable(false);
 				txt_I_name.setEditable(true);
@@ -365,28 +366,10 @@ public class ImportionTabController implements Initializable {
 			alert.setHeaderText("대표자번호를를 입력하세요");
 			alert.setContentText("다시입력해주세요");
 			alert.showAndWait();
-		} else if (txt_I_charge.getText().trim().equals("")) {
-			alert = new Alert(AlertType.WARNING);
-			alert.setTitle("거래처등록");
-			alert.setHeaderText("담당자를 입력하세요");
-			alert.setContentText("다시입력해주세요");
-			alert.showAndWait();
-		} else if (txt_I_chargePhone.getText().trim().equals("")) {
-			alert = new Alert(AlertType.WARNING);
-			alert.setTitle("거래처등록");
-			alert.setHeaderText("담당자번호를 입력하세요");
-			alert.setContentText("다시입력해주세요");
-			alert.showAndWait();
 		} else if (txt_I_address.getText().trim().equals("")) {
 			alert = new Alert(AlertType.WARNING);
 			alert.setTitle("거래처등록");
 			alert.setHeaderText("주소를를 입력하세요");
-			alert.setContentText("다시입력해주세요");
-			alert.showAndWait();
-		} else if (txt_I_email.getText().trim().equals("")) {
-			alert = new Alert(AlertType.WARNING);
-			alert.setTitle("거래처등록");
-			alert.setHeaderText("이메일를를 입력하세요");
 			alert.setContentText("다시입력해주세요");
 			alert.showAndWait();
 		} else if (txt_I_business.getText().trim().equals("")) {
@@ -424,18 +407,7 @@ public class ImportionTabController implements Initializable {
 				alert.setContentText("다음 거래처를 입력하세요");
 				alert.showAndWait();
 
-				txt_I_name.clear();
-				txt_I_businessNumber.clear();
-				txt_I_represent.clear();
-				txt_I_representPhone.clear();
-				txt_I_charge.clear();
-				txt_I_chargePhone.clear();
-				txt_I_address.clear();
-				txt_I_email.clear();
-				txt_I_business.clear();
-				txt_I_businessNumber.requestFocus();
-
-				txt_I_businessNumber.setDisable(false);
+				handlerbtn_I_clearAction(event);
 			}
 
 		} catch (Exception e) {
@@ -469,28 +441,10 @@ public class ImportionTabController implements Initializable {
 			alert.setHeaderText("대표자번호를를 입력하세요");
 			alert.setContentText("다시입력해주세요");
 			alert.showAndWait();
-		} else if (txt_I_charge.getText().trim().equals("")) {
-			alert = new Alert(AlertType.WARNING);
-			alert.setTitle("거래처등록");
-			alert.setHeaderText("담당자를 입력하세요");
-			alert.setContentText("다시입력해주세요");
-			alert.showAndWait();
-		} else if (txt_I_chargePhone.getText().trim().equals("")) {
-			alert = new Alert(AlertType.WARNING);
-			alert.setTitle("거래처등록");
-			alert.setHeaderText("담당자번호를 입력하세요");
-			alert.setContentText("다시입력해주세요");
-			alert.showAndWait();
 		} else if (txt_I_address.getText().trim().equals("")) {
 			alert = new Alert(AlertType.WARNING);
 			alert.setTitle("거래처등록");
 			alert.setHeaderText("주소를를 입력하세요");
-			alert.setContentText("다시입력해주세요");
-			alert.showAndWait();
-		} else if (txt_I_email.getText().trim().equals("")) {
-			alert = new Alert(AlertType.WARNING);
-			alert.setTitle("거래처등록");
-			alert.setHeaderText("이메일를를 입력하세요");
 			alert.setContentText("다시입력해주세요");
 			alert.showAndWait();
 		} else if (txt_I_business.getText().trim().equals("")) {
@@ -517,28 +471,14 @@ public class ImportionTabController implements Initializable {
 				ImportionDataList.removeAll(ImportionDataList);
 				ImportionTotalList();
 
-				txt_I_name.clear();
-				txt_I_businessNumber.clear();
-				txt_I_represent.clear();
-				txt_I_representPhone.clear();
-				txt_I_charge.clear();
-				txt_I_chargePhone.clear();
-				txt_I_address.clear();
-				txt_I_email.clear();
-				txt_I_business.clear();
-				txt_I_name.requestFocus();
-
-				btn_I_register.setDisable(false);
-				btn_I_update.setDisable(true);
-				btn_I_delete.setDisable(true);
-				txt_I_businessNumber.setEditable(true);
-				txt_I_businessNumber.requestFocus();
+				handlerbtn_I_clearAction(event);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	//초기화 이벤트 핸들러
 	public void handlerbtn_I_clearAction(ActionEvent event) {
 
 		txt_I_businessNumber.clear();
@@ -550,6 +490,7 @@ public class ImportionTabController implements Initializable {
 		txt_I_address.clear();
 		txt_I_email.clear();
 		txt_I_business.clear();
+		txt_I_payment.clear();
 
 		txt_I_businessNumber.requestFocus();
 
@@ -557,6 +498,7 @@ public class ImportionTabController implements Initializable {
 		btn_I_update.setDisable(true);
 		btn_I_delete.setDisable(true);
 		btn_I_overlapBN.setDisable(false);
+		btn_I_payment.setDisable(true);
 
 		txt_I_businessNumber.setDisable(false);
 		txt_I_businessNumber.setEditable(true);
@@ -597,26 +539,11 @@ public class ImportionTabController implements Initializable {
 			boolean sucess;
 
 			ImportionTabDAO iDao = new ImportionTabDAO();
-			sucess = iDao.getPayment(selectedIndex, txt_I_name.getText().trim(), txt_I_businessNumber.getText().trim(),
-					txt_I_business.getText().trim(), txt_I_payment.getText().trim());
+			sucess = iDao.getPayment(txt_I_name.getText().trim(), txt_I_businessNumber.getText().trim(),
+					txt_I_business.getText().trim(), txt_I_payment.getText().trim(), selectedIndex);
 			if (sucess) {
-				ImportionDataList.removeAll(ImportionDataList);
-				ImportionTotalList();
 
-				txt_I_name.clear();
-				txt_I_businessNumber.clear();
-				txt_I_represent.clear();
-				txt_I_representPhone.clear();
-				txt_I_charge.clear();
-				txt_I_chargePhone.clear();
-				txt_I_address.clear();
-				txt_I_email.clear();
-				txt_I_business.clear();
-				txt_I_name.requestFocus();
-
-				btn_I_register.setDisable(false);
-				btn_I_update.setDisable(true);
-				btn_I_delete.setDisable(true);
+				handlerbtn_I_clearAction(event);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -633,20 +560,6 @@ public class ImportionTabController implements Initializable {
 				ImportionDataList.removeAll(ImportionDataList);
 				ImportionTotalList();
 
-				txt_I_name.clear();
-				txt_I_businessNumber.clear();
-				txt_I_represent.clear();
-				txt_I_representPhone.clear();
-				txt_I_charge.clear();
-				txt_I_chargePhone.clear();
-				txt_I_address.clear();
-				txt_I_email.clear();
-				txt_I_business.clear();
-				txt_I_name.requestFocus();
-
-				btn_I_register.setDisable(false);
-				btn_I_update.setDisable(true);
-				btn_I_delete.setDisable(true);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

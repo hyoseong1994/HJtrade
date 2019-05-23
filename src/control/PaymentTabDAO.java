@@ -12,7 +12,10 @@ public class PaymentTabDAO {
 	public ArrayList<PaymentVO> getPaymentVOTotalList() {
 		ArrayList<PaymentVO> list = new ArrayList<>();
 
-		String sql = "select * from payment order by P_no";
+		String sql = "select p.p_no, p.p_date, p.p_name, i.i_businessNumber, p.p_business, p.p_paymentMoney" +
+		" from payment p , importion i" +
+		" where p.i_no = i.i_no" +
+		" order by P_no";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -30,7 +33,7 @@ public class PaymentTabDAO {
 				pVo.setP_no(rs.getInt("P_no"));
 				pVo.setP_date(rs.getString("P_date"));
 				pVo.setP_name(rs.getString("P_name"));
-				pVo.setP_businessNumber(rs.getString("P_businessNumber"));
+				pVo.setI_businessNumber(rs.getString("I_businessNumber"));
 				pVo.setP_business(rs.getString("P_business"));
 				pVo.setP_paymentMoney(rs.getInt("P_paymentMoney"));
 
@@ -61,8 +64,10 @@ public class PaymentTabDAO {
 		// ArrayList배열 생성
 		ArrayList<PaymentVO> list = new ArrayList<>();
 		// 이름으로 데이터를 가져오는 sql문
-		String sql = "select * from payment where P_name = ?";
-
+		String sql = "select p.p_no, p.p_date, p.p_name, i.i_businessNumber, p.p_business, p.p_paymentMoney" +
+				" from payment p , importion i" +
+				" where p.i_no = i.i_no and p.p_name = ?" +
+				" order by P_no";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -86,7 +91,7 @@ public class PaymentTabDAO {
 				pVo.setP_no(rs.getInt("P_no"));
 				pVo.setP_date(rs.getString("P_date"));
 				pVo.setP_name(rs.getString("P_name"));
-				pVo.setP_businessNumber(rs.getString("P_businessNumber"));
+				pVo.setI_businessNumber(rs.getString("I_businessNumber"));
 				pVo.setP_business(rs.getString("P_business"));
 				pVo.setP_paymentMoney(rs.getInt("P_paymentMoney"));
 

@@ -32,7 +32,9 @@ import javafx.scene.control.TabPane;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.AccountVO;
 import model.CollectVO;
+import oracle.net.aso.a;
 
 public class MainController implements Initializable {
 
@@ -247,6 +249,7 @@ public class MainController implements Initializable {
 
 			// DB 연결 및 리스트 선택
 			CollectTabDAO cDao = new CollectTabDAO();
+
 			CollectVO cVo = new CollectVO();
 			ArrayList<CollectVO> list;
 			list = cDao.getCollectVOTotalList();
@@ -265,7 +268,7 @@ public class MainController implements Initializable {
 				cell1 = new PdfPCell(new Paragraph(cVo.getC_no() + "", font));
 				cell2 = new PdfPCell(new Paragraph(cVo.getC_date() + "", font));
 				cell3 = new PdfPCell(new Paragraph(cVo.getC_name() + "", font));
-				cell4 = new PdfPCell(new Paragraph(cVo.getC_businessNumber() + "", font));
+				cell4 = new PdfPCell(new Paragraph(cVo.getA_businessNumber() + "", font));
 				cell5 = new PdfPCell(new Paragraph(cVo.getC_business() + "", font));
 				cell6 = new PdfPCell(new Paragraph(cVo.getC_collectMoney() + "", font));
 

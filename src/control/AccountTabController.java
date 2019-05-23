@@ -69,10 +69,13 @@ public class AccountTabController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
 			// 거래처등록 초기화
+			btn_A_collect.setDisable(true);
 			btn_A_register.setDisable(true);
 			btn_A_update.setDisable(true);
 			btn_A_delete.setDisable(true);
+			txt_A_collect.setDisable(true);
 			AccountTableView.setEditable(false);
+			
 
 			txt_A_name.setEditable(false);
 			txt_A_represent.setEditable(false);
@@ -310,6 +313,9 @@ public class AccountTabController implements Initializable {
 				btn_A_delete.setDisable(false);
 				btn_A_register.setDisable(true);
 				btn_A_overlapBN.setDisable(true);
+				btn_A_collect.setDisable(false);
+				
+				txt_A_collect.setDisable(false);
 
 				txt_A_businessNumber.setEditable(false);
 				txt_A_name.setEditable(true);
@@ -365,28 +371,10 @@ public class AccountTabController implements Initializable {
 			alert.setHeaderText("대표자번호를를 입력하세요");
 			alert.setContentText("다시입력해주세요");
 			alert.showAndWait();
-		} else if (txt_A_charge.getText().trim().equals("")) {
-			alert = new Alert(AlertType.WARNING);
-			alert.setTitle("거래처등록");
-			alert.setHeaderText("담당자를 입력하세요");
-			alert.setContentText("다시입력해주세요");
-			alert.showAndWait();
-		} else if (txt_A_chargePhone.getText().trim().equals("")) {
-			alert = new Alert(AlertType.WARNING);
-			alert.setTitle("거래처등록");
-			alert.setHeaderText("담당자번호를 입력하세요");
-			alert.setContentText("다시입력해주세요");
-			alert.showAndWait();
 		} else if (txt_A_address.getText().trim().equals("")) {
 			alert = new Alert(AlertType.WARNING);
 			alert.setTitle("거래처등록");
 			alert.setHeaderText("주소를를 입력하세요");
-			alert.setContentText("다시입력해주세요");
-			alert.showAndWait();
-		} else if (txt_A_email.getText().trim().equals("")) {
-			alert = new Alert(AlertType.WARNING);
-			alert.setTitle("거래처등록");
-			alert.setHeaderText("이메일를를 입력하세요");
 			alert.setContentText("다시입력해주세요");
 			alert.showAndWait();
 		} else if (txt_A_business.getText().trim().equals("")) {
@@ -424,18 +412,7 @@ public class AccountTabController implements Initializable {
 				alert.setContentText("다음 거래처를 입력하세요");
 				alert.showAndWait();
 
-				txt_A_name.clear();
-				txt_A_businessNumber.clear();
-				txt_A_represent.clear();
-				txt_A_representPhone.clear();
-				txt_A_charge.clear();
-				txt_A_chargePhone.clear();
-				txt_A_address.clear();
-				txt_A_email.clear();
-				txt_A_business.clear();
-				txt_A_businessNumber.requestFocus();
-
-				txt_A_businessNumber.setDisable(false);
+				handlerbtn_A_clearAction(event);
 			}
 
 		} catch (Exception e) {
@@ -469,28 +446,10 @@ public class AccountTabController implements Initializable {
 			alert.setHeaderText("대표자번호를를 입력하세요");
 			alert.setContentText("다시입력해주세요");
 			alert.showAndWait();
-		} else if (txt_A_charge.getText().trim().equals("")) {
-			alert = new Alert(AlertType.WARNING);
-			alert.setTitle("거래처등록");
-			alert.setHeaderText("담당자를 입력하세요");
-			alert.setContentText("다시입력해주세요");
-			alert.showAndWait();
-		} else if (txt_A_chargePhone.getText().trim().equals("")) {
-			alert = new Alert(AlertType.WARNING);
-			alert.setTitle("거래처등록");
-			alert.setHeaderText("담당자번호를 입력하세요");
-			alert.setContentText("다시입력해주세요");
-			alert.showAndWait();
 		} else if (txt_A_address.getText().trim().equals("")) {
 			alert = new Alert(AlertType.WARNING);
 			alert.setTitle("거래처등록");
 			alert.setHeaderText("주소를를 입력하세요");
-			alert.setContentText("다시입력해주세요");
-			alert.showAndWait();
-		} else if (txt_A_email.getText().trim().equals("")) {
-			alert = new Alert(AlertType.WARNING);
-			alert.setTitle("거래처등록");
-			alert.setHeaderText("이메일를를 입력하세요");
 			alert.setContentText("다시입력해주세요");
 			alert.showAndWait();
 		} else if (txt_A_business.getText().trim().equals("")) {
@@ -517,28 +476,14 @@ public class AccountTabController implements Initializable {
 				accountDataList.removeAll(accountDataList);
 				AccountTotalList();
 
-				txt_A_name.clear();
-				txt_A_businessNumber.clear();
-				txt_A_represent.clear();
-				txt_A_representPhone.clear();
-				txt_A_charge.clear();
-				txt_A_chargePhone.clear();
-				txt_A_address.clear();
-				txt_A_email.clear();
-				txt_A_business.clear();
-				txt_A_name.requestFocus();
-
-				btn_A_register.setDisable(false);
-				btn_A_update.setDisable(true);
-				btn_A_delete.setDisable(true);
-				txt_A_businessNumber.setEditable(true);
-				txt_A_businessNumber.requestFocus();
+				handlerbtn_A_clearAction(event);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	//초기화 이벤트핸들러
 	public void handlerbtn_A_clearAction(ActionEvent event) {
 
 		txt_A_businessNumber.clear();
@@ -550,6 +495,7 @@ public class AccountTabController implements Initializable {
 		txt_A_address.clear();
 		txt_A_email.clear();
 		txt_A_business.clear();
+		txt_A_collect.clear();
 
 		txt_A_businessNumber.requestFocus();
 
@@ -557,6 +503,7 @@ public class AccountTabController implements Initializable {
 		btn_A_update.setDisable(true);
 		btn_A_delete.setDisable(true);
 		btn_A_overlapBN.setDisable(false);
+		btn_A_collect.setDisable(true);
 
 		txt_A_businessNumber.setDisable(false);
 		txt_A_businessNumber.setEditable(true);
@@ -600,26 +547,11 @@ public class AccountTabController implements Initializable {
 			boolean sucess;
 
 			AccountTabDAO aDao = new AccountTabDAO();
-			sucess = aDao.getCollect(selectedIndex, txt_A_name.getText().trim(), txt_A_businessNumber.getText().trim(),
-					txt_A_business.getText().trim(), txt_A_collect.getText().trim());
+			sucess = aDao.getCollect(txt_A_name.getText().trim(),
+					txt_A_business.getText().trim(), txt_A_collect.getText().trim(), selectedIndex);
 			if (sucess) {
-				accountDataList.removeAll(accountDataList);
-				AccountTotalList();
 
-				txt_A_name.clear();
-				txt_A_businessNumber.clear();
-				txt_A_represent.clear();
-				txt_A_representPhone.clear();
-				txt_A_charge.clear();
-				txt_A_chargePhone.clear();
-				txt_A_address.clear();
-				txt_A_email.clear();
-				txt_A_business.clear();
-				txt_A_name.requestFocus();
-
-				btn_A_register.setDisable(false);
-				btn_A_update.setDisable(true);
-				btn_A_delete.setDisable(true);
+				handlerbtn_A_clearAction(event);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -635,21 +567,6 @@ public class AccountTabController implements Initializable {
 			if (sucess) {
 				accountDataList.removeAll(accountDataList);
 				AccountTotalList();
-
-				txt_A_name.clear();
-				txt_A_businessNumber.clear();
-				txt_A_represent.clear();
-				txt_A_representPhone.clear();
-				txt_A_charge.clear();
-				txt_A_chargePhone.clear();
-				txt_A_address.clear();
-				txt_A_email.clear();
-				txt_A_business.clear();
-				txt_A_name.requestFocus();
-
-				btn_A_register.setDisable(false);
-				btn_A_update.setDisable(true);
-				btn_A_delete.setDisable(true);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

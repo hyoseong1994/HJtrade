@@ -27,6 +27,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -53,7 +55,7 @@ public class MoneyTabController implements Initializable {
 	private TextField txt_p_search;
 
 	public static ObservableList<CollectVO> collcetDataList = FXCollections.observableArrayList();
-	ObservableList<CollectVO> selectCollcet = null; // 매입거래처 테이블에서 선택한 정보 저장
+	ObservableList<CollectVO> selectCollect = null; // 매입거래처 테이블에서 선택한 정보 저장
 	int selectedIndex; // 테이블에서 선택한 거래처 정보 인덱스 저장
 
 	public static ObservableList<PaymentVO> paymentDataList = FXCollections.observableArrayList();
@@ -71,7 +73,7 @@ public class MoneyTabController implements Initializable {
 			colCNo.setPrefWidth(90);
 			colCNo.setStyle("-fx-allignment: CENTER");
 			colCNo.setCellValueFactory(new PropertyValueFactory<>("c_no"));
-			
+
 			TableColumn colCDate = new TableColumn("수금 날짜");
 			colCDate.setPrefWidth(160);
 			colCDate.setStyle("-fx-allignment: CENTER");
@@ -82,10 +84,10 @@ public class MoneyTabController implements Initializable {
 			colCName.setStyle("-fx-allignment: CENTER");
 			colCName.setCellValueFactory(new PropertyValueFactory<>("c_name"));
 
-			TableColumn colCBusinessNumber = new TableColumn("사업자 번호");
-			colCBusinessNumber.setPrefWidth(90);
-			colCBusinessNumber.setStyle("-fx-allignment: CENTER");
-			colCBusinessNumber.setCellValueFactory(new PropertyValueFactory<>("c_businessNumber"));
+			TableColumn colABusinessNumber = new TableColumn("사업자 번호");
+			colABusinessNumber.setPrefWidth(90);
+			colABusinessNumber.setStyle("-fx-allignment: CENTER");
+			colABusinessNumber.setCellValueFactory(new PropertyValueFactory<>("a_businessNumber"));
 
 			TableColumn colCBusiness = new TableColumn("업	태");
 			colCBusiness.setPrefWidth(90);
@@ -98,7 +100,8 @@ public class MoneyTabController implements Initializable {
 			colCCollectMoney.setCellValueFactory(new PropertyValueFactory<>("c_collectMoney"));
 
 			collectTableView.setItems(collcetDataList);
-			collectTableView.getColumns().addAll(colCNo, colCDate, colCName, colCBusinessNumber, colCBusiness, colCCollectMoney);
+			collectTableView.getColumns().addAll(colCNo, colCDate, colCName, colABusinessNumber, colCBusiness,
+					colCCollectMoney);
 
 			// 거래처 전체 목록
 			CollectTotalList();
@@ -119,10 +122,10 @@ public class MoneyTabController implements Initializable {
 			colPName.setStyle("-fx-allignment: CENTER");
 			colPName.setCellValueFactory(new PropertyValueFactory<>("p_name"));
 
-			TableColumn colPBusinessNumber = new TableColumn("사업자 번호");
-			colPBusinessNumber.setPrefWidth(90);
-			colPBusinessNumber.setStyle("-fx-allignment: CENTER");
-			colPBusinessNumber.setCellValueFactory(new PropertyValueFactory<>("p_businessNumber"));
+			TableColumn colIBusinessNumber = new TableColumn("사업자 번호");
+			colIBusinessNumber.setPrefWidth(90);
+			colIBusinessNumber.setStyle("-fx-allignment: CENTER");
+			colIBusinessNumber.setCellValueFactory(new PropertyValueFactory<>("i_businessNumber"));
 
 			TableColumn colPBusiness = new TableColumn("업	태");
 			colPBusiness.setPrefWidth(90);
@@ -135,7 +138,8 @@ public class MoneyTabController implements Initializable {
 			colPPayment.setCellValueFactory(new PropertyValueFactory<>("p_paymentMoney"));
 
 			paymentTableView.setItems(paymentDataList);
-			paymentTableView.getColumns().addAll(colPNo, colPDate, colPName, colPBusinessNumber, colPBusiness, colPPayment);
+			paymentTableView.getColumns().addAll(colPNo, colPDate, colPName, colIBusinessNumber, colPBusiness,
+					colPPayment);
 
 			// 거래처 전체 목록
 			PaymentTotalList();
@@ -145,11 +149,60 @@ public class MoneyTabController implements Initializable {
 			btn_c_barchart.setOnAction(event -> handlerbtn_c_barchartActoion(event));
 			btn_p_search.setOnAction(event -> handlerbtn_p_searchActoion(event));
 			btn_p_barchart.setOnAction(event -> handlerbtn_p_barchartActoion(event));
-
+			txt_c_search.setOnKeyPressed(event -> handlertxt_c_searchKeyPressedAction(event));
+			txt_p_search.setOnKeyPressed(event -> handlertxt_p_searchKeyPressedAction(event));
+			collectTableView.setOnMouseClicked(event -> handlerCollectTableViewAction(event));
+			paymentTableView.setOnMouseClicked(event -> handlerPaymentTableViewAction(event));
+			
+		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+	// 수금 테이블뷰 더블클릭 선택 이벤트 핸들러
+		public void handlerCollectTableViewAction(MouseEvent event) {
+			if (event.getClickCount() == 2) {
+				try {
+					selectCollect = collectTableView.getSelectionModel().getSelectedItems();
+					selectedIndex = selectCollect.get(0).getC_no();
+					String selectedA_name = selectCollect.get(0).getC_name();
+
+					txt_c_search.setText(selectedA_name);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		// 입금 테이블뷰 더블클릭 선택 이벤트 핸들러
+				public void handlerPaymentTableViewAction(MouseEvent event) {
+					if (event.getClickCount() == 2) {
+						try {
+							selectPayment = paymentTableView.getSelectionModel().getSelectedItems();
+							selectedIndex = selectPayment.get(0).getP_no();
+							String selectedA_name = selectPayment.get(0).getP_name();
+
+							txt_p_search.setText(selectedA_name);
+
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}
+
+	public void handlertxt_p_searchKeyPressedAction(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			p_search();
+		}
+
+	}
+
+	public void handlertxt_c_searchKeyPressedAction(KeyEvent event) {
+		if (event.getCode() == KeyCode.ENTER) {
+			c_search();
+		}
 	}
 
 	public void handlerbtn_p_barchartActoion(ActionEvent event) {
@@ -192,6 +245,10 @@ public class MoneyTabController implements Initializable {
 	}
 
 	public void handlerbtn_p_searchActoion(ActionEvent event) {
+		p_search();
+	}
+
+	public void p_search() {
 		PaymentVO pVo = new PaymentVO();
 		PaymentTabDAO pDao = new PaymentTabDAO();
 
@@ -205,8 +262,8 @@ public class MoneyTabController implements Initializable {
 					searchResult = true;
 
 					Alert alert = new Alert(AlertType.INFORMATION);
-					alert.setTitle("수금 정보 검색");
-					alert.setHeaderText("수금 검색 정보를 입력하세요");
+					alert.setTitle("입금 정보 검색");
+					alert.setHeaderText("입금 검색 정보를 입력하세요");
 					alert.setContentText("다음에는 주의하세요");
 					alert.showAndWait();
 
@@ -251,7 +308,6 @@ public class MoneyTabController implements Initializable {
 			}
 		} catch (Exception e) {
 		}
-
 	}
 
 	static void PaymentTotalList() {
@@ -289,7 +345,6 @@ public class MoneyTabController implements Initializable {
 				C_collectList.add(new XYChart.Data(collcetDataList.get(i).getC_name(),
 						collcetDataList.get(i).getC_collectMoney()));
 			}
-
 			seriesC_collect.setData(C_collectList);
 			barChart.getData().add(seriesC_collect);
 
@@ -312,6 +367,10 @@ public class MoneyTabController implements Initializable {
 	}
 
 	public void handlerbtn_c_searchActoion(ActionEvent event) {
+		c_search();
+	}
+
+	public void c_search() {
 		CollectVO cVo = new CollectVO();
 		CollectTabDAO cDao = new CollectTabDAO();
 
@@ -371,7 +430,6 @@ public class MoneyTabController implements Initializable {
 			}
 		} catch (Exception e) {
 		}
-
 	}
 
 	static void CollectTotalList() {

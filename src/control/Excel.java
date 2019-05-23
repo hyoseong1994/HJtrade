@@ -57,7 +57,7 @@ public class Excel {
 			cell = row.createCell(2);
 			cell.setCellValue(cVo.getC_name());
 			cell = row.createCell(3);
-			cell.setCellValue(cVo.getC_businessNumber());
+			cell.setCellValue(cVo.getA_businessNumber());
 			cell = row.createCell(4);
 			cell.setCellValue(cVo.getC_business());
 			cell = row.createCell(5);

@@ -4,7 +4,7 @@ public class PaymentVO {
 	private int p_no;
 	private String p_date;
 	private String p_name;
-	private String p_businessNumber;
+	private String i_businessNumber;
 	private String p_business;
 	private int p_paymentMoney;
 
@@ -12,22 +12,22 @@ public class PaymentVO {
 		super();
 	}
 
-	public PaymentVO(int p_no, String p_name, String p_businessNumber, String p_business, int p_paymentMoney) {
+	public PaymentVO(int p_no, String p_name, String i_businessNumber, String p_business, int p_paymentMoney) {
 		super();
 		this.p_no = p_no;
 		this.p_name = p_name;
-		this.p_businessNumber = p_businessNumber;
+		this.i_businessNumber = i_businessNumber;
 		this.p_business = p_business;
 		this.p_paymentMoney = p_paymentMoney;
 	}
 
-	public PaymentVO(int p_no, String p_date, String p_name, String p_businessNumber, String p_business,
+	public PaymentVO(int p_no, String p_date, String p_name, String i_businessNumber, String p_business,
 			int p_paymentMoney) {
 		super();
 		this.p_no = p_no;
 		this.p_date = p_date;
 		this.p_name = p_name;
-		this.p_businessNumber = p_businessNumber;
+		this.i_businessNumber = i_businessNumber;
 		this.p_business = p_business;
 		this.p_paymentMoney = p_paymentMoney;
 	}
@@ -56,12 +56,12 @@ public class PaymentVO {
 		this.p_name = p_name;
 	}
 
-	public String getP_businessNumber() {
-		return p_businessNumber;
+	public String getI_businessNumber() {
+		return i_businessNumber;
 	}
 
-	public void setP_businessNumber(String p_businessNumber) {
-		this.p_businessNumber = p_businessNumber;
+	public void setI_businessNumber(String i_businessNumber) {
+		this.i_businessNumber = i_businessNumber;
 	}
 
 	public String getP_business() {

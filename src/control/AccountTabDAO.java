@@ -385,11 +385,11 @@ public class AccountTabDAO {
 	}
 
 	// 수금 등록
-	public boolean getCollect(int C_no, String A_name, String A_businessNumber, String A_business, String A_collect)
+	public boolean getCollect(String A_name, String A_business, String A_collect, int A_no)
 			throws Exception {
 
-		String sql = "insert into Collect" + "(C_no, C_date, C_name, C_businessNumber, C_business, c_collectMoney)"
-				+ " values " + "(Collect_seq.nextval, sysdate, ?, ?, ?, ?)";
+		String sql = "insert into Collect" + "(C_no, C_date, C_name, C_business, c_collectMoney, a_no)"
+				+ " values " + "(Collect_seq.nextval, sysdate, ?,  ?, ?, ?)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean collectUpdateSucess = false;
@@ -399,9 +399,9 @@ public class AccountTabDAO {
 			pstmt = con.prepareStatement(sql);
 
 			pstmt.setString(1, A_name);
-			pstmt.setString(2, A_businessNumber);
-			pstmt.setString(3, A_business);
-			pstmt.setInt(4, Integer.parseInt(A_collect));
+			pstmt.setString(2, A_business);
+			pstmt.setInt(3, Integer.parseInt(A_collect));
+			pstmt.setInt(4, A_no);
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {

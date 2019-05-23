@@ -338,10 +338,10 @@ public class ImportionTabDAO {
 		return BNOverlapResult;
 	}
 
-	public boolean getPayment(int P_no, String I_name, String I_businessNumber, 
-			String I_business, String I_payment)throws Exception {
+	public boolean getPayment(String I_name, String I_businessNumber, 
+			String I_business, String I_payment,int I_no)throws Exception {
 
-		String sql = "insert into Payment" + "(P_no, P_date, P_name, P_businessNumber, P_business, P_paymentMoney)"
+		String sql = "insert into Payment" + "(P_no, P_date, P_name, P_business, P_paymentMoney, I_no)"
 				+ " values " + "(payment_seq.nextval, sysdate, ?, ?, ?, ?)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -352,9 +352,9 @@ public class ImportionTabDAO {
 			pstmt = con.prepareStatement(sql);
 
 			pstmt.setString(1, I_name);
-			pstmt.setString(2, I_businessNumber);
-			pstmt.setString(3, I_business);
-			pstmt.setInt(4, Integer.parseInt(I_payment));
+			pstmt.setString(2, I_business);
+			pstmt.setInt(3, Integer.parseInt(I_payment));
+			pstmt.setInt(4, I_no);
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {

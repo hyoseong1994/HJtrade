@@ -4,21 +4,19 @@ public class CollectVO {
 	private int c_no;
 	private String c_date;
 	private String c_name;
-	private String c_businessNumber;
 	private String c_business;
+	private String a_businessNumber;
 	private int c_collectMoney;
 
 	public CollectVO() {
 		super();
 	}
 
-	public CollectVO(int c_no, String c_date, String c_name, String c_businessNumber, String c_business,
-			int c_collectMoney) {
+	public CollectVO(int c_no, String c_date, String c_name, String c_business, int c_collectMoney) {
 		super();
 		this.c_no = c_no;
 		this.c_date = c_date;
 		this.c_name = c_name;
-		this.c_businessNumber = c_businessNumber;
 		this.c_business = c_business;
 		this.c_collectMoney = c_collectMoney;
 	}
@@ -47,14 +45,6 @@ public class CollectVO {
 		this.c_date = c_date;
 	}
 
-	public String getC_businessNumber() {
-		return c_businessNumber;
-	}
-
-	public void setC_businessNumber(String c_businessNumber) {
-		this.c_businessNumber = c_businessNumber;
-	}
-
 	public String getC_business() {
 		return c_business;
 	}
@@ -69,6 +59,14 @@ public class CollectVO {
 
 	public void setC_collectMoney(int c_collectMoney) {
 		this.c_collectMoney = c_collectMoney;
+	}
+
+	public String getA_businessNumber() {
+		return a_businessNumber;
+	}
+
+	public void setA_businessNumber(String a_businessNumber) {
+		this.a_businessNumber = a_businessNumber;
 	}
 
 }
