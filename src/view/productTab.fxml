@@ -53,28 +53,24 @@
 					<Label text="출고" layoutX="50.0" layoutY="30.0" />
 
 					<Label text="주문일자 : " layoutX="50.0" layoutY="72.0" />
-					<TextField  promptText="날짜만 입력" />
+					<TextField  promptText="날짜만 입력" fx:id="txt_S_dealDate"/>
 					<Label text="수	량 : " layoutX="50.0" layoutY="102.0" />
-					<TextField promptText="숫자만 입력" />
+					<TextField promptText="숫자만 입력" fx:id="txt_S_number"/>
 					<Label text="중	량 : " layoutX="50.0" layoutY="132.0" />
-					<TextField  promptText="숫자만 입력" />
+					<TextField  promptText="숫자만 입력" fx:id="txt_S_kg"/>
 					<Label text="단	가 : " layoutX="50.0" layoutY="162.0" />
-					<TextField promptText="숫자만 입력" />
+					<TextField promptText="숫자만 입력" fx:id="txt_S_cost"/>
 
-					<Button layoutX="50.0" layoutY="150.0" text="출고" />
+					<Button layoutX="50.0" layoutY="150.0" text="출고" 
+					fx:id="btn_s_deal"/>
 				</VBox>
 				<VBox>
 					<padding>
 						<Insets top="20" left="20" bottom="20" right="20" />
 					</padding>
-					<ComboBox promptText="거래처 선택"></ComboBox>
-					<VBox>
-						<Label text="주소			:" />
-						<Label text="업태			:" />
-						<Label text="대표자번호	:" />
-					</VBox>
 					<Label text="재고 목록" />
-					<TableView prefHeight="170" prefWidth="300">
+					<TableView prefHeight="200" prefWidth="970"
+					fx:id="stockTableView">
 					</TableView>
 				</VBox>
 			</HBox>
