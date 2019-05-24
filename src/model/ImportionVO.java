@@ -14,10 +14,12 @@ public class ImportionVO {
 	private int i_payment;
 	private String rbImportion;
 
+	// 디폴트 생성자
 	public ImportionVO() {
 		super();
 	}
 
+	// 일련번호 제외한 생성자
 	public ImportionVO(String i_name, String i_businessNumber, String i_represent, String i_representPhone,
 			String i_charge, String i_chargePhone, String i_address, String i_email, String i_business, int i_payment) {
 		super();
@@ -33,7 +35,7 @@ public class ImportionVO {
 		this.i_payment = i_payment;
 	}
 
-	
+	// 미입금액 제외한 생성자
 	public ImportionVO(int i_no, String i_name, String i_businessNumber, String i_represent, String i_representPhone,
 			String i_charge, String i_chargePhone, String i_address, String i_email, String i_business) {
 		super();
@@ -49,6 +51,7 @@ public class ImportionVO {
 		this.i_business = i_business;
 	}
 
+	// 전체 생성자
 	public ImportionVO(int i_no, String i_name, String i_businessNumber, String i_represent, String i_representPhone,
 			String i_charge, String i_chargePhone, String i_address, String i_email, String i_business, int i_payment) {
 		super();
@@ -65,6 +68,7 @@ public class ImportionVO {
 		this.i_payment = i_payment;
 	}
 
+	// getter and setter
 	public int getI_no() {
 		return i_no;
 	}
@@ -161,5 +165,4 @@ public class ImportionVO {
 		this.rbImportion = rbImportion;
 	}
 
-	
 }

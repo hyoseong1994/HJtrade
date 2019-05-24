@@ -10,6 +10,7 @@ import model.CollectVO;
 
 public class CollectTabDAO {
 
+	//수금 리스트 DB에서 호출
 	public ArrayList<CollectVO> getCollectVOTotalList() {
 		ArrayList<CollectVO> list = new ArrayList<>();
 

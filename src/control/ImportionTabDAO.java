@@ -13,6 +13,7 @@ import model.AccountVO;
 import model.ImportionVO;
 
 public class ImportionTabDAO {
+
 	// 전체 리스트
 	public ArrayList<ImportionVO> getImportionVOTotalList() throws Exception {
 		ArrayList<ImportionVO> list = new ArrayList<>();
@@ -64,7 +65,7 @@ public class ImportionTabDAO {
 		return list;
 	}
 
-	// 등록
+	// 매입거래처 등록
 	public void getImportionRegiste(ImportionVO iVo) throws Exception {
 
 		String sql = "insert into Importion" + "(i_no,  i_name, i_businessNumber, I_represent, i_representPhone, "
@@ -157,7 +158,7 @@ public class ImportionTabDAO {
 		return columnName;
 	}
 
-	// 거래처 수정
+	// 매입거래처 수정
 	public boolean getImportionUpdate(int i_no, String i_name, String i_businessNumber, String i_represent,
 			String i_representPhone, String i_charge, String i_chargePhone, String i_adress, String i_email,
 			String i_business) throws Exception {
@@ -214,7 +215,7 @@ public class ImportionTabDAO {
 		return importionUpdateSucess;
 	}
 
-	// 거래처 번호
+	// 매입 거래처 번호
 	public String getImportionNum(String i_name) throws Exception {
 
 		String sql = "select i_no from Importion where i_name = ?";
@@ -339,6 +340,7 @@ public class ImportionTabDAO {
 		return BNOverlapResult;
 	}
 
+	// 미입금금액 입금
 	public boolean getPayment(String I_name, String I_businessNumber, String I_business, String I_payment, int I_no)
 			throws Exception {
 
@@ -389,6 +391,7 @@ public class ImportionTabDAO {
 		return paymentUpdateSucess;
 	}
 
+	// 미입금금액 수정
 	public boolean getaccountUpdateCollect(int I_no, String I_payment) throws Exception {
 
 		String sql = "update Importion set I_payment = I_payment+? where I_no=?";
@@ -434,6 +437,7 @@ public class ImportionTabDAO {
 		return importionUpdateSucess;
 	}
 
+	// 상호명을 DB에서 가져오는 쿼리문
 	public ArrayList<ImportionVO> getimportionName() {
 		// TODO Auto-generated method stub
 		ArrayList<ImportionVO> list = new ArrayList<>();

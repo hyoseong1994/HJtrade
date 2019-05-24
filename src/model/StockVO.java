@@ -14,13 +14,15 @@ public class StockVO {
 	private int s_totalMoney; // 매입 총 금액
 	private String s_state; // 반품여부
 	private int p_no;
-	
+
+	// 디폴트 생성자
 	public StockVO() {
 		super();
 	}
 
-	public StockVO(int s_no, String b_date, String b_code, String p_type, String p_origin, String p_brand, String p_part,
-			int s_number, double s_kg, int s_cost, int s_totalMoney, String s_state) {
+	// 전체 생성자
+	public StockVO(int s_no, String b_date, String b_code, String p_type, String p_origin, String p_brand,
+			String p_part, int s_number, double s_kg, int s_cost, int s_totalMoney, String s_state) {
 		super();
 		this.s_no = s_no;
 		this.b_date = b_date;
@@ -36,6 +38,7 @@ public class StockVO {
 		this.s_state = s_state;
 	}
 
+	// getter and setter
 	public int getS_no() {
 		return s_no;
 	}
@@ -140,5 +143,4 @@ public class StockVO {
 		this.p_no = p_no;
 	}
 
-	
 }

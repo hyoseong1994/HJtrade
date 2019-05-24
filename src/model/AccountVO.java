@@ -15,10 +15,12 @@ public class AccountVO {
 	private String a_business;
 	private int a_collect;
 
+	// 디폴트 생성자
 	public AccountVO() {
 		super();
 	}
 
+	// 대표자, 대표자번호, 담당자, 담당자번호, 주소, 이메일 제외한 생성자
 	public AccountVO(int a_no, String a_name, String a_businessNumber, String a_business, int a_collect) {
 		super();
 		this.a_no = a_no;
@@ -28,6 +30,7 @@ public class AccountVO {
 		this.a_collect = a_collect;
 	}
 
+	// 미수금액 제회외한 생성자
 	public AccountVO(int a_no, String a_name, String a_businessNumber, String a_represent, String a_representPhone,
 			String a_charge, String a_chargePhone, String a_address, String a_email, String a_business) {
 		super();
@@ -43,6 +46,7 @@ public class AccountVO {
 		this.a_business = a_business;
 	}
 
+	// 전체 생성자
 	public AccountVO(int a_no, String a_name, String a_businessNumber, String a_represent, String a_representPhone,
 			String a_charge, String a_chargePhone, String a_address, String a_email, String a_business, int a_collect) {
 		super();
@@ -58,8 +62,8 @@ public class AccountVO {
 		this.a_business = a_business;
 		this.a_collect = a_collect;
 	}
-	
 
+	// getter and setter
 	public int getA_no() {
 		return a_no;
 	}
@@ -147,6 +151,5 @@ public class AccountVO {
 	public void setA_collect(int a_collect) {
 		this.a_collect = a_collect;
 	}
-
 
 }

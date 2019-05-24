@@ -27,25 +27,25 @@ public class ImportionTabController implements Initializable {
 
 	// 거래처 등록 탭
 	@FXML
-	private TextField txt_I_businessNumber;
+	private TextField txt_I_businessNumber;// 사업자번호 텍스트필드
 	@FXML
-	private TextField txt_I_name;
+	private TextField txt_I_name;// 상호명 텍스트필드
 	@FXML
-	private TextField txt_I_represent;
+	private TextField txt_I_represent;// 대표자 텍스트필드
 	@FXML
-	private TextField txt_I_representPhone;
+	private TextField txt_I_representPhone;// 대표자번호 텍스트필드
 	@FXML
-	private TextField txt_I_charge;
+	private TextField txt_I_charge;// 담당자 텍스트필드
 	@FXML
-	private TextField txt_I_chargePhone;
+	private TextField txt_I_chargePhone;// 담당자번호 텍스트필드
 	@FXML
-	private TextField txt_I_address;
+	private TextField txt_I_address;// 주소 텍스트필드
 	@FXML
-	private TextField txt_I_email;
+	private TextField txt_I_email;// 이메일 텍스트필드
 	@FXML
-	private TextField txt_I_business;
+	private TextField txt_I_business;// 업태 텍스트필드
 	@FXML
-	private TableView<ImportionVO> ImportionTableView = new TableView<>();
+	private TableView<ImportionVO> ImportionTableView = new TableView<>();// 매입거래처 테이블
 	@FXML
 	private Button btn_I_register; // 거래처 등록
 	@FXML
@@ -65,16 +65,20 @@ public class ImportionTabController implements Initializable {
 	ObservableList<ImportionVO> selectImportion = null; // 매입거래처 테이블에서 선택한 정보 저장
 	int selectedIndex; // 테이블에서 선택한 거래처 정보 인덱스 저장
 
+	// 초기설정
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
-			// 거래처등록 초기화
+			// 매입 거래처 버튼 초기화
 			btn_I_register.setDisable(true);
 			btn_I_update.setDisable(true);
 			btn_I_delete.setDisable(true);
 			btn_I_payment.setDisable(true);
+
+			// 판매거래처 테이블 수정금지
 			ImportionTableView.setEditable(false);
 
+			// 텍스트 필드 초기 설정
 			txt_I_name.setEditable(false);
 			txt_I_represent.setEditable(false);
 			txt_I_representPhone.setEditable(false);
@@ -156,14 +160,16 @@ public class ImportionTabController implements Initializable {
 			txt_I_address.setOnKeyPressed(event -> handlerTxtAddressKeyPressed(event));
 			txt_I_email.setOnKeyPressed(event -> handlerTxtEmailKeyPressed(event));
 
-			// 거래처 등록, 수정, 삭제 이벤트 등록
+			// 버튼 이벤트 등록
 			btn_I_register.setOnAction(event -> handlerbtn_I_registerActoion(event));
 			btn_I_delete.setOnAction(event -> handlerbtn_I_deleteActoion(event));
 			btn_I_update.setOnAction(event -> handlerbtn_I_updateActoion(event));
-			ImportionTableView.setOnMouseClicked(event -> handlerImportionTableViewActoion(event));
 			btn_I_overlapBN.setOnAction(event -> handlerBtnOverlapBNActoion(event));
 			btn_I_payment.setOnAction(event -> handlerbtn_I_paymentAction(event));
 			btn_I_clear.setOnAction(event -> handlerbtn_I_clearAction(event));
+
+			// 테이블 더블클릭 이벤트
+			ImportionTableView.setOnMouseClicked(event -> handlerImportionTableViewActoion(event));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -478,7 +484,7 @@ public class ImportionTabController implements Initializable {
 		}
 	}
 
-	//초기화 이벤트 핸들러
+	// 초기화 이벤트 핸들러
 	public void handlerbtn_I_clearAction(ActionEvent event) {
 
 		txt_I_businessNumber.clear();
@@ -533,7 +539,7 @@ public class ImportionTabController implements Initializable {
 		}
 	}
 
-	// 수금 버튼 이벤트 핸들러
+	// 입금 버튼 이벤트 핸들러
 	public void handlerbtn_I_paymentAction(ActionEvent event) {
 		try {
 			boolean sucess;
@@ -549,7 +555,7 @@ public class ImportionTabController implements Initializable {
 			e.printStackTrace();
 		}
 
-		// 거래처 미수금액 변경
+		// 거래처 미입금금액 변경
 		try {
 
 			boolean sucess;

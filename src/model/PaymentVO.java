@@ -8,10 +8,12 @@ public class PaymentVO {
 	private String p_business;
 	private int p_paymentMoney;
 
+	// 디폴트 생성자
 	public PaymentVO() {
 		super();
 	}
 
+	// 입금날자 제외한 생성자
 	public PaymentVO(int p_no, String p_name, String i_businessNumber, String p_business, int p_paymentMoney) {
 		super();
 		this.p_no = p_no;
@@ -21,6 +23,7 @@ public class PaymentVO {
 		this.p_paymentMoney = p_paymentMoney;
 	}
 
+	// 전체 생성자
 	public PaymentVO(int p_no, String p_date, String p_name, String i_businessNumber, String p_business,
 			int p_paymentMoney) {
 		super();
@@ -32,6 +35,7 @@ public class PaymentVO {
 		this.p_paymentMoney = p_paymentMoney;
 	}
 
+	// getter and setter
 	public int getP_no() {
 		return p_no;
 	}

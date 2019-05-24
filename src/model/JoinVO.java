@@ -1,28 +1,32 @@
 package model;
 
 public class JoinVO {
-	
+
 	String id;
 	String password;
 	String name;
 	String adress;
 	String phone;
 
+	// 디폴트 생성자
 	public JoinVO() {
 		super();
 	}
-	
+
+	//  이름, 패스워드, 주소, 전화번호 제외한 생성자
 	public JoinVO(String id) {
 		super();
 		this.id = id;
 	}
 
+	// 이름, 주소, 전화번호 제외한 생성자
 	public JoinVO(String id, String password) {
 		super();
 		this.id = id;
 		this.password = password;
 	}
-	
+
+	// 주소, 전화번호 제외한 생성자
 	public JoinVO(String id, String password, String name) {
 		super();
 		this.id = id;
@@ -30,7 +34,7 @@ public class JoinVO {
 		this.name = name;
 	}
 
-	
+	// 전체 생성자
 	public JoinVO(String id, String password, String name, String adress, String phone) {
 		super();
 		this.id = id;
@@ -40,6 +44,7 @@ public class JoinVO {
 		this.phone = phone;
 	}
 
+	// getter and setter
 	public String getId() {
 		return id;
 	}
@@ -79,5 +84,5 @@ public class JoinVO {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
+
 }

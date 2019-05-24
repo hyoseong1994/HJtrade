@@ -1,17 +1,19 @@
 package model;
 
 public class CollectVO {
-	private int c_no;
-	private String c_date;
-	private String c_name;
-	private String c_business;
-	private String a_businessNumber;
-	private int c_collectMoney;
+	private int c_no;// 수금 번호
+	private String c_date;// 수금 일자
+	private String c_name;// 판매 거래처 상호명
+	private String c_business;// 판매거래
+	private String a_businessNumber;// 판매거래처 사업자번호
+	private int c_collectMoney;// 수금액
 
+	// 디폴트 생성자
 	public CollectVO() {
 		super();
 	}
 
+	// 전체 생성자
 	public CollectVO(int c_no, String c_date, String c_name, String c_business, int c_collectMoney) {
 		super();
 		this.c_no = c_no;
@@ -21,6 +23,7 @@ public class CollectVO {
 		this.c_collectMoney = c_collectMoney;
 	}
 
+	// getter and setter
 	public int getC_no() {
 		return c_no;
 	}

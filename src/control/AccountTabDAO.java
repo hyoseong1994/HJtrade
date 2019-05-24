@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import model.AccountVO;
 
 public class AccountTabDAO {
+
 	// 전체 리스트
 	public ArrayList<AccountVO> getaccountVOTotalList() throws Exception {
 		ArrayList<AccountVO> list = new ArrayList<>();
@@ -64,7 +65,7 @@ public class AccountTabDAO {
 		return list;
 	}
 
-	// 등록
+	// 판매 거래처 등록
 	public void getAccountRegiste(AccountVO aVo) throws Exception {
 
 		String sql = "insert into Account" + "(A_no,  A_name, A_businessNumber, A_represent, A_representPhone, "
@@ -157,7 +158,7 @@ public class AccountTabDAO {
 		return columnName;
 	}
 
-	// 거래처 수정
+	// 판매 거래처 수정
 	public boolean getaccountUpdate(int A_no, String A_name, String A_businessNumber, String A_represent,
 			String A_representPhone, String A_charge, String A_chargePhone, String A_adress, String A_email,
 			String A_business) throws Exception {
@@ -214,53 +215,7 @@ public class AccountTabDAO {
 		return accountUpdateSucess;
 	}
 
-	// 거래처 미수금액 수정
-	public boolean getaccountUpdateCollect(int A_no, String A_collect) throws Exception {
-
-		String sql = "update account set A_collect = A_collect-? where A_no=?";
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		boolean accountUpdateSucess = false;
-
-		try {
-			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, Integer.parseInt(A_collect));
-			pstmt.setInt(2, A_no);
-			int i = pstmt.executeUpdate();
-
-			if (i == 1) {
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("미수금액 수정");
-				alert.setHeaderText(" 미수금액 수정 완료.");
-				alert.setContentText("미수금액 수정 성공!!!");
-				alert.showAndWait();
-				accountUpdateSucess = true;
-			} else {
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("미수금액 수정");
-				alert.setHeaderText("미수금액 수정 실패.");
-				alert.setContentText("미수금액 수정 실패!!!");
-				alert.showAndWait();
-			}
-		} catch (SQLException e) {
-			System.out.println("e=[" + e + "]");
-		} catch (Exception e) {
-			System.out.println("e=[" + e + "]");
-		} finally {
-			try {
-				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
-				if (pstmt != null)
-					pstmt.close();
-				if (con != null)
-					con.close();
-			} catch (SQLException e) {
-			}
-		}
-		return accountUpdateSucess;
-	}
-
-	// 거래처 번호
+	// 판매거래처 번호
 	public String getaccountNum(String A_name) throws Exception {
 
 		String sql = "select A_no from account where A_name = ?";
@@ -386,11 +341,10 @@ public class AccountTabDAO {
 	}
 
 	// 수금 등록
-	public boolean getCollect(String A_name, String A_business, String A_collect, int A_no)
-			throws Exception {
+	public boolean getCollect(String A_name, String A_business, String A_collect, int A_no) throws Exception {
 
-		String sql = "insert into Collect" + "(C_no, C_date, C_name, C_business, c_collectMoney, a_no)"
-				+ " values " + "(Collect_seq.nextval, sysdate, ?,  ?, ?, ?)";
+		String sql = "insert into Collect" + "(C_no, C_date, C_name, C_business, c_collectMoney, a_no)" + " values "
+				+ "(Collect_seq.nextval, sysdate, ?,  ?, ?, ?)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean collectUpdateSucess = false;
@@ -436,10 +390,57 @@ public class AccountTabDAO {
 		return collectUpdateSucess;
 	}
 
+	// 거래처 미수금액 수정
+	public boolean getaccountUpdateCollect(int A_no, String A_collect) throws Exception {
+
+		String sql = "update account set A_collect = A_collect-? where A_no=?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean accountUpdateSucess = false;
+
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(A_collect));
+			pstmt.setInt(2, A_no);
+			int i = pstmt.executeUpdate();
+
+			if (i == 1) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("미수금액 수정");
+				alert.setHeaderText(" 미수금액 수정 완료.");
+				alert.setContentText("미수금액 수정 성공!!!");
+				alert.showAndWait();
+				accountUpdateSucess = true;
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("미수금액 수정");
+				alert.setHeaderText("미수금액 수정 실패.");
+				alert.setContentText("미수금액 수정 실패!!!");
+				alert.showAndWait();
+			}
+		} catch (SQLException e) {
+			System.out.println("e=[" + e + "]");
+		} catch (Exception e) {
+			System.out.println("e=[" + e + "]");
+		} finally {
+			try {
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+			}
+		}
+		return accountUpdateSucess;
+	}
+
+	// 상호명을 DB에서 가져오는 쿼리문
 	public ArrayList<AccountVO> getaccountName() {
 		// TODO Auto-generated method stub
 		ArrayList<AccountVO> list = new ArrayList<>();
-		
+
 		String sql = "select a_name from account";
 		Connection con = null;
 		PreparedStatement pstmt = null;

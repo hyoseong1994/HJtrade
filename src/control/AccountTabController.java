@@ -27,25 +27,25 @@ public class AccountTabController implements Initializable {
 
 	// 거래처 등록 탭
 	@FXML
-	private TextField txt_A_businessNumber;
+	private TextField txt_A_businessNumber;// 사업자번호 텍스트필드
 	@FXML
-	private TextField txt_A_name;
+	private TextField txt_A_name;// 상호명 텍스트필드
 	@FXML
-	private TextField txt_A_represent;
+	private TextField txt_A_represent;// 대표자 텍스트필드
 	@FXML
-	private TextField txt_A_representPhone;
+	private TextField txt_A_representPhone;// 대표자번호 텍스트필드
 	@FXML
-	private TextField txt_A_charge;
+	private TextField txt_A_charge;// 담당자 텍스트필드
 	@FXML
-	private TextField txt_A_chargePhone;
+	private TextField txt_A_chargePhone;// 담당자번호 텍스트필드
 	@FXML
-	private TextField txt_A_address;
+	private TextField txt_A_address;// 주소 텍스트필드
 	@FXML
-	private TextField txt_A_email;
+	private TextField txt_A_email;// 이메일 텍스트필드
 	@FXML
-	private TextField txt_A_business;
+	private TextField txt_A_business;// 업태 텍스트필드
 	@FXML
-	private TableView<AccountVO> AccountTableView = new TableView<>();
+	private TableView<AccountVO> AccountTableView = new TableView<>();// 판매 거래처 테이블
 	@FXML
 	private Button btn_A_register; // 거래처 등록
 	@FXML
@@ -65,18 +65,20 @@ public class AccountTabController implements Initializable {
 	ObservableList<AccountVO> selectAccount = null; // 매입거래처 테이블에서 선택한 정보 저장
 	int selectedIndex; // 테이블에서 선택한 거래처 정보 인덱스 저장
 
+	// 초기설정
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
-			// 거래처등록 초기화
+			// 판매 거래처 버튼 초기화
 			btn_A_collect.setDisable(true);
 			btn_A_register.setDisable(true);
 			btn_A_update.setDisable(true);
 			btn_A_delete.setDisable(true);
-			txt_A_collect.setDisable(true);
-			AccountTableView.setEditable(false);
-			
 
+			// 판매거래처 테이블 수정금지
+			AccountTableView.setEditable(false);
+
+			// 텍스트 필드 초기 설정
 			txt_A_name.setEditable(false);
 			txt_A_represent.setEditable(false);
 			txt_A_representPhone.setEditable(false);
@@ -158,14 +160,16 @@ public class AccountTabController implements Initializable {
 			txt_A_address.setOnKeyPressed(event -> handlerTxtAddressKeyPressed(event));
 			txt_A_email.setOnKeyPressed(event -> handlerTxtEmailKeyPressed(event));
 
-			// 거래처 등록, 수정, 삭제 이벤트 등록
+			// 버튼 이벤트 등록
 			btn_A_register.setOnAction(event -> handlerbtn_A_registerAction(event));
 			btn_A_delete.setOnAction(event -> handlerbtn_A_deleteAction(event));
 			btn_A_update.setOnAction(event -> handlerbtn_A_updateAction(event));
-			AccountTableView.setOnMouseClicked(event -> handlerAccountTableViewAction(event));
 			btn_A_overlapBN.setOnAction(event -> handlerBtnOverlapBNAction(event));
 			btn_A_collect.setOnAction(event -> handlerbtn_A_collectAction(event));
 			btn_A_clear.setOnAction(event -> handlerbtn_A_clearAction(event));
+
+			// 테이블 더블클릭 이벤트
+			AccountTableView.setOnMouseClicked(event -> handlerAccountTableViewAction(event));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -314,7 +318,7 @@ public class AccountTabController implements Initializable {
 				btn_A_register.setDisable(true);
 				btn_A_overlapBN.setDisable(true);
 				btn_A_collect.setDisable(false);
-				
+
 				txt_A_collect.setDisable(false);
 
 				txt_A_businessNumber.setEditable(false);
@@ -483,7 +487,7 @@ public class AccountTabController implements Initializable {
 		}
 	}
 
-	//초기화 이벤트핸들러
+	// 초기화 이벤트핸들러
 	public void handlerbtn_A_clearAction(ActionEvent event) {
 
 		txt_A_businessNumber.clear();
@@ -515,8 +519,6 @@ public class AccountTabController implements Initializable {
 		txt_A_address.setEditable(false);
 		txt_A_email.setEditable(false);
 		txt_A_business.setEditable(false);
-		
-		
 
 	}
 
@@ -547,8 +549,8 @@ public class AccountTabController implements Initializable {
 			boolean sucess;
 
 			AccountTabDAO aDao = new AccountTabDAO();
-			sucess = aDao.getCollect(txt_A_name.getText().trim(),
-					txt_A_business.getText().trim(), txt_A_collect.getText().trim(), selectedIndex);
+			sucess = aDao.getCollect(txt_A_name.getText().trim(), txt_A_business.getText().trim(),
+					txt_A_collect.getText().trim(), selectedIndex);
 			if (sucess) {
 
 				handlerbtn_A_clearAction(event);
