@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+	fx:controller="control.MoneyTabController">
+	<HBox>
+		<VBox>
+			<padding>
+				<Insets top="20" left="20" bottom="20" right="20" />
+			</padding>
+			<children>
+				<Label text="수금 목록" />
+				<TableView prefHeight="550" prefWidth="610"
+					fx:id="collectTableView">
+				</TableView>
+			</children>
+			<VBox prefWidth="100">
+				<HBox alignment="BOTTOM_RIGHT">
+					<TextField promptText="검색" prefWidth="150"
+						fx:id="txt_c_search" />
+					<Button fx:id="btn_c_search">검색</Button>
+					<Button fx:id="btn_c_barchart">차트</Button>
+				</HBox>
+			</VBox>
+		</VBox>
+		<VBox>
+			<padding>
+				<Insets top="20" left="20" bottom="20" right="20" />
+			</padding>
+			<children>
+				<Label text="입금 목록" />
+				<TableView prefHeight="550" prefWidth="610"
+					fx:id="paymentTableView">
+				</TableView>
+			</children>
+			<VBox prefWidth="100">
+				<HBox alignment="BOTTOM_RIGHT">
+					<TextField promptText="검색" prefWidth="150"
+						fx:id="txt_p_search" />
+					<Button fx:id="btn_p_search">검색</Button>
+					<Button fx:id="btn_p_barchart">차트</Button>
+				</HBox>
+			</VBox>
+		</VBox>
+	</HBox>
+</AnchorPane>
