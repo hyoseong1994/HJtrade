@@ -442,7 +442,7 @@ public class ImportionTabDAO {
 		// TODO Auto-generated method stub
 		ArrayList<ImportionVO> list = new ArrayList<>();
 
-		String sql = "select a_name from importion";
+		String sql = "select i_name from importion";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -476,5 +476,58 @@ public class ImportionTabDAO {
 			}
 		}
 		return list;
+	}
+
+	// 거래처 정보 가져오기
+	public ArrayList<ImportionVO> getImportionInfo(String i_name) throws Exception {
+
+		ArrayList<ImportionVO> list = new ArrayList();
+
+		String sql = "select i_address , i_business ,i_representPhonefrom Importion where i_name = ? ";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ImportionVO ivo = null;
+
+		try {
+			// DB연동
+			con = DBUtil.getConnection();
+			// sql문을 담아줄 그릇
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, i_name);
+			// jvo에서 변수들을 가져와서 sql문에 넣어준다.
+			rs = pstmt.executeQuery();
+			// sql을 날리고 불러온 값이 있으면 로그인결과변수 true
+			while (rs.next()) {
+				ivo = new ImportionVO();
+
+				ivo.setI_address(rs.getString("I_address"));
+				ivo.setI_business(rs.getString("i_business"));
+				ivo.setI_representPhone(rs.getString("i_representPhone"));
+
+				list.add(ivo);
+
+			}
+
+		} catch (SQLException e) {
+			System.out.println(e);
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+
+			try {
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+			}
+		}
+
+		return list;
+
 	}
 }

@@ -9,7 +9,7 @@ public class LoginDAO {
 
 	public boolean getLogin(String loginId, String loginPassword) throws Exception {
 
-		String sql = "select * from employee2 where id = ? and password = ?";
+		String sql = "select * from employee where id = ? and password = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -45,7 +45,7 @@ public class LoginDAO {
 	
 	public String getLoginName(String loginId) throws Exception {
 
-		String sql = "select e_name from employee2 where id = ?";
+		String sql = "select e_name from employee where id = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
