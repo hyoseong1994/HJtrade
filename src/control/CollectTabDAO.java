@@ -43,7 +43,7 @@ public class CollectTabDAO {
 			}
 
 		} catch (SQLException se) {
-			System.out.println(se+"3");
+			System.out.println(se);
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {

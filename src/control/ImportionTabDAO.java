@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import model.AccountVO;
 import model.ImportionVO;
 
 public class ImportionTabDAO {
@@ -338,11 +339,11 @@ public class ImportionTabDAO {
 		return BNOverlapResult;
 	}
 
-	public boolean getPayment(String I_name, String I_businessNumber, 
-			String I_business, String I_payment,int I_no)throws Exception {
+	public boolean getPayment(String I_name, String I_businessNumber, String I_business, String I_payment, int I_no)
+			throws Exception {
 
-		String sql = "insert into Payment" + "(P_no, P_date, P_name, P_business, P_paymentMoney, I_no)"
-				+ " values " + "(payment_seq.nextval, sysdate, ?, ?, ?, ?)";
+		String sql = "insert into Payment" + "(P_no, P_date, P_name, P_business, P_paymentMoney, I_no)" + " values "
+				+ "(payment_seq.nextval, sysdate, ?, ?, ?, ?)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean paymentUpdateSucess = false;
@@ -431,5 +432,45 @@ public class ImportionTabDAO {
 			}
 		}
 		return importionUpdateSucess;
+	}
+
+	public ArrayList<ImportionVO> getimportionName() {
+		// TODO Auto-generated method stub
+		ArrayList<ImportionVO> list = new ArrayList<>();
+
+		String sql = "select a_name from importion";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ImportionVO iVo = null;
+
+		try {
+
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				iVo = new ImportionVO();
+				iVo.setI_name(rs.getString("I_name"));
+
+				list.add(iVo);
+			}
+
+		} catch (SQLException se) {
+			System.out.println(se);
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+			}
+		}
+		return list;
 	}
 }

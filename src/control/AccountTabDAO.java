@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextField;
 import model.AccountVO;
 
 public class AccountTabDAO {
@@ -434,4 +435,45 @@ public class AccountTabDAO {
 		}
 		return collectUpdateSucess;
 	}
+
+	public ArrayList<AccountVO> getaccountName() {
+		// TODO Auto-generated method stub
+		ArrayList<AccountVO> list = new ArrayList<>();
+		
+		String sql = "select a_name from account";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		AccountVO aVo = null;
+
+		try {
+
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				aVo = new AccountVO();
+				aVo.setA_name(rs.getString("A_name"));
+
+				list.add(aVo);
+			}
+
+		} catch (SQLException se) {
+			System.out.println(se);
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+			}
+		}
+		return list;
+	}
+
 }
