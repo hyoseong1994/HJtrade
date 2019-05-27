@@ -13,14 +13,13 @@ import model.StockVO;
 
 public class StockDAO {
 
+	// 재고 테이블 전체 리스트
 	public ArrayList<StockVO> getStockTotalList() {
 		ArrayList<StockVO> list = new ArrayList<>();
 
-		String sql = "select s.s_no, b.b_date, b.b_code, p.p_type, p.p_origin, p.p_brand, p.p_part,"+
-		" s.s_number, s.s_kg, s.s_cost, s.s_totalMoney, s.s_state"+
-		" from stock s, buy b, product p"+
-		" where s.s_no = b.s_no and s.p_no = p.p_no and s.s_no = b.s_no"+
-		" order by s.s_no";
+		String sql = "select s.s_no, b.b_date, b.b_code, p.p_type, p.p_origin, p.p_brand, p.p_part,"
+				+ " s.s_number, s.s_kg, s.s_cost, s.s_totalMoney, s.s_state" + " from stock s, buy b, product p"
+				+ " where s.s_no = b.s_no and s.p_no = p.p_no and s.s_no = b.s_no" + " order by s.s_no";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -70,9 +69,9 @@ public class StockDAO {
 		return list;
 	}
 
-	//출고의 의한 재고 수정
-	public boolean getStockUpdateStock(int selectedStockIndex, String s_number, String s_kg, String s_cost) {
-		String sql = "update Stock set S_number = S_number-? , S_kg = S_kg-?, txt_S_cost = txt_S_cost-? where S_no = selectedStockIndex";
+	// 출고의 의한 재고 수정
+	public boolean getStockUpdateStock(String s_number, String s_kg, int selectedStockIndex) {
+		String sql = "update Stock set S_number = S_number - ? , S_kg = S_kg - ? where S_no = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean stockUpdateSucess = false;
@@ -81,8 +80,8 @@ public class StockDAO {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, Integer.parseInt(s_number));
-			pstmt.setDouble(2, Integer.parseInt(s_kg)*0.1);
-			pstmt.setInt(3, Integer.parseInt(s_cost));
+			pstmt.setDouble(2, Double.parseDouble(s_kg));
+			pstmt.setInt(3, selectedStockIndex);
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
@@ -102,7 +101,7 @@ public class StockDAO {
 		} catch (SQLException e) {
 			System.out.println("e=[" + e + "]");
 		} catch (Exception e) {
-			System.out.println("e=[" + e + "]");
+			System.out.println("e=[" + e + "]4");
 		} finally {
 			try {
 				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
@@ -116,27 +115,29 @@ public class StockDAO {
 		return stockUpdateSucess;
 	}
 
-	//출고
-	public boolean getDeal(String d_dealDate, String d_number, String d_kg, String d_cost, int selectedStockIndex, 
-			 String s_state, int p_no, int a_no) {
-		
-		String sql = "insert into deal" + "(d_no, d_date, d_dealDate, a_no, s_no, p_no, d_number, d_kg, d_cost, d_totalmoney)"
-				+ " values " + "(Deal_seq.nextval, sysdate, ?,  ?,selectedStockIndex, ?, ?, ?, ?, ?)";
+	// 출고
+	public boolean getDeal(String d_dealDate, String d_number, String d_kg, String d_cost, int selectedStockIndex,
+			String s_state, String p_no, String a_no) {
+		String sql = "insert into deal"
+				+ " (d_no, d_date, d_dealDate, a_no, s_no, p_no, d_number, d_kg, d_cost, d_totalmoney)" + " values "
+				+ " (Deal_seq.nextval, sysdate, ?,  ?, ?, ?, ?, ?, ?, ?)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean DealUpdateSucess = false;
+		double d_total = Double.parseDouble(d_kg) * Integer.parseInt(d_cost);
 
 		try {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
 
 			pstmt.setString(1, d_dealDate);
-			pstmt.setInt(2, a_no);
-			pstmt.setInt(3, p_no);
-			pstmt.setInt(4, Integer.parseInt(d_number));
-			pstmt.setDouble(5, Integer.parseInt(d_kg)*0.1);
-			pstmt.setInt(6, Integer.parseInt(d_cost));
-			pstmt.setDouble(7, (Integer.parseInt(d_kg)*0.1) * Integer.parseInt(d_cost));
+			pstmt.setInt(2, Integer.parseInt(a_no));
+			pstmt.setInt(3, selectedStockIndex);
+			pstmt.setInt(4, Integer.parseInt(p_no));
+			pstmt.setInt(5, Integer.parseInt(d_number));
+			pstmt.setDouble(6, Double.parseDouble(d_kg));
+			pstmt.setInt(7, Integer.parseInt(d_cost));
+			pstmt.setDouble(8, d_total);
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
@@ -157,6 +158,7 @@ public class StockDAO {
 			System.out.println("e=[" + e + "]");
 		} catch (Exception e) {
 			System.out.println("e=[" + e + "]");
+			e.printStackTrace();
 		} finally {
 			try {
 				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제

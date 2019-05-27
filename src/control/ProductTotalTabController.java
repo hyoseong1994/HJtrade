@@ -53,11 +53,17 @@ public class ProductTotalTabController implements Initializable {
 	@FXML
 	private String S_state;
 	@FXML
-	private int p_no;
+	private String p_no;
 	@FXML
-	private int a_no;
+	private String a_no;
 	@FXML
 	private ComboBox<String> cbx_ccountChoice;
+	@FXML
+	private String origin;
+	@FXML
+	private String brand;
+	@FXML
+	private String part;
 
 	public static ObservableList<ProductVO> productDataList = FXCollections.observableArrayList();
 	ObservableList<ProductVO> selectProduct = null; // 테이블에서 선택한 정보저장
@@ -67,6 +73,7 @@ public class ProductTotalTabController implements Initializable {
 	ObservableList<StockVO> selectStock = null; // 테이블에서 선택한 정보저장
 	int selectedStockIndex;// 테이블에 선택한 상품 정보 인덱스저장
 
+	// 초기 설정
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
@@ -178,21 +185,26 @@ public class ProductTotalTabController implements Initializable {
 			// 재고 전체 목록
 			stockTotalList();
 
+			// 텍스트 필드 엔터키 이벤트
 			txt_p_type.setOnKeyPressed(event -> handlerTxt_p_typeKeyPressed(event)); // 종류
 			txt_p_origin.setOnKeyPressed(event -> handlerTxt_p_originKeyPressed(event)); // 원산지
 			txt_p_brand.setOnKeyPressed(event -> handlerTxt_p_brandKeyPressed(event)); // 브랜드
 			txt_p_part.setOnKeyPressed(event -> handlerTxt_p_partKeyPressed(event)); // 부위
-			// 상품등록버튼
-			btn_p_register.setOnAction(event -> handlerBtn_p_registerAction(event));
-
 			txt_S_dealDate.setOnKeyPressed(event -> handlertxt_S_dealDateKeyPressed(event));
 			txt_S_number.setOnKeyPressed(event -> handlertxt_S_numberKeyPressed(event));
 			txt_S_kg.setOnKeyPressed(event -> handlertxt_S_kgKeyPressed(event));
 			txt_S_cost.setOnKeyPressed(event -> handlertxt_S_costKeyPressed(event));
+
+			// 상품등록버튼 이벤트
+			btn_p_register.setOnAction(event -> handlerBtn_p_registerAction(event));
+
+			// 재고 테이블 더블클릭 이벤트
 			stockTableView.setOnMouseClicked(event -> handlerstockTableViewAction(event));
 
+			// 출고 버튼 이벤트
 			btn_s_deal.setOnAction(event -> handlerdealAction(event));
 
+			// 콤보박스 이벤트
 			cbx_ccountChoice.setOnAction(event -> hacdlercbx_ccountChoiceAction(event));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -200,10 +212,12 @@ public class ProductTotalTabController implements Initializable {
 
 	}
 
+	// 출고버튼 이벤트 핸들러
 	public void handlerdealAction(ActionEvent event) {
 		deal();
 	}
 
+	// 엔터키 이벤트 핸들러
 	public void handlertxt_S_dealDateKeyPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			txt_S_number.requestFocus();
@@ -277,7 +291,7 @@ public class ProductTotalTabController implements Initializable {
 		}
 	}
 
-//상품등록 이벤트 핸들러
+	// 상품등록 이벤트 핸들러
 	public void handlerBtn_p_registerAction(ActionEvent event) {
 		// 하나라도 공백시 오류발생
 
@@ -374,16 +388,32 @@ public class ProductTotalTabController implements Initializable {
 				double selectedS_kg = selectStock.get(0).getS_kg();
 				int selectedS_cost = selectStock.get(0).getS_cost();
 				String selectedS_state = selectStock.get(0).getS_state();
-				int selectedP_no = selectStock.get(0).getP_no();
+				
+				System.out.println(selectedStockIndex);
+				
+				origin = selectStock.get(0).getP_origin();
+				brand = selectStock.get(0).getP_brand();
+				part = selectStock.get(0).getP_part();
 
 				txt_S_number.setText(selectedS_number + "");
 				txt_S_kg.setText(selectedS_kg + "");
 				txt_S_cost.setText(selectedS_cost + "");
 				S_state = selectedS_state;
-				p_no = selectedP_no;
+
+				btn_s_deal.setDisable(false);
 
 			} catch (Exception e) {
 				e.printStackTrace();
+			}
+			// 선택된 상품명 인덱스값
+			ProductDAO pDao = new ProductDAO();
+
+			try {
+
+				p_no = pDao.getproductNum(origin, brand, part);
+			} catch (Exception e) {
+				// TODO: handle exception
+				System.out.println(e);
 			}
 		}
 	}
@@ -396,13 +426,10 @@ public class ProductTotalTabController implements Initializable {
 
 			StockDAO sDao = new StockDAO();
 			sucess = sDao.getDeal(txt_S_dealDate.getText().trim(), txt_S_number.getText().trim(),
-					txt_S_kg.getText().trim(), txt_S_cost.getText().trim(), selectedStockIndex, S_state, p_no, a_no);
+					txt_S_kg.getText().trim(), txt_S_cost.getText().trim(), selectedStockIndex,
+					S_state, p_no, a_no);
 			if (sucess) {
-
-				txt_S_dealDate.clear();
-				txt_S_number.clear();
-				txt_S_kg.clear();
-				txt_S_cost.clear();
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -414,11 +441,16 @@ public class ProductTotalTabController implements Initializable {
 			boolean sucess;
 
 			StockDAO sDao = new StockDAO();
-			sucess = sDao.getStockUpdateStock(selectedStockIndex, txt_S_number.getText().trim(),
-					txt_S_kg.getText().trim(), txt_S_cost.getText().trim());
+			sucess = sDao.getStockUpdateStock(txt_S_number.getText().trim(),
+					txt_S_kg.getText().trim(), selectedStockIndex);
 			if (sucess) {
 				stockDataList.removeAll(stockDataList);
 				stockTotalList();
+				
+				txt_S_dealDate.clear();
+				txt_S_number.clear();
+				txt_S_kg.clear();
+				txt_S_cost.clear();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -426,26 +458,24 @@ public class ProductTotalTabController implements Initializable {
 
 	}
 
-	// 콤보박스 선택
+	// 콤보박스 선택 거래처 번호 가져오기
 	public void hacdlercbx_ccountChoiceAction(ActionEvent event) {
 
 		// 선택된 직원명 인덱스값
 		String selectedNameIndex = cbx_ccountChoice.getSelectionModel().getSelectedItem();
 
 		AccountTabDAO account = new AccountTabDAO();
-		
-		String no;
+
 		try {
 
-			no = account.getaccountNum(selectedNameIndex);
-			System.out.println(selectedNameIndex);
-			System.out.println(no);
+			a_no = account.getaccountNum(selectedNameIndex);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e);
 		}
 	}
 
+	// 판매처 이름 가져오기
 	public void accountName() {
 		// TODO Auto-generated method stub
 		// 배열 생성

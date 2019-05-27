@@ -12,6 +12,7 @@ import javafx.scene.control.Alert.AlertType;
 import model.ProductVO;
 
 public class ProductDAO {
+
 	// 상품목록
 	public ArrayList<ProductVO> getProductTotalList() throws Exception {
 		ArrayList<ProductVO> list = new ArrayList<>();
@@ -135,6 +136,47 @@ public class ProductDAO {
 			}
 		}
 		return columnName;
+	}
+
+	// 상품 인덱스 가져오기
+	public String getproductNum(String origin, String brand, String part) {
+
+		String sql = "select P_no from product " + "where p_origin = ? and p_brand = ? and p_part = ?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String P_no = "";
+
+		try {
+
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, origin);
+			pstmt.setString(2, brand);
+			pstmt.setString(3, part);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				P_no = rs.getString("P_no");
+			}
+
+		} catch (SQLException se) {
+			System.out.println(se+"1");
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+			}
+		}
+		return P_no;
 	}
 
 }
