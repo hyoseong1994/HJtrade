@@ -4,11 +4,11 @@ public class BuyVO {
 	private int b_no; // 매입 번호
 	private String b_buyDate; // 매입 주문 날짜
 	private String b_date; // 매입 거래 날짜
-	private int i_no;
+	private int i_no; // 거래처번호
 	private String i_name; // 매입상호명
 	private String b_code; // 매입 상품 식별 번호
-	private int p_no;
-	private int s_no;
+	private int p_no; // 상품번호
+	private int s_no; // 재고번호
 	private String p_type; // 매입 상품 분류
 	private String p_origin; // 매입 상품 원산지
 	private String p_brand; // 매입 상품 브랜드
@@ -17,34 +17,25 @@ public class BuyVO {
 	private double b_kg; // 매입 중량
 	private int b_cost; // 매입 단가
 	private int b_totalMoney; // 매입 총 금액
-	private String s_state; // 반품여부
+	private String s_state;
+
+	
 
 	public BuyVO() {
 		super();
 	}
 
-	public BuyVO(String b_buyDate, String i_name, String b_code, String p_type, String p_origin, String p_brand,
-			String p_part, int b_number, double b_kg, int b_cost, int b_totalMoney) {
+	
+	
+	
+	public BuyVO(String b_buyDate, int i_no, String i_name, String b_code, int p_no, String p_type, String p_origin,
+			String p_brand, String p_part, int b_number, double b_kg, int b_cost) {
 		super();
 		this.b_buyDate = b_buyDate;
+		this.i_no = i_no;
 		this.i_name = i_name;
 		this.b_code = b_code;
-		this.p_type = p_type;
-		this.p_origin = p_origin;
-		this.p_brand = p_brand;
-		this.p_part = p_part;
-		this.b_number = b_number;
-		this.b_kg = b_kg;
-		this.b_cost = b_cost;
-		this.b_totalMoney = b_totalMoney;
-	}
-
-	public BuyVO(String b_buyDate, String i_name, String b_code, String p_type, String p_origin, String p_brand,
-			String p_part, int b_number, double b_kg, int b_cost) {
-		super();
-		this.b_buyDate = b_buyDate;
-		this.i_name = i_name;
-		this.b_code = b_code;
+		this.p_no = p_no;
 		this.p_type = p_type;
 		this.p_origin = p_origin;
 		this.p_brand = p_brand;
@@ -54,25 +45,8 @@ public class BuyVO {
 		this.b_cost = b_cost;
 	}
 
-	public BuyVO(int b_no, String b_buyDate, String b_date, String i_name, String b_code, String p_type,
-			String p_origin, String p_brand, String p_part, int b_number, double b_kg, int b_cost, int b_totalMoney,
-			String s_state) {
-		super();
-		this.b_no = b_no;
-		this.b_buyDate = b_buyDate;
-		this.b_date = b_date;
-		this.i_name = i_name;
-		this.b_code = b_code;
-		this.p_type = p_type;
-		this.p_origin = p_origin;
-		this.p_brand = p_brand;
-		this.p_part = p_part;
-		this.b_number = b_number;
-		this.b_kg = b_kg;
-		this.b_cost = b_cost;
-		this.b_totalMoney = b_totalMoney;
-		this.s_state = s_state;
-	}
+
+
 
 	public BuyVO(int b_no, String b_buyDate, String b_date, int i_no, String i_name, String b_code, int p_no, int s_no,
 			String p_type, String p_origin, String p_brand, String p_part, int b_number, double b_kg, int b_cost,
@@ -96,6 +70,9 @@ public class BuyVO {
 		this.b_totalMoney = b_totalMoney;
 		this.s_state = s_state;
 	}
+
+
+
 
 	public int getB_no() {
 		return b_no;

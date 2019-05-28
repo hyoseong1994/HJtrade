@@ -1,6 +1,8 @@
 package control;
 
 import java.net.URL;
+import java.text.DecimalFormat;
+import java.text.ParsePosition;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.ResourceBundle;
@@ -8,6 +10,8 @@ import java.util.Set;
 
 import com.sun.javafx.scene.control.skin.LabeledText;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +25,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -74,14 +79,70 @@ public class BuyTabController implements Initializable {
 	private Label txt_i_representPhone;
 	@FXML
 	private TableView<BuyVO> BuyTableView = new TableView<>();
+	@FXML
+	private int i_no;
+	@FXML
+	private int p_no;
+	@FXML
+	private int s_no;
+	@FXML
+	private int b_no;
+	@FXML
+	private String s_state;
+	@FXML
+	private String p_origin;
+	@FXML
+	private String p_brand;
+	@FXML
+	private String p_part;
 
 	ObservableList<BuyVO> buyDataList = FXCollections.observableArrayList();
 	ObservableList<BuyVO> selectBuy = null;
 
 	int selectedBuyIndex; // 테이블에 선택한 상품 정보 인덱스저장
+	String selectedOrigin = "";
+	String selectedBrand = "";
+	String selectedPart = "";
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+
+		// 수량 숫자만입력가능
+		txt_b_number.textProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					txt_b_number.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+
+		});
+		// 중량 숫자만 입력가능
+		txt_b_kg.textProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					txt_b_kg.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+
+		});
+		// 단가 숫자만 입력가능
+		txt_b_cost.textProperty().addListener(new ChangeListener<String>() {
+
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (!newValue.matches("\\d*")) {
+					txt_b_cost.setText(newValue.replaceAll("[^\\d]", ""));
+				}
+			}
+
+		});
+
+		cbx_b_brand.setDisable(true);
+		cbx_b_part.setDisable(true);
 
 		productOrigin();
 		productBrand();
@@ -113,20 +174,20 @@ public class BuyTabController implements Initializable {
 			col_I_name.setStyle("-fx-allignment:CENTER");
 			col_I_name.setCellValueFactory(new PropertyValueFactory<>("i_name"));
 
-			TableColumn col_S_code = new TableColumn("식별번호");
-			col_S_code.setPrefWidth(70);
-			col_S_code.setStyle("-fx-allignment:CENTER");
-			col_S_code.setCellValueFactory(new PropertyValueFactory<>("s_code"));
+			TableColumn col_B_code = new TableColumn("식별번호");
+			col_B_code.setPrefWidth(70);
+			col_B_code.setStyle("-fx-allignment:CENTER");
+			col_B_code.setCellValueFactory(new PropertyValueFactory<>("b_code"));
 
 			TableColumn col_P_type = new TableColumn("분류");
 			col_P_type.setPrefWidth(70);
 			col_P_type.setStyle("-fx-allignment:CENTER");
 			col_P_type.setCellValueFactory(new PropertyValueFactory<>("p_type"));
 
-			TableColumn col_P_orgin = new TableColumn("원산지");
-			col_P_orgin.setPrefWidth(70);
-			col_P_orgin.setStyle("-fx-allignment:CENTER");
-			col_P_orgin.setCellValueFactory(new PropertyValueFactory<>("p_orgin"));
+			TableColumn col_P_origin = new TableColumn("원산지");
+			col_P_origin.setPrefWidth(70);
+			col_P_origin.setStyle("-fx-allignment:CENTER");
+			col_P_origin.setCellValueFactory(new PropertyValueFactory<>("p_origin"));
 
 			TableColumn col_P_brand = new TableColumn("브랜드");
 			col_P_brand.setPrefWidth(70);
@@ -158,15 +219,15 @@ public class BuyTabController implements Initializable {
 			col_B_totalMoney.setStyle("-fx-allignment:CENTER");
 			col_B_totalMoney.setCellValueFactory(new PropertyValueFactory<>("b_totalMoney"));
 
-			TableColumn col_S_state = new TableColumn("상태");
-			col_S_state.setPrefWidth(50);
-			col_S_state.setStyle("-fx-allignment:CENTER");
-			col_S_state.setCellValueFactory(new PropertyValueFactory<>("s_state"));
+			TableColumn col_S_stock = new TableColumn("상태");
+			col_S_stock.setPrefWidth(70);
+			col_S_stock.setStyle("-fx-allignment:CENTER");
+			col_S_stock.setCellValueFactory(new PropertyValueFactory<>("s_stock"));
 
 			BuyTableView.setItems(buyDataList);
-			BuyTableView.getColumns().addAll(col_B_No, col_B_buyDate, col_B_date, col_I_name, col_S_code, col_P_type,
-					col_P_orgin, col_P_brand, col_P_part, col_B_number, col_B_kg, col_B_cost, col_B_totalMoney,
-					col_S_state);
+			BuyTableView.getColumns().addAll(col_B_No, col_B_buyDate, col_B_date, col_I_name, col_B_code, col_P_type,
+					col_P_origin, col_P_brand, col_P_part, col_B_number, col_B_kg, col_B_cost, col_B_totalMoney,
+					col_S_stock);
 
 			// 매입 전체 목록
 			BuyTotalList();
@@ -178,20 +239,104 @@ public class BuyTabController implements Initializable {
 			txt_b_kg.setOnKeyPressed(event -> handlerTxt_b_kgKeyPressed(event));
 			txt_b_cost.setOnKeyPressed(event -> handlerTxt_b_costKeyPressed(event));
 
-			// 소 또는 돼지 선택 이벤트
+			// 라디오버튼 소 또는 돼지 선택 이벤트
 			typeCow.setOnAction(event -> handlerTypeCowAction(event));
 			typePig.setOnAction(event -> handlerTypePigAction(event));
-			//
 
+			// 콤보박스 이벤트
+			cbx_b_origin.setOnAction(event -> handlerCbx_b_originAction(event));
+			cbx_b_brand.setOnAction(event -> handlerCbx_b_brandAction(event));
+			cbx_b_part.setOnAction(event -> handlerCbx_b_partAction(event));
 			cbx_b_importion.setOnAction(event -> handlerCbx_b_importionAction(event));
+			cbx_b_importion2.setOnAction(event -> handlerCbx_b_importion2Action(event));
 
 			// 상픔 입고 등록 버튼
 			btn_b_order.setOnAction(event -> handlerBtn_b_orderAction(event));
+			btn_b_return.setOnAction(event -> handlerBtn_b_returnAction(event));
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
+	}
+
+	public void handlerCbx_b_originAction(ActionEvent event) {
+		try {
+			selectedOrigin = cbx_b_origin.getValue().toString();
+			System.out.println(selectedOrigin);
+			if (!(selectedOrigin.equals(""))) {
+				cbx_b_brand.setDisable(false);
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("상품등록 실패");
+				alert.setHeaderText("원산지를 체크하세요");
+				alert.setContentText("다시입력해주세요");
+				alert.showAndWait();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+//브랜드 콤보박스 선택 이벤트
+	public void handlerCbx_b_brandAction(ActionEvent event) {
+		selectedBrand = cbx_b_brand.getValue().toString();
+		System.out.println(selectedBrand);
+		if (!(cbx_b_brand.equals(""))) {
+			cbx_b_part.setDisable(false);
+		} else {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("상품등록 실패");
+			alert.setHeaderText("브랜드를를 체크하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		}
+	}
+
+// 부위 콤보박스 선택 이벤트
+	public void handlerCbx_b_partAction(ActionEvent event) {
+		selectedPart = cbx_b_part.getValue().toString();
+		if (!(cbx_b_part.equals(""))) {
+			BuyDAO bdao = new BuyDAO();
+			try {
+				selectedBuyIndex = bdao.getProductNumber(selectedOrigin, selectedBrand, selectedPart);
+				p_no = selectedBuyIndex;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("상품등록 실패");
+			alert.setHeaderText("브랜드를를 체크하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
+		}
+	}
+
+	public void handlerCbx_b_importion2Action(ActionEvent event) {
+		try {
+
+			String selectedNameIndex = cbx_b_importion2.getSelectionModel().getSelectedItem().toString();
+			System.out.println(selectedNameIndex);
+			ImportionTabDAO idao = new ImportionTabDAO();
+			ArrayList<ImportionVO> list = new ArrayList();
+			// 상호명을 가져오는 메소드를 list에 저장
+
+			ImportionVO ivo = new ImportionVO();
+			list = idao.getImportionInfo(selectedNameIndex);
+
+			txt_i_address.setText(list.get(0).getI_address());
+			txt_i_business.setText(list.get(0).getI_business());
+			txt_i_representPhone.setText(list.get(0).getI_representPhone());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// 반품 버튼
+	public void handlerBtn_b_returnAction(ActionEvent event) {
 	}
 
 	// 거래처 상호명 가져오기
@@ -219,7 +364,25 @@ public class BuyTabController implements Initializable {
 		}
 	}
 
-	// 거래처 상호명 가져오기
+	public void handlerCbx_b_importionAction(ActionEvent event) {
+		// 선택한 상호명 인덱스값
+
+		String selectedNameIndex = cbx_b_importion.getSelectionModel().getSelectedItem();
+
+		ImportionTabDAO importion = new ImportionTabDAO();
+
+		try {
+
+			i_no = importion.getImportionNum(selectedNameIndex);
+			System.out.println(selectedNameIndex);
+			System.out.println(i_no);
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+	}
+
+	// 우측 콤보 박스 거래처 상호명 가져오기
 	public void importionName2() {
 
 		ArrayList<ImportionVO> list = new ArrayList();
@@ -243,62 +406,6 @@ public class BuyTabController implements Initializable {
 			e.printStackTrace();
 		}
 
-	}
-
-	// 거래처 상호명 누르면 회사 정보 가져오기
-	public void handlerCbx_b_importion2Action(String I_name) {
-		try {
-
-			String selectedNameIndex = cbx_b_importion2.getSelectionModel().getSelectedItem();
-
-			ImportionTabDAO idao = new ImportionTabDAO();
-			ArrayList<ImportionVO> list = new ArrayList();
-			// 직원명을 가져오는 메소드를 list에 저장
-
-			ImportionVO ivo = new ImportionVO();
-
-			list = idao.getImportionInfo(I_name);
-
-			txt_i_address.setText(list.get(0).getI_address());
-			txt_i_business.setText(list.get(0).getI_business());
-			txt_i_representPhone.setText(list.get(0).getI_representPhone());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public void handlerCbx_b_importionAction(ActionEvent event) {
-		// 선택한 직원명 인덱스값
-
-		String selectedNameIndex = cbx_b_importion.getSelectionModel().getSelectedItem();
-
-		ImportionTabDAO importion = new ImportionTabDAO();
-
-		String no;
-		try {
-
-			no = importion.getImportionNum(selectedNameIndex);
-			System.out.println(selectedNameIndex);
-			System.out.println(no);
-
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-	}
-
-	// 상품 원산지 가져오기
-	public void productOrigin() {
-
-		BuyDAO bdao = new BuyDAO();
-		ArrayList productOrigin = new ArrayList<>();
-
-		try {
-			productOrigin = bdao.getOrigin();
-			cbx_b_origin.setItems(FXCollections.observableArrayList(productOrigin));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	// 브랜드 콤보박스의 상품 브랜드명 가져오기
@@ -329,6 +436,20 @@ public class BuyTabController implements Initializable {
 			e.printStackTrace();
 		}
 
+	}
+
+	// 상품 원산지 가져오기
+	public void productOrigin() {
+
+		BuyDAO bdao = new BuyDAO();
+		ArrayList productOrigin = new ArrayList<>();
+
+		try {
+			productOrigin = bdao.getOrigin();
+			cbx_b_origin.setItems(FXCollections.observableArrayList(productOrigin));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	// 콤보박스 분류 돼지 클릭시 돼지 부위 가져오기
@@ -365,24 +486,28 @@ public class BuyTabController implements Initializable {
 		}
 	}
 
+	// 엔터시 다음 택스트 필드 이동
 	public void handlerTxt_b_codeKeyPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			txt_b_number.requestFocus();
 		}
 	}
 
+	// 엔터시 다음 택스트 필드 이동
 	public void handlerTxt_b_numberKeyPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			txt_b_kg.requestFocus();
 		}
 	}
 
+	// 엔터시 다음 택스트 필드 이동
 	public void handlerTxt_b_kgKeyPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			txt_b_cost.requestFocus();
 		}
 	}
 
+	// 엔터시 다음 택스트 필드 이동
 	public void handlerTxt_b_costKeyPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			btn_b_order.requestFocus();
@@ -407,12 +532,27 @@ public class BuyTabController implements Initializable {
 		}
 	}
 
+	public void stock() {
+		try {
+
+			boolean sucess;
+
+			BuyDAO bDao = new BuyDAO();
+			sucess = bDao.getStock(txt_b_number.getText().trim(), txt_b_kg.getText().trim(),
+					txt_b_cost.getText().trim(), s_state, p_no, b_no);
+			if (sucess) {
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	// 주문버튼 클릭시 저장
 	public void handlerBtn_b_orderAction(ActionEvent event) {
 
-		Alert alert = null; // 알럿 객체 null 초기화
-
 		// 빈칸시 경고창 실행
+		Alert alert = null; // 알럿 객체 null 초기화
 
 		if (txt_b_buydate.getText().trim().equals("")) {
 			txt_b_buydate.clear();
@@ -449,19 +589,17 @@ public class BuyTabController implements Initializable {
 		if (alert != null) {
 			return;
 		}
+		stock();
 		try {
 			buyDataList.removeAll(buyDataList);
 
 			BuyVO bvo = null;
 			BuyDAO bdao = null;
 
-			System.out.println((cbx_b_importion.getSelectionModel().getSelectedItem()));
-
-			bvo = new BuyVO(txt_b_buydate.getText().trim(), (cbx_b_importion.getSelectionModel().getSelectedItem()),
-					txt_b_code.getText().trim(), b_type, (cbx_b_origin.getSelectionModel().getSelectedItem()),
-					(cbx_b_brand.getSelectionModel().getSelectedItem()),
-					(cbx_b_part.getSelectionModel().getSelectedItem()), Integer.parseInt(txt_b_number.getText().trim()),
-					Double.parseDouble(txt_b_kg.getText().trim()), Integer.parseInt(txt_b_cost.getText().trim()));
+			bvo = new BuyVO(txt_b_buydate.getText().trim(), i_no, cbx_b_importion.getValue().toString(),
+					txt_b_code.getText().trim(), p_no, b_type, selectedOrigin, selectedBrand, selectedPart,
+					Integer.parseInt(txt_b_number.getText().trim()), Double.parseDouble(txt_b_kg.getText().trim()),
+					Integer.parseInt(txt_b_cost.getText().trim()));
 
 			bdao = new BuyDAO();
 			bdao.getBuyRegiste(bvo);
@@ -474,28 +612,16 @@ public class BuyTabController implements Initializable {
 				alert.setHeaderText("상품이 추가되었습니다");
 				alert.setContentText("다음 상품을 입력하세요");
 				alert.showAndWait();
-
 				// 등록후 초기화
-				cbx_b_importion.getSelectionModel().clearSelection();
-				cbx_b_origin.getSelectionModel().clearSelection();
-				cbx_b_brand.getSelectionModel().clearSelection();
-				cbx_b_part.getSelectionModel().clearSelection();
-
-				typePig.setSelected(false);
-				typeCow.setSelected(false);
-
-				txt_b_buydate.clear();
-				txt_b_code.clear();
-				txt_b_number.clear();
-				txt_b_kg.clear();
-				txt_b_cost.clear();
-
+				
+	
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		}
+
 	}
 
 }

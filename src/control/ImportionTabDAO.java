@@ -216,14 +216,14 @@ public class ImportionTabDAO {
 	}
 
 	// 매입 거래처 번호
-	public String getImportionNum(String i_name) throws Exception {
+	public int getImportionNum(String i_name) throws Exception {
 
 		String sql = "select i_no from Importion where i_name = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		String i_no = "";
+		int i_no = 0;
 
 		try {
 
@@ -233,7 +233,7 @@ public class ImportionTabDAO {
 
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				i_no = rs.getString("i_no");
+				i_no = rs.getInt("i_no");
 			}
 
 		} catch (SQLException se) {
