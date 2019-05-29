@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.DealVO;
-import oracle.net.aso.d;
 
 public class DealDAO {
 
@@ -42,7 +41,7 @@ public class DealDAO {
 				dVo = new DealVO();
 				// 쿼리문을 날리고 얻은 결과에서 값을 가져와 객체의 필드값을 설정한다.
 				dVo.setD_no(rs.getInt("d_no"));
-				dVo.setD_buyDate(rs.getString("d_buyDate"));
+				dVo.setD_dealDate(rs.getString("d_dealDate"));
 				dVo.setD_date(rs.getString("d_date"));
 				dVo.setA_name(rs.getString("a_name"));
 				dVo.setB_code(rs.getString("b_code"));
@@ -53,7 +52,7 @@ public class DealDAO {
 				dVo.setD_number(rs.getInt("d_number"));
 				dVo.setD_kg(rs.getDouble("d_kg"));
 				dVo.setD_cost(rs.getInt("d_cost"));
-				dVo.setD_totalMoney(rs.getDouble("d_totalMoney"));
+				dVo.setD_totalMoney(rs.getInt("d_totalMoney"));
 				dVo.setS_state(rs.getString("s_state"));
 
 				// 필드값을 설정해준후 arraylist배열에 객체를 추가한다.
