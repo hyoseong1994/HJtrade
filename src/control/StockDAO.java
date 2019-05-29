@@ -132,11 +132,11 @@ public class StockDAO {
 
 	// 출고
 	public boolean getDeal(String d_dealDate, String d_number, String d_kg, String d_cost, int selectedStockIndex,
-			String s_state, String p_no, String a_no) {
+			String s_state, String p_no, String a_no, String b_no) {
 		// sql문
 		String sql = "insert into deal"
-				+ " (d_no, d_date, d_dealDate, a_no, s_no, p_no, d_number, d_kg, d_cost, d_totalmoney)" + " values "
-				+ " (Deal_seq.nextval, sysdate, ?,  ?, ?, ?, ?, ?, ?, ?)";
+				+ " (d_no, d_date, d_dealDate, a_no, s_no, p_no, d_number, d_kg, d_cost, d_totalmoney, b_no)" + " values "
+				+ " (Deal_seq.nextval, sysdate, ?,  ?, ?, ?, ?, ?, ?, ?, ?)";
 		// connection, preparedstatement null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -156,6 +156,7 @@ public class StockDAO {
 			pstmt.setDouble(6, Double.parseDouble(d_kg));
 			pstmt.setInt(7, Integer.parseInt(d_cost));
 			pstmt.setDouble(8, d_total);
+			pstmt.setInt(9, Integer.parseInt(b_no));
 
 			// 결과값 변수에 저장
 			int i = pstmt.executeUpdate();

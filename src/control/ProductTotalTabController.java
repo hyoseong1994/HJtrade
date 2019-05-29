@@ -35,7 +35,7 @@ public class ProductTotalTabController implements Initializable {
 	@FXML
 	private TextField txt_p_part; // 부위
 	@FXML
-	private Button btn_p_register; // 등록버튼
+	private Button btn_p_register; // 등록버튼 
 	@FXML
 	private TableView<ProductVO> productTableView = new TableView<>();
 	@FXML
