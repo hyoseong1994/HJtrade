@@ -24,28 +24,25 @@ import javafx.scene.control.PasswordField;
 public class LoginController implements Initializable {
 
 	@FXML
-	private TextField txtId;// 직원코드
+	private TextField txtId;
 	@FXML
-	private PasswordField txtPassword;// 패스워드
+	private PasswordField txtPassword;
 	@FXML
-	private Button btnCancel;// 닫기 버튼
+	private Button btnCancel;
 	@FXML
-	private Button btnLogin;// 로그인 버튼
+	private Button btnLogin;
 	@FXML
-	private Button btnJoin;// 직원 등록 버튼
+	private Button btnJoin;
+	@FXML
+	private ToggleGroup loginGroup;
 
-	// 이름 변수 선언
 	public static String name = "";
 
-	// 초기 설정
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		// 텍스트 필드 Enter 이벤트 등록
 		txtId.setOnKeyPressed(event -> handerTxtIdKeyPressed(event)); // 아이디 입력에서 Enter키 이벤트 적용
 		txtPassword.setOnKeyPressed(event -> handerTxtPasswordKeyPressed(event)); // 패스워드 입력에서 Enter키 이벤트 적용
-
-		// 버튼 이벤트 등록
 		btnJoin.setOnAction(event -> handerBtnJoinAction(event)); // 등록창으로 전환
 		btnLogin.setOnAction(event -> handlerBtnLoginActoion(event)); // 로그인
 		btnCancel.setOnAction(event -> handlerBtnCancelActoion(event)); // 로그인창 닫기
@@ -62,13 +59,12 @@ public class LoginController implements Initializable {
 	// 패스워드 입력에서 Enter키 이벤트 적용
 	public void handerTxtPasswordKeyPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
-			login();// 로그인 메소드 호출
+			login();
 		}
 	}
 
 	// 등록창으로 전환
 	public void handerBtnJoinAction(ActionEvent event) {
-		// 직원 등록 UI
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/join.fxml"));
 			Parent mainView = (Parent) loader.load();
@@ -79,8 +75,8 @@ public class LoginController implements Initializable {
 			Stage oldStage = (Stage) btnLogin.getScene().getWindow();
 			oldStage.close();
 			mainMtage.show();
-			// 직원 등록 UI 실행중 오류시 오류 내용 출력
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			System.err.println("오류" + e);
 		}
 	}
@@ -92,24 +88,20 @@ public class LoginController implements Initializable {
 
 	// 로그인
 	public void handlerBtnLoginActoion(ActionEvent event) {
-		login();// 로그인 메소드 호출
+		login();
 	}
 
 	// 로그인 메소드
 	public void login() {
-		// DAO 인스턴스 선언
 		LoginDAO login = new LoginDAO();
 
-		// 결과값 저장을 위한 변수 선언
 		boolean sucess = false;
 
 		try {
-			name = LoginName();// 로그인 메소드 호출및 결과값 name에 저장
-			// 결과값 변수에 저장
+			name = LoginName();
 			sucess = login.getLogin(txtId.getText().trim(), txtPassword.getText().trim());
 			// 로그인 성공시 메인 페이지로 이동
 			if (sucess) {
-				// 로그인 UI 실행
 				try {
 					FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/mainView.fxml"));
 					Parent mainView = (Parent) loader.load();
@@ -121,12 +113,10 @@ public class LoginController implements Initializable {
 					Stage oldStage = (Stage) btnLogin.getScene().getWindow();
 					oldStage.close();
 					mainMtage.show();
-					// 로그인 UI 실행중 오류시 오류내용출력
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					System.err.println("오류" + e);
 				}
-				// 로그인 실패시 출력
 			} else {
 				// 아이디패스워드 확인하라는 창
 				Alert alert;
@@ -137,15 +127,13 @@ public class LoginController implements Initializable {
 				alert.setResizable(false);
 				alert.showAndWait();
 
-				// 텍스트 필드 초기화
 				txtId.clear();
 				txtPassword.clear();
 			}
-			// 로그인 실행중 오류시 오류내용출력
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-		// 직원코드 또는 패스워드 공란일떄 실행
+
 		if (txtId.getText().equals("") || txtPassword.getText().equals("")) {
 			Alert alert;
 			alert = new Alert(AlertType.WARNING);
@@ -158,22 +146,17 @@ public class LoginController implements Initializable {
 
 	}
 
-	// 로그인 이름 가져오기
 	public String LoginName() {
-		// DAO 인스턴스 선언
 		LoginDAO ldao = new LoginDAO();
 
-		// 코드 변수 null값 초기화
-		String code = null;
+		String name = null;
 
 		try {
-			// 텍스트 필드에 있는 직원코드 입력
-			code = ldao.getLoginName(txtId.getText());
+			name = ldao.getLoginName(txtId.getText());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// 결과값 name 반화
 		return name;
 	}
 }

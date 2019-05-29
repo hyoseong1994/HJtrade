@@ -3,8 +3,8 @@ package model;
 public class CollectVO {
 	private int c_no;// 수금 번호
 	private String c_date;// 수금 일자
-	private String c_name;// 수금 거래처 상호명
-	private String c_business;// 수금 거래처
+	private String c_name;// 판매 거래처 상호명
+	private String c_business;// 판매거래
 	private String a_businessNumber;// 판매거래처 사업자번호
 	private int c_collectMoney;// 수금액
 

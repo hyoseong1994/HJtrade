@@ -80,7 +80,7 @@
 
 				<children>
 					<Label text="입고 목록" />
-					<TableView prefHeight="200" prefWidth="970"
+					<TableView prefHeight="200" prefWidth="1150"
 						fx:id="BuyTableView">
 					</TableView>
 				</children>
@@ -105,7 +105,7 @@
 			<Label text="대표자번호	:" />
 			<children>
 				<Label text="출고 목록" />
-				<TableView prefHeight="200" prefWidth="800">
+				<TableView prefHeight="200" prefWidth="1000" fx:id="DealTableView">
 				</TableView>
 			</children>
 			<VBox prefWidth="100">

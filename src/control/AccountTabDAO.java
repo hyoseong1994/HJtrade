@@ -9,33 +9,26 @@ import java.util.ArrayList;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.TextField;
 import model.AccountVO;
 
 public class AccountTabDAO {
 
 	// 전체 리스트
 	public ArrayList<AccountVO> getaccountVOTotalList() throws Exception {
-		// ARrayList 에 VO 넣기
 		ArrayList<AccountVO> list = new ArrayList<>();
 
-		// 쿼리문
 		String sql = "select * from account order by A_no";
-
-		// connection, preparedstatement, resultset VO null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		AccountVO aVo = null;
 
 		try {
-			// DB 연결
-			con = DBUtil.getConnection();
-			// PreparedStatement 에 쿼리문 저장
-			pstmt = con.prepareStatement(sql);
-			// ResultSet 결과값 저장
-			rs = pstmt.executeQuery();
 
-			// VO에 DB값을 저장하기위한 반복문
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				aVo = new AccountVO();
 				aVo.setA_no(rs.getInt("A_no"));
@@ -55,11 +48,11 @@ public class AccountTabDAO {
 
 		} catch (SQLException se) {
 			System.out.println(se);
+			se.printStackTrace();
 		} catch (Exception e) {
 			System.out.println(e);
 		} finally {
 			try {
-				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
 				if (rs != null)
 					rs.close();
 				if (pstmt != null)
@@ -69,27 +62,21 @@ public class AccountTabDAO {
 			} catch (SQLException se) {
 			}
 		}
-		// 결과값 list 반환
 		return list;
 	}
 
 	// 판매 거래처 등록
 	public void getAccountRegiste(AccountVO aVo) throws Exception {
 
-		// 쿼리문
 		String sql = "insert into Account" + "(A_no,  A_name, A_businessNumber, A_represent, A_representPhone, "
 				+ "A_charge, A_chargePhone, A_address, A_email, A_business, A_collect)" + " values "
 				+ "(Account_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-		// connection, preparedstatement null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 
-			// DB 연결
 			con = DBUtil.getConnection();
-			// PreparedStatement 에 쿼리문 저장
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, aVo.getA_name());
 			pstmt.setString(2, aVo.getA_businessNumber());
@@ -102,7 +89,6 @@ public class AccountTabDAO {
 			pstmt.setString(9, aVo.getA_business());
 			pstmt.setInt(10, aVo.getA_collect());
 
-			// 결과값 변수에 저장
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
@@ -139,28 +125,18 @@ public class AccountTabDAO {
 	public ArrayList<String> getaccountColumnName() throws Exception {
 		ArrayList<String> columnName = new ArrayList<String>();
 
-		// 쿼리문
 		String sql = "select * from account";
-
-		// connection, preparedstatement, resultset, ResultSetMetaData null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		// ResultSetMetaData 객체 변수 선언
 		ResultSetMetaData rsmd = null;
 		try {
-			// DB 연결
 			con = DBUtil.getConnection();
-			// PreparedStatement 에 쿼리문 저장
 			pstmt = con.prepareStatement(sql);
-			// ResultSet 결과값 저장
 			rs = pstmt.executeQuery();
-			// ResultSetMetaData 결과값 저장
 			rsmd = rs.getMetaData();
-
-			// 결과값 변수에 저장
 			int cols = rsmd.getColumnCount();
-
-			// 결과를 컬럼에 넣기 위한 for문
 			for (int i = 1; i <= cols; i++) {
 				columnName.add(rsmd.getColumnName(i));
 			}
@@ -170,7 +146,6 @@ public class AccountTabDAO {
 			System.out.println(e);
 		} finally {
 			try {
-				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
 				if (rs != null)
 					rs.close();
 				if (pstmt != null)
@@ -180,7 +155,6 @@ public class AccountTabDAO {
 			} catch (SQLException se) {
 			}
 		}
-		// 결과값 columnName 반환
 		return columnName;
 	}
 
@@ -189,18 +163,14 @@ public class AccountTabDAO {
 			String A_representPhone, String A_charge, String A_chargePhone, String A_adress, String A_email,
 			String A_business) throws Exception {
 
-		// 쿼리문
 		String sql = "update account set A_name=?, A_businessNumber=?, A_represent=? ,A_representPhone=?,"
 				+ "A_charge=?, A_chargePhone=?, A_address=?, A_email=?, A_business=? where A_no=?";
-		// connection, preparedstatement null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean accountUpdateSucess = false;
 
 		try {
-			// DB 연결
 			con = DBUtil.getConnection();
-			// PreparedStatement 에 쿼리문 저장
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, A_name);
 			pstmt.setString(2, A_businessNumber);
@@ -212,8 +182,6 @@ public class AccountTabDAO {
 			pstmt.setString(8, A_email);
 			pstmt.setString(9, A_business);
 			pstmt.setInt(10, A_no);
-
-			// 결과값 변수에 저장
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
@@ -244,31 +212,25 @@ public class AccountTabDAO {
 			} catch (SQLException e) {
 			}
 		}
-		// 결과값 accountUpdateSucess 반환
 		return accountUpdateSucess;
 	}
 
 	// 판매거래처 번호
 	public String getaccountNum(String A_name) throws Exception {
 
-		// 쿼리문
 		String sql = "select A_no from account where A_name = ?";
-		// connection, preparedstatement, resultset null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		// 결과값 저장을 위한 변수 선언
 		String A_no = "";
 
 		try {
 
-			// DB 연결
 			con = DBUtil.getConnection();
-			// PreparedStatement 에 쿼리문 저장
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, A_name);
-			// ResultSet 결과값 저장
+
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				A_no = rs.getString("A_no");
@@ -280,7 +242,6 @@ public class AccountTabDAO {
 			System.out.println(e);
 		} finally {
 			try {
-				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
 				if (rs != null)
 					rs.close();
 				if (pstmt != null)
@@ -290,30 +251,25 @@ public class AccountTabDAO {
 			} catch (SQLException se) {
 			}
 		}
-		// 결과값 A_no 반환
 		return A_no;
 	}
 
 	// 거래처 삭제
 	public boolean getaccountDelete(int A_no) throws Exception {
 
-		// 쿼리문
 		StringBuffer sql = new StringBuffer();
 		sql.append("delete from account where A_no = ?");
 
-		// connection, preparedstatement null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean imporiontDeleteSucess = false;
 
 		try {
-			// DB 연결
 			con = DBUtil.getConnection();
-			// PreparedStatement 에 쿼리문 저장
+
 			pstmt = con.prepareStatement(sql.toString());
 			pstmt.setInt(1, A_no);
 
-			// 결과값 변수에 저장
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
@@ -344,29 +300,22 @@ public class AccountTabDAO {
 			} catch (SQLException e) {
 			}
 		}
-		// 결과값 imporiontDeleteSucess 반환
 		return imporiontDeleteSucess;
 	}
 
 	// 아이디 중복 체크
 	public boolean getOverlapBN(String searchBN) throws Exception {
 
-		// 쿼리문
 		String sql = "select * from account where A_businessNumber = ?";
-
-		// connection, preparedstatement, ResultSet null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		boolean BNOverlapResult = false;
 
 		try {
-			// DB 연결
 			con = DBUtil.getConnection();
-			// PreparedStatement 에 쿼리문 저장
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, searchBN);
-			// ResultSet 결과값 저장
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				BNOverlapResult = true; // 중복된 사업자번호가 있다.
@@ -388,33 +337,26 @@ public class AccountTabDAO {
 			} catch (SQLException e) {
 			}
 		}
-		// 결과값 BNOverlapResult 반환
 		return BNOverlapResult;
 	}
 
 	// 수금 등록
 	public boolean getCollect(String A_name, String A_business, String A_collect, int A_no) throws Exception {
 
-		// 쿼리문
 		String sql = "insert into Collect" + "(C_no, C_date, C_name, C_business, c_collectMoney, a_no)" + " values "
 				+ "(Collect_seq.nextval, sysdate, ?,  ?, ?, ?)";
-
-		// connection, preparedstatement null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean collectUpdateSucess = false;
 
 		try {
-			// DB 연결
 			con = DBUtil.getConnection();
-			// PreparedStatement 에 쿼리문 저장
 			pstmt = con.prepareStatement(sql);
+
 			pstmt.setString(1, A_name);
 			pstmt.setString(2, A_business);
 			pstmt.setInt(3, Integer.parseInt(A_collect));
 			pstmt.setInt(4, A_no);
-
-			// 결과 값 변수에 저장
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
@@ -445,30 +387,22 @@ public class AccountTabDAO {
 			} catch (SQLException e) {
 			}
 		}
-		// 결과값 collectUpdateSucess 반환
 		return collectUpdateSucess;
 	}
 
 	// 거래처 미수금액 수정
 	public boolean getaccountUpdateCollect(int A_no, String A_collect) throws Exception {
 
-		// 쿼리문
 		String sql = "update account set A_collect = A_collect-? where A_no=?";
-
-		// connection, preparedstatement null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean accountUpdateSucess = false;
 
 		try {
-			// DB 연결
 			con = DBUtil.getConnection();
-			// PreparedStatement 에 쿼리문 저장
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, Integer.parseInt(A_collect));
 			pstmt.setInt(2, A_no);
-
-			// 결과 값 변수에 저장
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
@@ -499,7 +433,6 @@ public class AccountTabDAO {
 			} catch (SQLException e) {
 			}
 		}
-		// 결과값 accountUpdateSucess 반환
 		return accountUpdateSucess;
 	}
 
@@ -508,10 +441,7 @@ public class AccountTabDAO {
 		// TODO Auto-generated method stub
 		ArrayList<AccountVO> list = new ArrayList<>();
 
-		// 쿼리문
 		String sql = "select a_name from account";
-
-		// connection, preparedstatement, ResultSet null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -519,14 +449,9 @@ public class AccountTabDAO {
 
 		try {
 
-			// DB 연결
 			con = DBUtil.getConnection();
-			// PreparedStatement 에 쿼리문 저장
 			pstmt = con.prepareStatement(sql);
-			// ResultSet 결과값 저장
 			rs = pstmt.executeQuery();
-			
-			//결과를 가져오기위한 반복문
 			while (rs.next()) {
 				aVo = new AccountVO();
 				aVo.setA_name(rs.getString("A_name"));
@@ -540,7 +465,6 @@ public class AccountTabDAO {
 			System.out.println(e);
 		} finally {
 			try {
-				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
 				if (rs != null)
 					rs.close();
 				if (pstmt != null)
@@ -550,7 +474,6 @@ public class AccountTabDAO {
 			} catch (SQLException se) {
 			}
 		}
-		// 결과값 list 반환
 		return list;
 	}
 

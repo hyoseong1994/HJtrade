@@ -2,18 +2,18 @@ package model;
 
 public class JoinVO {
 
-	String id;// 아이디
-	String password;// 패스워드
-	String name;// 직원명
-	String adress;// 직원 주소
-	String phone;// 핸드폰번호
+	String id;
+	String password;
+	String name;
+	String adress;
+	String phone;
 
 	// 디폴트 생성자
 	public JoinVO() {
 		super();
 	}
 
-	// 이름, 패스워드, 주소, 전화번호 제외한 생성자
+	//  이름, 패스워드, 주소, 전화번호 제외한 생성자
 	public JoinVO(String id) {
 		super();
 		this.id = id;

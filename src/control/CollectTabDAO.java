@@ -10,16 +10,14 @@ import model.CollectVO;
 
 public class CollectTabDAO {
 
-	// 수금 리스트 DB에서 호출
+	//수금 리스트 DB에서 호출
 	public ArrayList<CollectVO> getCollectVOTotalList() {
-		// ArrayList 인스턴스 생성
 		ArrayList<CollectVO> list = new ArrayList<>();
 
-		// 쿼리문
-		String sql = "select c.c_no, c.c_date, c.c_name, a.a_businessNumber, c.c_business, c.c_collectMoney"
-				+ " from collect c, account a" + " where c.a_no = a.a_no" + " order by c_no";
-
-		// connection, preparedstatement, ResultSet, CollectVO null값 초기화
+		String sql = "select c.c_no, c.c_date, c.c_name, a.a_businessNumber, c.c_business, c.c_collectMoney"+
+		" from collect c, account a"+
+		" where c.a_no = a.a_no"+
+		" order by c_no";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -27,14 +25,9 @@ public class CollectTabDAO {
 
 		try {
 
-			// DB 연결
 			con = DBUtil.getConnection();
-			// PreparedStatement 에 쿼리문 저장
 			pstmt = con.prepareStatement(sql);
-			// ResultSet 결과값 저장
 			rs = pstmt.executeQuery();
-
-			// 결과를 가져오기위한 반복문
 			while (rs.next()) {
 				// 인스턴스 생성
 				cVo = new CollectVO();
@@ -56,7 +49,6 @@ public class CollectTabDAO {
 			System.out.println(e);
 		} finally {
 			try {
-				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
 				if (rs != null)
 					rs.close();
 				if (pstmt != null)
@@ -66,7 +58,6 @@ public class CollectTabDAO {
 			} catch (SQLException se) {
 			}
 		}
-		// 결과값 list 반환
 		return list;
 	}
 
@@ -75,10 +66,10 @@ public class CollectTabDAO {
 		// ArrayList배열 생성
 		ArrayList<CollectVO> list = new ArrayList<>();
 		// 이름으로 데이터를 가져오는 sql문
-		String sql = "select c.c_no, c.c_date, c.c_name, a.a_businessNumber, c.c_business, c.c_collectMoney"
-				+ " from collect c , account a" + " where c.a_no = a.a_no and c.c_name = ?" + " order by c_no";
-
-		// connection, preparedstatement, ResultSet null값 초기화
+		String sql = "select c.c_no, c.c_date, c.c_name, a.a_businessNumber, c.c_business, c.c_collectMoney" +
+				" from collect c , account a" +
+				" where c.a_no = a.a_no and c.c_name = ?" +
+				" order by c_no";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -94,7 +85,6 @@ public class CollectTabDAO {
 			// sql문을 날리고 결과를 저장
 			rs = pstmt.executeQuery();
 
-			// 결과를 가져오기위한 반복문
 			while (rs.next()) {
 				// 인스턴스 생성
 				cVo = new CollectVO();
@@ -127,7 +117,7 @@ public class CollectTabDAO {
 			}
 		}
 
-		// list 객체 배열 반환
+		// customerVO 객체 배열 반환
 		return list;
 
 	}

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import model.AccountVO;
+import model.BuyVO;
 import model.ImportionVO;
 
 public class ImportionTabDAO {
@@ -483,7 +484,7 @@ public class ImportionTabDAO {
 
 		ArrayList<ImportionVO> list = new ArrayList();
 
-		String sql = "select i_address , i_business ,i_representPhonefrom Importion where i_name = ? ";
+		String sql = "select i_address , i_business ,i_representPhone from Importion where i_name = ? ";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -528,6 +529,60 @@ public class ImportionTabDAO {
 		}
 
 		return list;
+	}
+	public ArrayList<BuyVO> getselectTotalList(String i_name) throws Exception {
+		ArrayList<BuyVO> list = new ArrayList<>();
 
+		String sql = "select b.b_no, b.b_buyDate, b.b_date, i.i_name, b.b_code, p.p_type, p.p_origin, p.p_brand, p.p_part, b.b_number, b.b_kg , b.b_cost, b.b_totalmoney,s.s_state"
+				+ " from buy b, product p, importion i, stock s" + " where b.p_no = p.p_no and b.i_no = i.i_no and b.s_no = s.s_no and i.i_name=?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		BuyVO bVo = null;
+
+		try {
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+
+			pstmt.setString(1, i_name);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+
+				bVo = new BuyVO();
+				bVo.setB_no(rs.getInt("B_no"));
+				bVo.setB_buyDate(rs.getString("B_buyDate"));
+				bVo.setB_date(rs.getString("B_date"));
+				bVo.setI_name(rs.getString("I_name"));
+				bVo.setB_code(rs.getString("B_code"));
+				bVo.setP_type(rs.getString("P_type"));
+				bVo.setP_origin(rs.getString("P_origin"));
+				bVo.setP_brand(rs.getString("P_brand"));
+				bVo.setP_part(rs.getString("P_part"));
+				bVo.setB_number(rs.getInt("B_number"));
+				bVo.setB_kg(rs.getDouble("B_kg"));
+				bVo.setB_cost(rs.getInt("B_cost"));
+				bVo.setB_totalMoney(rs.getInt("B_totalMoney"));
+
+				list.add(bVo);
+
+			}
+
+		} catch (SQLException se) {
+			System.out.println(se);
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+
+			}
+		}
+		return list;
 	}
 }

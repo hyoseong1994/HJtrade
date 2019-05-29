@@ -1,12 +1,12 @@
 package model;
 
 public class PaymentVO {
-	private int p_no;// 입금 일련번호
-	private String p_date;// 입금일
-	private String p_name;// 입금 상호명
-	private String i_businessNumber;// 매입 사업자번호
-	private String p_business;// 입금 업태
-	private int p_paymentMoney;// 입금액
+	private int p_no;
+	private String p_date;
+	private String p_name;
+	private String i_businessNumber;
+	private String p_business;
+	private int p_paymentMoney;
 
 	// 디폴트 생성자
 	public PaymentVO() {

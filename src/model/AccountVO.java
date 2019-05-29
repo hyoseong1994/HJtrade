@@ -3,17 +3,17 @@ package model;
 import java.util.ArrayList;
 
 public class AccountVO {
-	private int a_no;// 판매거래처 일련번호
-	private String a_name;// 판매거래처 상호명
-	private String a_businessNumber;// 판매거래처 사업자번호
-	private String a_represent;// 판매거래처 대표자
-	private String a_representPhone;// 판매거래처 대표자번호
-	private String a_charge;// 판매거래처 담당자
-	private String a_chargePhone;// 판매거래처 담당자번호
-	private String a_address;// 판매거래처 주소
-	private String a_email;// 판매거래처 이메일
-	private String a_business;// 판매거래처 업태
-	private int a_collect;// 수금액
+	private int a_no;
+	private String a_name;
+	private String a_businessNumber;
+	private String a_represent;
+	private String a_representPhone;
+	private String a_charge;
+	private String a_chargePhone;
+	private String a_address;
+	private String a_email;
+	private String a_business;
+	private int a_collect;
 
 	// 디폴트 생성자
 	public AccountVO() {
