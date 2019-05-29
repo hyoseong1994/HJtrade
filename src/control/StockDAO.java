@@ -15,13 +15,11 @@ public class StockDAO {
 
 	// 재고 테이블 전체 리스트
 	public ArrayList<StockVO> getStockTotalList() {
-		// ArrayList배열 생성
 		ArrayList<StockVO> list = new ArrayList<>();
-		// sql문
+
 		String sql = "select s.s_no, b.b_date, b.b_code, p.p_type, p.p_origin, p.p_brand, p.p_part,"
 				+ " s.s_number, s.s_kg, s.s_cost, s.s_totalMoney, s.s_state" + " from stock s, buy b, product p"
 				+ " where s.s_no = b.s_no and s.p_no = p.p_no and s.s_no = b.s_no" + " order by s.s_no";
-		// connection, preparedstatement, ResultSet, StockVO null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -29,13 +27,9 @@ public class StockDAO {
 
 		try {
 
-			// DB연동
 			con = DBUtil.getConnection();
-			// sql문을 담을 그릇
 			pstmt = con.prepareStatement(sql);
-			// sql문을 날리고 결과를 저장
 			rs = pstmt.executeQuery();
-			// 결과를 가져오기위한 반복문
 			while (rs.next()) {
 				// 인스턴스 생성
 				sVo = new StockVO();
@@ -63,7 +57,6 @@ public class StockDAO {
 			System.out.println(e);
 		} finally {
 			try {
-				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
 				if (rs != null)
 					rs.close();
 				if (pstmt != null)
@@ -73,29 +66,22 @@ public class StockDAO {
 			} catch (SQLException se) {
 			}
 		}
-		// 결과값 list 반환
 		return list;
 	}
 
 	// 출고의 의한 재고 수정
 	public boolean getStockUpdateStock(String s_number, String s_kg, int selectedStockIndex) {
-		// sql문
 		String sql = "update Stock set S_number = S_number - ? , S_kg = S_kg - ? where S_no = ?";
-		// connection, preparedstatement null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean stockUpdateSucess = false;
 
 		try {
-			// DB연동
 			con = DBUtil.getConnection();
-			// sql문을 담을 그릇
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, Integer.parseInt(s_number));
 			pstmt.setDouble(2, Double.parseDouble(s_kg));
 			pstmt.setInt(3, selectedStockIndex);
-
-			// 결과값 변수에 저장
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
@@ -126,28 +112,24 @@ public class StockDAO {
 			} catch (SQLException e) {
 			}
 		}
-		// 결과값 stockUpdateSucess 반환
 		return stockUpdateSucess;
 	}
 
 	// 출고
 	public boolean getDeal(String d_dealDate, String d_number, String d_kg, String d_cost, int selectedStockIndex,
 			String s_state, String p_no, String a_no, String b_no) {
-		// sql문
 		String sql = "insert into deal"
 				+ " (d_no, d_date, d_dealDate, a_no, s_no, p_no, d_number, d_kg, d_cost, d_totalmoney, b_no)" + " values "
 				+ " (Deal_seq.nextval, sysdate, ?,  ?, ?, ?, ?, ?, ?, ?, ?)";
-		// connection, preparedstatement null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean DealUpdateSucess = false;
 		double d_total = Double.parseDouble(d_kg) * Integer.parseInt(d_cost);
 
 		try {
-			// DB연동
 			con = DBUtil.getConnection();
-			// sql문을 담을 그릇
 			pstmt = con.prepareStatement(sql);
+
 			pstmt.setString(1, d_dealDate);
 			pstmt.setInt(2, Integer.parseInt(a_no));
 			pstmt.setInt(3, selectedStockIndex);
@@ -157,8 +139,6 @@ public class StockDAO {
 			pstmt.setInt(7, Integer.parseInt(d_cost));
 			pstmt.setDouble(8, d_total);
 			pstmt.setInt(9, Integer.parseInt(b_no));
-
-			// 결과값 변수에 저장
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
@@ -190,7 +170,7 @@ public class StockDAO {
 			} catch (SQLException e) {
 			}
 		}
-		// 결과값 DealUpdateSucess 반환
 		return DealUpdateSucess;
 	}
+
 }
