@@ -64,6 +64,8 @@ public class ProductTotalTabController implements Initializable {
 	private String brand;
 	@FXML
 	private String part;
+	private String b_no;
+	
 
 	public static ObservableList<ProductVO> productDataList = FXCollections.observableArrayList();
 	ObservableList<ProductVO> selectProduct = null; // 테이블에서 선택한 정보저장
@@ -168,19 +170,19 @@ public class ProductTotalTabController implements Initializable {
 			col_S_cost.setStyle("-fx-allignment:CENTER");
 			col_S_cost.setCellValueFactory(new PropertyValueFactory<>("s_cost"));
 
-			TableColumn col_S_totalMoney = new TableColumn("총 금액");
-			col_S_totalMoney.setPrefWidth(70);
-			col_S_cost.setStyle("-fx-allignment:CENTER");
-			col_S_cost.setCellValueFactory(new PropertyValueFactory<>("s_totalMoney"));
+			TableColumn col_S_totalmoney = new TableColumn("총 금액");
+			col_S_totalmoney.setPrefWidth(70);
+			col_S_totalmoney.setStyle("-fx-allignment:CENTER");
+			col_S_totalmoney.setCellValueFactory(new PropertyValueFactory<>("s_totalMoney"));
 
 			TableColumn col_S_state = new TableColumn("상태");
 			col_S_state.setPrefWidth(50);
-			col_S_cost.setStyle("-fx-allignment:CENTER");
-			col_S_cost.setCellValueFactory(new PropertyValueFactory<>("s_state"));
+			col_S_state.setStyle("-fx-allignment:CENTER");
+			col_S_state.setCellValueFactory(new PropertyValueFactory<>("s_state"));
 
 			stockTableView.setItems(stockDataList);
 			stockTableView.getColumns().addAll(col_S_No, col_B_date, col_S_code, col_P_type1, col_P_origin1,
-					col_P_brand1, col_P_part1, col_S_number, col_S_kg, col_S_cost, col_S_totalMoney, col_S_state);
+					col_P_brand1, col_P_part1, col_S_number, col_S_kg, col_S_cost, col_S_totalmoney, col_S_state);
 
 			// 재고 전체 목록
 			stockTotalList();
@@ -388,12 +390,14 @@ public class ProductTotalTabController implements Initializable {
 				double selectedS_kg = selectStock.get(0).getS_kg();
 				int selectedS_cost = selectStock.get(0).getS_cost();
 				String selectedS_state = selectStock.get(0).getS_state();
+				String selectedB_code = selectStock.get(0).getB_code();
 				
 				System.out.println(selectedStockIndex);
 				
 				origin = selectStock.get(0).getP_origin();
 				brand = selectStock.get(0).getP_brand();
 				part = selectStock.get(0).getP_part();
+				b_no = selectStock.get(0).getB_code();
 
 				txt_S_number.setText(selectedS_number + "");
 				txt_S_kg.setText(selectedS_kg + "");
@@ -427,7 +431,7 @@ public class ProductTotalTabController implements Initializable {
 			StockDAO sDao = new StockDAO();
 			sucess = sDao.getDeal(txt_S_dealDate.getText().trim(), txt_S_number.getText().trim(),
 					txt_S_kg.getText().trim(), txt_S_cost.getText().trim(), selectedStockIndex,
-					S_state, p_no, a_no);
+					S_state, p_no, a_no,b_no);
 			if (sucess) {
 				
 			}

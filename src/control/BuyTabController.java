@@ -33,6 +33,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import model.AccountVO;
 import model.BuyVO;
+import model.DealVO;
 import model.ImportionVO;
 import model.ProductVO;
 
@@ -95,9 +96,14 @@ public class BuyTabController implements Initializable {
 	private String p_brand;
 	@FXML
 	private String p_part;
+	@FXML
+	private TableView<DealVO> DealTableView = new TableView<>();
 
 	ObservableList<BuyVO> buyDataList = FXCollections.observableArrayList();
 	ObservableList<BuyVO> selectBuy = null;
+
+	ObservableList<DealVO> dealDataList = FXCollections.observableArrayList();
+	ObservableList<DealVO> selectdeal = null;
 
 	int selectedBuyIndex; // 테이블에 선택한 상품 정보 인덱스저장
 	String selectedOrigin = "";
@@ -231,6 +237,83 @@ public class BuyTabController implements Initializable {
 
 			// 매입 전체 목록
 			BuyTotalList();
+
+			// 출고 테이블 뷰 컬럼이름 설정
+			TableColumn col_D_No = new TableColumn("입고번호");
+			col_D_No.setPrefWidth(70);
+			col_D_No.setStyle("-fx-allignment:CENTER");
+			col_D_No.setCellValueFactory(new PropertyValueFactory<>("d_no"));
+			TableColumn col_D_dealDate = new TableColumn("주문일자");
+			col_D_dealDate.setPrefWidth(120);
+			col_D_dealDate.setStyle("-fx-allignment:CENTER");
+			col_D_dealDate.setCellValueFactory(new PropertyValueFactory<>("d_dealDate"));
+
+			TableColumn col_D_date = new TableColumn("거래일자");
+			col_D_date.setPrefWidth(130);
+			col_D_date.setStyle("-fx-allignment:CENTER");
+			col_D_date.setCellValueFactory(new PropertyValueFactory<>("d_date"));
+
+			TableColumn col_A_name = new TableColumn("상호명");
+			col_A_name.setPrefWidth(100);
+			col_A_name.setStyle("-fx-allignment:CENTER");
+			col_A_name.setCellValueFactory(new PropertyValueFactory<>("a_name"));
+
+			TableColumn col_B_code1 = new TableColumn("식별번호");
+			col_B_code1.setPrefWidth(90);
+			col_B_code1.setStyle("-fx-allignment:CENTER");
+			col_B_code1.setCellValueFactory(new PropertyValueFactory<>("b_code"));
+
+			TableColumn col_P_type1 = new TableColumn("분류");
+			col_P_type1.setPrefWidth(50);
+			col_P_type1.setStyle("-fx-allignment:CENTER");
+			col_P_type1.setCellValueFactory(new PropertyValueFactory<>("p_type"));
+
+			TableColumn col_P_origin1 = new TableColumn("원산지");
+			col_P_origin1.setPrefWidth(60);
+			col_P_origin1.setStyle("-fx-allignment:CENTER");
+			col_P_origin1.setCellValueFactory(new PropertyValueFactory<>("p_origin"));
+
+			TableColumn col_P_brand1 = new TableColumn("브랜드");
+			col_P_brand1.setPrefWidth(80);
+			col_P_brand1.setStyle("-fx-allignment:CENTER");
+			col_P_brand1.setCellValueFactory(new PropertyValueFactory<>("p_brand"));
+
+			TableColumn col_P_part1 = new TableColumn("부위");
+			col_P_part1.setPrefWidth(90);
+			col_P_part1.setStyle("-fx-allignment:CENTER");
+			col_P_part1.setCellValueFactory(new PropertyValueFactory<>("p_part"));
+
+			TableColumn col_D_number = new TableColumn("수량");
+			col_D_number.setPrefWidth(70);
+			col_D_number.setStyle("-fx-allignment:CENTER");
+			col_D_number.setCellValueFactory(new PropertyValueFactory<>("b_number"));
+
+			TableColumn col_D_kg = new TableColumn("중량");
+			col_D_kg.setPrefWidth(70);
+			col_D_kg.setStyle("-fx-allignment:CENTER");
+			col_D_kg.setCellValueFactory(new PropertyValueFactory<>("b_kg"));
+
+			TableColumn col_D_cost = new TableColumn("단가");
+			col_D_cost.setPrefWidth(70);
+			col_D_cost.setStyle("-fx-allignment:CENTER");
+			col_D_cost.setCellValueFactory(new PropertyValueFactory<>("b_cost"));
+
+			TableColumn col_D_totalMoney1 = new TableColumn("총 금액");
+			col_D_totalMoney1.setPrefWidth(80);
+			col_D_totalMoney1.setStyle("-fx-allignment:CENTER");
+			col_D_totalMoney1.setCellValueFactory(new PropertyValueFactory<>("b_totalMoney"));
+
+			TableColumn col_S_state1 = new TableColumn("상태");
+			col_S_state1.setPrefWidth(50);
+			col_S_state1.setStyle("-fx-allignment:CENTER");
+			col_S_state1.setCellValueFactory(new PropertyValueFactory<>("s_stock"));
+			DealTableView.setItems(dealDataList);
+			DealTableView.getColumns().addAll(col_D_No, col_D_dealDate, col_D_date, col_A_name, col_B_code1,
+					col_P_type1, col_P_origin1, col_P_brand1, col_P_part1, col_D_number, col_D_kg, col_D_cost,
+					col_D_totalMoney1, col_S_state1);
+
+			// 출고전체목록
+			DealTotalList();
 
 			// 텍스트
 			txt_b_buydate.setOnKeyPressed(event -> handlerTxt_b_buydateKeyPressed(event));
@@ -514,7 +597,7 @@ public class BuyTabController implements Initializable {
 		}
 	}
 
-	// 전체리스트
+	// 입고 전체 리스트
 	public void BuyTotalList() throws Exception {
 
 		buyDataList.removeAll(buyDataList);
@@ -545,6 +628,24 @@ public class BuyTabController implements Initializable {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	// 출고전체리스트
+	public void DealTotalList() throws Exception {
+
+		dealDataList.removeAll(dealDataList);
+		DealDAO dDao = new DealDAO();
+		DealVO dVo = null;
+		ArrayList<String> title;
+		ArrayList<DealVO> list;
+
+		list = dDao.getDealVOTotalList();
+
+		int rowCount = list.size();
+		for (int index = 0; index < rowCount; index++) {
+			dVo = list.get(index);
+			dealDataList.add(dVo);
 		}
 	}
 
@@ -613,8 +714,7 @@ public class BuyTabController implements Initializable {
 				alert.setContentText("다음 상품을 입력하세요");
 				alert.showAndWait();
 				// 등록후 초기화
-				
-	
+
 			}
 
 		} catch (Exception e) {
