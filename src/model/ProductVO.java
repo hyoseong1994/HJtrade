@@ -1,11 +1,11 @@
 package model;
 
 public class ProductVO {
-	private int p_no;
-	private String p_type;
-	private String p_origin;
-	private String p_brand;
-	private String p_part;
+	private int p_no;// 상품 일련번호
+	private String p_type;// 상품 소, 돼지 선택
+	private String p_origin;// 상품 원산지
+	private String p_brand;// 상품 브랜드
+	private String p_part;// 상품 부위
 
 	// 디폴트 생성자
 	public ProductVO() {

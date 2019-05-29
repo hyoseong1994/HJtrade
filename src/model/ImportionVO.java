@@ -1,18 +1,17 @@
 package model;
 
 public class ImportionVO {
-	private int i_no;
-	private String i_name;
-	private String i_businessNumber;
-	private String i_represent;
-	private String i_representPhone;
-	private String i_charge;
-	private String i_chargePhone;
-	private String i_address;
-	private String i_email;
-	private String i_business;
-	private int i_payment;
-	private String rbImportion;
+	private int i_no;// 매입 거래처 일련번호
+	private String i_name;// 매입거래처 상호명
+	private String i_businessNumber;// 사업자번호
+	private String i_represent;// 매입거래처 대표자
+	private String i_representPhone;// 매입거래처 대표자번호
+	private String i_charge;// 매입거래처 담당자
+	private String i_chargePhone;// 매입거래처 담당자번호
+	private String i_address;// 매입거래처 주소
+	private String i_email;// 매입거래처 이메일
+	private String i_business;// 매입거래처 업태
+	private int i_payment;// 매입거래처 입금액
 
 	// 디폴트 생성자
 	public ImportionVO() {
@@ -155,14 +154,6 @@ public class ImportionVO {
 
 	public void setI_payment(int i_payment) {
 		this.i_payment = i_payment;
-	}
-
-	public String getRbImportion() {
-		return rbImportion;
-	}
-
-	public void setRbImportion(String rbImportion) {
-		this.rbImportion = rbImportion;
 	}
 
 }

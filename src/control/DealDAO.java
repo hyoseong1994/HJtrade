@@ -13,13 +13,15 @@ public class DealDAO {
 
 	// 수금 리스트 DB에서 호출
 	public ArrayList<DealVO> getDealVOTotalList() {
+		// ArrayList배열 생성
 		ArrayList<DealVO> list = new ArrayList<>();
-
+		// sql문
 		String sql = "select d_no, d_number, d_kg, d_cost, d_buyDate, d_totalMoney,"
 				+ " s_state, a_name, b_code,  p_type, p_origin, p_brand,  p_part, d_date"
 				+ " from deal d, account a, product p, stock s"
-				+ " where d.a_no = a.a_no and d.s_no = s.s_no and d.p_no = p.p_no" 
-				+ " order by d_no";
+				+ " where d.a_no = a.a_no and d.s_no = s.s_no and d.p_no = p.p_no" + " order by d_no";
+
+		// connection, preparedstatement, ResultSet, DealVO null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -27,9 +29,14 @@ public class DealDAO {
 
 		try {
 
+			// DB연동
 			con = DBUtil.getConnection();
+			// sql문을 담을 그릇
 			pstmt = con.prepareStatement(sql);
+			// sql문을 날리고 결과를 저장
 			rs = pstmt.executeQuery();
+
+			// 결과를 가져오기위한 반복문
 			while (rs.next()) {
 				// 인스턴스 생성
 				dVo = new DealVO();
@@ -59,6 +66,7 @@ public class DealDAO {
 			System.out.println(e);
 		} finally {
 			try {
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
 				if (rs != null)
 					rs.close();
 				if (pstmt != null)
@@ -68,6 +76,7 @@ public class DealDAO {
 			} catch (SQLException se) {
 			}
 		}
+		// list 객체 배열 반환
 		return list;
 	}
 }

@@ -1,20 +1,20 @@
 package model;
 
 public class DealVO {
-	private int d_no;
-	private int d_number;
-	private double d_kg;
-	private int d_cost;
-	private String d_buyDate;
-	private double d_totalMoney;
-	private String s_state;
-	private String a_name;
-	private String b_code;
-	private String p_type;
-	private String p_origin;
-	private String p_brand;
-	private String p_part;
-	private String d_date;
+	private int d_no;// 출고 일련번호
+	private int d_number;// 출고 수량
+	private double d_kg;// 출고 중량
+	private int d_cost;// 출고 단가
+	private String d_buyDate;// 출고 주문일
+	private double d_totalMoney;// 출고 총액
+	private String s_state;// 재고 상태
+	private String a_name;// 판매거래처 상호명
+	private String b_code;// 매입상품 일련번호
+	private String p_type;// 상품 소, 돼지
+	private String p_origin;// 상품 원산지
+	private String p_brand;// 상품 브랜드
+	private String p_part;// 상품 부위
+	private String d_date;// 출고 일자
 
 	// 디폴트 생성자
 	public DealVO() {

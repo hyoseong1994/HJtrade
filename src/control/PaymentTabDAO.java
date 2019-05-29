@@ -9,13 +9,17 @@ import java.util.ArrayList;
 import model.PaymentVO;
 
 public class PaymentTabDAO {
+
+	// 입금 테이블 쿼리문
 	public ArrayList<PaymentVO> getPaymentVOTotalList() {
+		//ArrayList 인스턴스 생성
 		ArrayList<PaymentVO> list = new ArrayList<>();
 
-		String sql = "select p.p_no, p.p_date, p.p_name, i.i_businessNumber, p.p_business, p.p_paymentMoney" +
-		" from payment p , importion i" +
-		" where p.i_no = i.i_no" +
-		" order by P_no";
+		// 쿼리문
+		String sql = "select p.p_no, p.p_date, p.p_name, i.i_businessNumber, p.p_business, p.p_paymentMoney"
+				+ " from payment p , importion i" + " where p.i_no = i.i_no" + " order by P_no";
+		
+		// connection, preparedstatement, ResultSet, CollectVO null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -23,9 +27,14 @@ public class PaymentTabDAO {
 
 		try {
 
+			// DB 연결
 			con = DBUtil.getConnection();
+			// PreparedStatement 에 쿼리문 저장
 			pstmt = con.prepareStatement(sql);
+			// ResultSet 결과값 저장
 			rs = pstmt.executeQuery();
+
+			// 결과를 가져오기위한 반복문
 			while (rs.next()) {
 				// 인스턴스 생성
 				pVo = new PaymentVO();
@@ -48,6 +57,7 @@ public class PaymentTabDAO {
 			System.out.println(e);
 		} finally {
 			try {
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
 				if (rs != null)
 					rs.close();
 				if (pstmt != null)
@@ -57,17 +67,19 @@ public class PaymentTabDAO {
 			} catch (SQLException se) {
 			}
 		}
+	
 		return list;
 	}
 
+	// 검색 쿼리문
 	public ArrayList<PaymentVO> getSearchList(String serchName) {
 		// ArrayList배열 생성
 		ArrayList<PaymentVO> list = new ArrayList<>();
 		// 이름으로 데이터를 가져오는 sql문
-		String sql = "select p.p_no, p.p_date, p.p_name, i.i_businessNumber, p.p_business, p.p_paymentMoney" +
-				" from payment p , importion i" +
-				" where p.i_no = i.i_no and p.p_name = ?" +
-				" order by P_no";
+		String sql = "select p.p_no, p.p_date, p.p_name, i.i_businessNumber, p.p_business, p.p_paymentMoney"
+				+ " from payment p , importion i" + " where p.i_no = i.i_no and p.p_name = ?" + " order by P_no";
+
+		// connection, preparedstatement, ResultSet null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -84,6 +96,7 @@ public class PaymentTabDAO {
 			// sql문을 날리고 결과를 저장
 			rs = pstmt.executeQuery();
 
+			// 결과를 가져오기위한 반복문
 			while (rs.next()) {
 				// 인스턴스 생성
 				pVo = new PaymentVO();
@@ -95,7 +108,7 @@ public class PaymentTabDAO {
 				pVo.setP_business(rs.getString("P_business"));
 				pVo.setP_paymentMoney(rs.getInt("P_paymentMoney"));
 
-				// 필드값을 설정해준후 arraylist배열에 객체를 추갛ㄴ다.
+				// 필드값을 설정해준후 arraylist배열에 객체를 추가한다.
 				list.add(pVo);
 
 			}
@@ -117,7 +130,7 @@ public class PaymentTabDAO {
 			}
 		}
 
-		// customerVO 객체 배열 반환
+		// list 객체 배열 반환
 		return list;
 	}
 
