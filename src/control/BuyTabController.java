@@ -80,6 +80,14 @@ public class BuyTabController implements Initializable {
 	@FXML
 	private TableView<BuyVO> BuyTableView = new TableView<>();
 	@FXML
+	private Label txt_a_address;
+	@FXML
+	private Label txt_a_business;
+	@FXML
+	private Label txt_a_representPhone;
+	@FXML
+	private ComboBox<String> cbx_d_account;
+	@FXML
 	private int i_no;
 	@FXML
 	private int p_no;
@@ -149,11 +157,11 @@ public class BuyTabController implements Initializable {
 		cbx_b_brand.setDisable(true);
 		cbx_b_part.setDisable(true);
 
-
 		productOrigin();
 		productBrand();
 		importionName();
 		importionName2();
+		accountName();
 
 		try {
 
@@ -180,7 +188,7 @@ public class BuyTabController implements Initializable {
 			col_I_name.setCellValueFactory(new PropertyValueFactory<>("i_name"));
 
 			TableColumn col_B_code = new TableColumn("식별번호");
-			col_B_code.setPrefWidth(90);
+			col_B_code.setPrefWidth(130);
 			col_B_code.setStyle("-fx-allignment:CENTER");
 			col_B_code.setCellValueFactory(new PropertyValueFactory<>("b_code"));
 
@@ -220,10 +228,9 @@ public class BuyTabController implements Initializable {
 			col_B_cost.setCellValueFactory(new PropertyValueFactory<>("b_cost"));
 
 			TableColumn col_B_totalMoney = new TableColumn("총 금액");
-			col_B_totalMoney.setPrefWidth(70);
+			col_B_totalMoney.setPrefWidth(110);
 			col_B_totalMoney.setStyle("-fx-allignment:CENTER");
 			col_B_totalMoney.setCellValueFactory(new PropertyValueFactory<>("b_totalMoney"));
-
 
 			BuyTableView.setItems(buyDataList);
 			BuyTableView.getColumns().addAll(col_B_No, col_B_buyDate, col_B_date, col_I_name, col_B_code, col_P_type,
@@ -253,7 +260,7 @@ public class BuyTabController implements Initializable {
 			col_A_name.setCellValueFactory(new PropertyValueFactory<>("a_name"));
 
 			TableColumn col_B_code1 = new TableColumn("식별번호");
-			col_B_code1.setPrefWidth(90);
+			col_B_code1.setPrefWidth(130);
 			col_B_code1.setStyle("-fx-allignment:CENTER");
 			col_B_code1.setCellValueFactory(new PropertyValueFactory<>("b_code"));
 
@@ -293,7 +300,7 @@ public class BuyTabController implements Initializable {
 			col_D_cost.setCellValueFactory(new PropertyValueFactory<>("d_cost"));
 
 			TableColumn col_D_totalMoney1 = new TableColumn("총 금액");
-			col_D_totalMoney1.setPrefWidth(80);
+			col_D_totalMoney1.setPrefWidth(120);
 			col_D_totalMoney1.setStyle("-fx-allignment:CENTER");
 			col_D_totalMoney1.setCellValueFactory(new PropertyValueFactory<>("d_totalMoney"));
 
@@ -322,6 +329,7 @@ public class BuyTabController implements Initializable {
 			cbx_b_part.setOnAction(event -> handlerCbx_b_partAction(event));
 			cbx_b_importion.setOnAction(event -> handlerCbx_b_importionAction(event));
 			cbx_b_importion2.setOnAction(event -> handlerCbx_b_importion2Action(event));
+			cbx_d_account.setOnAction(event -> handlerCbx_d_accountAction(event));
 
 			// 상픔 입고 등록 버튼
 			btn_b_order.setOnAction(event -> handlerBtn_b_orderAction(event));
@@ -331,7 +339,67 @@ public class BuyTabController implements Initializable {
 		}
 
 	}
+	
+public void handlerCbx_d_accountAction(ActionEvent event) {
+		
+		try {
+			String selectedNameIndex = cbx_d_account.getSelectionModel().getSelectedItem().toString();
+			System.out.println(selectedNameIndex);
 
+			AccountTabDAO adao = new AccountTabDAO();
+
+			ArrayList<AccountVO> list = new ArrayList();
+			// 상호명을 가져오는 메소드를 list에 저장
+			ArrayList<DealVO> list2 = new ArrayList<>();
+			DealVO dvo = new DealVO();
+
+			AccountVO avo = new AccountVO();
+			list = adao.getAcccountInfo(selectedNameIndex);
+
+			txt_a_address.setText(list.get(0).getA_address());
+			txt_a_business.setText(list.get(0).getA_business());
+			txt_a_representPhone.setText(list.get(0).getA_representPhone());
+
+			list2 = adao.getSelectTotalList(selectedNameIndex);
+
+			dealDataList.removeAll(dealDataList);
+			for (int index = 0; index < list2.size(); index++) {
+				dvo = list2.get(index);
+				dealDataList.add(dvo);
+			}
+
+		} catch (
+
+		Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// 판매처 이름 가져오기
+	public void accountName() {
+		
+		ArrayList<AccountVO> list = new ArrayList();
+		ObservableList<String> AccountDataList = FXCollections.observableArrayList();
+		AccountVO aVo = null;
+
+		try {
+			// 직원명을 가져오는 메소드를 list에 저장
+			
+			AccountTabDAO adao = new AccountTabDAO();
+			list = adao.getaccountName();
+			
+			for (int i = 0; i < list.size(); i++) {
+				aVo = list.get(i);
+				AccountDataList.addAll(aVo.getA_name());
+				cbx_d_account.setItems(AccountDataList);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//원산지 선택 콤보박스
 	public void handlerCbx_b_originAction(ActionEvent event) {
 		try {
 			selectedOrigin = cbx_b_origin.getValue().toString();
@@ -366,7 +434,7 @@ public class BuyTabController implements Initializable {
 		}
 	}
 
-// 부위 콤보박스 선택 이벤트
+	 //부위 콤보박스 선택 이벤트
 	public void handlerCbx_b_partAction(ActionEvent event) {
 		selectedPart = cbx_b_part.getValue().toString();
 		if (!(cbx_b_part.equals(""))) {
@@ -386,6 +454,7 @@ public class BuyTabController implements Initializable {
 		}
 	}
 
+	//테이블뷰 위에있는 거래처선택 콤보박스
 	public void handlerCbx_b_importion2Action(ActionEvent event) {
 		try {
 

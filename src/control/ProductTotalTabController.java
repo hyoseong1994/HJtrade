@@ -1,4 +1,4 @@
-package control;
+	package control;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -126,12 +126,12 @@ public class ProductTotalTabController implements Initializable {
 			col_S_No.setCellValueFactory(new PropertyValueFactory<>("s_no"));
 
 			TableColumn col_B_date = new TableColumn("거래일자");
-			col_B_date.setPrefWidth(70);
+			col_B_date.setPrefWidth(130);
 			col_B_date.setStyle("-fx-allignment:CENTER");
 			col_B_date.setCellValueFactory(new PropertyValueFactory<>("b_date"));
 
 			TableColumn col_S_code = new TableColumn("식별번호");
-			col_S_code.setPrefWidth(70);
+			col_S_code.setPrefWidth(130);
 			col_S_code.setStyle("-fx-allignment:CENTER");
 			col_S_code.setCellValueFactory(new PropertyValueFactory<>("b_code"));
 
@@ -146,12 +146,12 @@ public class ProductTotalTabController implements Initializable {
 			col_P_origin1.setCellValueFactory(new PropertyValueFactory<>("p_origin"));
 
 			TableColumn col_P_brand1 = new TableColumn("브랜드");
-			col_P_brand1.setPrefWidth(70);
+			col_P_brand1.setPrefWidth(80);
 			col_P_brand1.setStyle("-fx-allignment:CENTER");
 			col_P_brand1.setCellValueFactory(new PropertyValueFactory<>("p_brand"));
 
 			TableColumn col_P_part1 = new TableColumn("부위");
-			col_P_part1.setPrefWidth(80);
+			col_P_part1.setPrefWidth(90);
 			col_P_part1.setStyle("-fx-allignment:CENTER");
 			col_P_part1.setCellValueFactory(new PropertyValueFactory<>("p_part"));
 
@@ -171,7 +171,7 @@ public class ProductTotalTabController implements Initializable {
 			col_S_cost.setCellValueFactory(new PropertyValueFactory<>("s_cost"));
 
 			TableColumn col_S_totalmoney = new TableColumn("총 금액");
-			col_S_totalmoney.setPrefWidth(70);
+			col_S_totalmoney.setPrefWidth(110);
 			col_S_totalmoney.setStyle("-fx-allignment:CENTER");
 			col_S_totalmoney.setCellValueFactory(new PropertyValueFactory<>("s_totalMoney"));
 

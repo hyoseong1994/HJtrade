@@ -93,10 +93,25 @@
 				<Insets top="10" left="20" bottom="10" right="20" />
 
 			</padding>
-			<ComboBox promptText="거래처 선택"></ComboBox>
-			<Label text="주소			:" />
-			<Label text="업태			:" />
-			<Label text="대표자번호	:" />
+			<ComboBox promptText="거래처 " fx:id="cbx_d_account"></ComboBox>
+			<HBox>
+				<spacing>10</spacing>
+				<Label text="주소			:" />
+				<Label fx:id="txt_a_address" />
+
+			</HBox>
+			<HBox>
+				<spacing>10</spacing>
+				<Label text="업태			:" />
+				<Label fx:id="txt_a_business" />
+
+			</HBox>
+
+			<HBox>
+				<spacing>10</spacing>
+				<Label text="대표자번호	:" />
+				<Label fx:id="txt_a_representPhone" />
+			</HBox>
 			<children>
 				<Label text="출고 목록" />
 				<TableView prefHeight="200" prefWidth="1000"

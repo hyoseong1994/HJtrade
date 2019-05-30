@@ -502,7 +502,7 @@ public class ImportionTabDAO {
 			while (rs.next()) {
 				ivo = new ImportionVO();
 
-				ivo.setI_address(rs.getString("I_address"));
+				ivo.setI_address(rs.getString("i_address"));
 				ivo.setI_business(rs.getString("i_business"));
 				ivo.setI_representPhone(rs.getString("i_representPhone"));
 
@@ -534,7 +534,7 @@ public class ImportionTabDAO {
 	public ArrayList<BuyVO> getselectTotalList(String i_name) throws Exception {
 		ArrayList<BuyVO> list = new ArrayList<>();
 
-		String sql = "select b.b_no, b.b_buyDate, b.b_date, i.i_name, b.b_code, p.p_type, p.p_origin, p.p_brand, p.p_part, b.b_number, b.b_kg , b.b_cost, b.b_totalmoney,s.s_state"
+		String sql = "select b.b_no, b.b_buyDate, b.b_date, i.i_name, b.b_code, p.p_type, p.p_origin, p.p_brand, p.p_part, b.b_number, b.b_kg , b.b_cost, b.b_totalmoney"
 				+ " from buy b, product p, importion i, stock s"
 				+ " where b.p_no = p.p_no and b.i_no = i.i_no and b.s_no = s.s_no and i.i_name=?";
 		Connection con = null;

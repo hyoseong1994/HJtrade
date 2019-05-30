@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import model.AccountVO;
+import model.DealVO;
 
 public class AccountTabDAO {
 
@@ -551,6 +552,117 @@ public class AccountTabDAO {
 			}
 		}
 		// 결과값 list 반환
+		return list;
+	}
+
+	// 콤보박스에서 상호명 클릭시 거래처 주소 ,업태 ,대표자 번호 정보 가져오기
+	public ArrayList<AccountVO> getAcccountInfo(String a_name) throws Exception {
+
+		ArrayList<AccountVO> list = new ArrayList();
+
+		String sql = "select a_address , a_business ,a_representPhone from Account where a_name = ? ";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		AccountVO avo = null;
+
+		try {
+			// DB연동
+			con = DBUtil.getConnection();
+			// sql문을 담아줄 그릇
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, a_name);
+			// jvo에서 변수들을 가져와서 sql문에 넣어준다.
+			rs = pstmt.executeQuery();
+			// sql을 날리고 불러온 값이 있으면 로그인결과변수 true
+			while (rs.next()) {
+				avo = new AccountVO();
+
+				avo.setA_address(rs.getString("a_address"));
+				avo.setA_business(rs.getString("a_business"));
+				avo.setA_representPhone(rs.getString("a_representPhone"));
+
+				list.add(avo);
+
+			}
+
+		} catch (SQLException e) {
+			System.out.println(e);
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+
+			try {
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+			}
+		}
+
+		return list;
+	}
+	
+	
+	//콤보박스 거래처 선택시 해당되는 거래처의 출고내역확인
+	public ArrayList<DealVO> getSelectTotalList(String a_name) throws Exception {
+		ArrayList<DealVO> list = new ArrayList<>();
+
+		String sql = "select d_no, d_dealDate,d_date , a_name, b_code, p_type, p_origin, p_brand, p_part, d_number, d_kg, d_cost, d_totalMoney"
+				+ " from deal d, account a, product p, stock s, buy b"
+				+ " where d.a_no = a.a_no and d.s_no = s.s_no and d.p_no = p.p_no and a.a_name =?" + " order by d_no";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		DealVO dVo = null;
+
+		try {
+
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, a_name);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				// 인스턴스 생성
+				dVo = new DealVO();
+				// 쿼리문을 날리고 얻은 결과에서 값을 가져와 객체의 필드값을 설정한다.
+				dVo.setD_no(rs.getInt("d_no"));
+				dVo.setD_dealDate(rs.getString("d_dealDate"));
+				dVo.setD_date(rs.getString("d_date"));
+				dVo.setA_name(rs.getString("a_name"));
+				dVo.setB_code(rs.getString("b_code"));
+				dVo.setP_type(rs.getString("p_type"));
+				dVo.setP_origin(rs.getString("p_origin"));
+				dVo.setP_brand(rs.getString("p_brand"));
+				dVo.setP_part(rs.getString("p_part"));
+				dVo.setD_number(rs.getInt("d_number"));
+				dVo.setD_kg(rs.getDouble("d_kg"));
+				dVo.setD_cost(rs.getInt("d_cost"));
+				dVo.setD_totalMoney(rs.getInt("d_totalMoney"));
+
+				// 필드값을 설정해준후 arraylist배열에 객체를 추가한다.
+				list.add(dVo);
+			}
+
+		} catch (SQLException se) {
+			System.out.println(se);
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+			}
+		}
 		return list;
 	}
 

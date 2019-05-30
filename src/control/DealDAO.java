@@ -11,7 +11,7 @@ import oracle.net.aso.d;
 
 public class DealDAO {
 
-	// 수금 리스트 DB에서 호출
+	// 재고 리스트 DB에서 호출
 	public ArrayList<DealVO> getDealVOTotalList() {
 		ArrayList<DealVO> list = new ArrayList<>();
 
