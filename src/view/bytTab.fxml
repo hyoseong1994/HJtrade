@@ -84,11 +84,6 @@
 						fx:id="BuyTableView">
 					</TableView>
 				</children>
-				<VBox prefWidth="100">
-					<HBox alignment="BOTTOM_RIGHT">
-						<Label text="합계 금액	:" />
-					</HBox>
-				</VBox>
 			</VBox>
 
 		</HBox>
@@ -105,13 +100,11 @@
 			<Label text="대표자번호	:" />
 			<children>
 				<Label text="출고 목록" />
-				<TableView prefHeight="200" prefWidth="1000" fx:id="DealTableView">
+				<TableView prefHeight="200" prefWidth="1000"
+					fx:id="DealTableView">
 				</TableView>
 			</children>
 			<VBox prefWidth="100">
-				<HBox alignment="BOTTOM_RIGHT">
-					<Label text="합계 금액	:" />
-				</HBox>
 				<HBox alignment="BOTTOM_RIGHT">
 					<Button>반품</Button>
 				</HBox>

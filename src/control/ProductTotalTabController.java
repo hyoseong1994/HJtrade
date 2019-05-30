@@ -120,7 +120,7 @@ public class ProductTotalTabController implements Initializable {
 			productTotalList();
 
 			// 재고 테이블 뷰 컬럼이름 설정
-			TableColumn col_S_No = new TableColumn("입고번호");
+			TableColumn col_S_No = new TableColumn("재고번호");
 			col_S_No.setPrefWidth(70);
 			col_S_No.setStyle("-fx-allignment:CENTER");
 			col_S_No.setCellValueFactory(new PropertyValueFactory<>("s_no"));
