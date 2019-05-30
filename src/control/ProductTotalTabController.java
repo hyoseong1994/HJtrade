@@ -272,17 +272,13 @@ public class ProductTotalTabController implements Initializable {
 	}
 
 	// 상품전체리스트
-	public void productTotalList() throws Exception {
+	public static void productTotalList() {
 		productDataList.removeAll(productDataList);
 
 		ProductDAO pDao = new ProductDAO();
 		ProductVO pVo = null;
 
-		ArrayList<String> title;
 		ArrayList<ProductVO> list;
-
-		title = pDao.getProductColumnName();
-		int columnCount = title.size();
 
 		list = pDao.getProductTotalList();
 		int rowCount = list.size();
@@ -363,7 +359,7 @@ public class ProductTotalTabController implements Initializable {
 	}
 
 	// 상품 전체 리스트
-	public void stockTotalList() {
+	public static void stockTotalList() {
 		stockDataList.removeAll(stockDataList);
 
 		StockDAO sDao = new StockDAO();

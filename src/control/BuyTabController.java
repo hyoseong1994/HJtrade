@@ -99,10 +99,10 @@ public class BuyTabController implements Initializable {
 	@FXML
 	private TableView<DealVO> DealTableView = new TableView<>();
 
-	ObservableList<BuyVO> buyDataList = FXCollections.observableArrayList();
+	static ObservableList<BuyVO> buyDataList = FXCollections.observableArrayList();
 	ObservableList<BuyVO> selectBuy = null;
 
-	ObservableList<DealVO> dealDataList = FXCollections.observableArrayList();
+	static ObservableList<DealVO> dealDataList = FXCollections.observableArrayList();
 	ObservableList<DealVO> selectdeal = null;
 
 	int selectedBuyIndex; // 테이블에 선택한 상품 정보 인덱스저장
@@ -598,7 +598,7 @@ public class BuyTabController implements Initializable {
 	}
 
 	// 입고 전체 리스트
-	public void BuyTotalList() throws Exception {
+	public static void BuyTotalList() throws Exception {
 
 		buyDataList.removeAll(buyDataList);
 		BuyDAO bDao = new BuyDAO();
@@ -632,7 +632,7 @@ public class BuyTabController implements Initializable {
 	}
 
 	// 출고전체리스트
-	public void DealTotalList() throws Exception {
+	public static void DealTotalList() {
 
 		dealDataList.removeAll(dealDataList);
 		DealDAO dDao = new DealDAO();

@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 
 public class DBUtil {
 	static final String driver = "oracle.jdbc.driver.OracleDriver";
-	static final String url = "jdbc:oracle:thin:@127.0.0.1:1521:orcl11";
+	static final String url = "jdbc:oracle:thin:@192.168.0.3:1521:orcl11";
 
 	public static Connection getConnection() throws Exception {
 		Class.forName(driver);

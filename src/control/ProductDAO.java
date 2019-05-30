@@ -14,7 +14,7 @@ import model.ProductVO;
 public class ProductDAO {
 
 	// 상품목록
-	public ArrayList<ProductVO> getProductTotalList() throws Exception {
+	public ArrayList<ProductVO> getProductTotalList()  {
 		ArrayList<ProductVO> list = new ArrayList<>();
 
 		String sql = "select * from product order by p_no";

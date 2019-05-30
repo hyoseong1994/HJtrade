@@ -65,10 +65,6 @@ public class MainController implements Initializable {
 	private ImportionTabController importionTabController;
 	@FXML
 	private AccountTabController accountTabController;
-	@FXML
-	private ProductTotalTabController ProductTotalTabController;
-	@FXML
-	private MoneyTabController moneyTabController;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -102,12 +98,15 @@ public class MainController implements Initializable {
 						}
 					} else if (newValue == receipe) {
 						try {
-
+							BuyTabController.BuyTotalList();
+							BuyTabController.DealTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					} else if (newValue == product) {
 						try {
+							ProductTotalTabController.productTotalList();
+							ProductTotalTabController.stockTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -155,24 +154,24 @@ public class MainController implements Initializable {
 
 	public void handlerm_excelFileAction(ActionEvent event) {
 		String txtSaveFileDirExcel = "D:\\HJtrade\\backup\\Excel";
-		
-	      CollectTabDAO cDao = new CollectTabDAO();
-	      boolean saveSuccess;
 
-	      ArrayList<CollectVO> list;
-	      list = cDao.getCollectVOTotalList();
-	      Excel excelWriter = new Excel();
+		CollectTabDAO cDao = new CollectTabDAO();
+		boolean saveSuccess;
 
-	      // xlsx 파일 쓰기
-	      saveSuccess = excelWriter.xlsxWriter(list, txtSaveFileDirExcel);
-	      if (saveSuccess) {
-	         Alert alert = new Alert(AlertType.INFORMATION);
-	         alert.setTitle("엑셀 파일 생성");
-	         alert.setHeaderText("매출 목록 엘셀 파일 생성 성공.");
-	         alert.setContentText("매출 목록 엑셀 파일");
-	         alert.showAndWait();
-	      }
-	   }
+		ArrayList<CollectVO> list;
+		list = cDao.getCollectVOTotalList();
+		Excel excelWriter = new Excel();
+
+		// xlsx 파일 쓰기
+		saveSuccess = excelWriter.xlsxWriter(list, txtSaveFileDirExcel);
+		if (saveSuccess) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("엑셀 파일 생성");
+			alert.setHeaderText("매출 목록 엘셀 파일 생성 성공.");
+			alert.setContentText("매출 목록 엑셀 파일");
+			alert.showAndWait();
+		}
+	}
 
 	// PDF 파일 생성 메소드
 	public void handlerm_pdfFileDirAction(ActionEvent event) {
@@ -206,7 +205,6 @@ public class MainController implements Initializable {
 			// 문서에 추가
 			document.add(title);
 			document.add(new Paragraph("\r\n"));
-
 
 			// 테이블 생성 Table객체보다 PdfPTable객체가 더 정교하게 테이블을 만들 수 있다
 			// 생성자에 컬럼 수를 써준다
