@@ -1,0 +1,153 @@
+diff a/src/control/AccountTabController.java b/src/control/AccountTabController.java	(rejected hunks)
+@@ -70,81 +70,83 @@
+ 	public void initialize(URL location, ResourceBundle resources) {
+ 		try {
+ 			// 판매 거래처 버튼 초기화
+-			btn_A_collect.setDisable(true);
+-			btn_A_register.setDisable(true);
+-			btn_A_update.setDisable(true);
+-			btn_A_delete.setDisable(true);
++			btn_A_collect.setDisable(true);// 수금버튼 비활성화
++			btn_A_register.setDisable(true);// 등록버튼 비활성화
++			btn_A_update.setDisable(true);// 수정버튼 비활성화
++			btn_A_delete.setDisable(true);// 삭제버튼 비활성화
+ 
+ 			// 판매거래처 테이블 수정금지
+ 			AccountTableView.setEditable(false);
+ 
+ 			// 텍스트 필드 초기 설정
+-			txt_A_name.setEditable(false);
+-			txt_A_represent.setEditable(false);
+-			txt_A_representPhone.setEditable(false);
+-			txt_A_charge.setEditable(false);
+-			txt_A_chargePhone.setEditable(false);
+-			txt_A_address.setEditable(false);
+-			txt_A_email.setEditable(false);
+-			txt_A_business.setEditable(false);
++			txt_A_name.setEditable(false);// 거래처 이름 수정불가
++			txt_A_represent.setEditable(false);// 대표자 수정불가
++			txt_A_representPhone.setEditable(false);// 대표자번호 수정불가
++			txt_A_charge.setEditable(false);// 담당자 수정불가
++			txt_A_chargePhone.setEditable(false);// 담당자 번호 수정불가
++			txt_A_address.setEditable(false);// 주소 수정불가
++			txt_A_email.setEditable(false);// 이메일 수정불가
++			txt_A_business.setEditable(false);// 업태 수정불가
+ 
+ 			// 거래처 테이블 뷰 컬럼이름 설정
+-			TableColumn colANo = new TableColumn("거래처 번호");
+-			colANo.setPrefWidth(90);
+-			colANo.setStyle("-fx-allignment: CENTER");
+-			colANo.setCellValueFactory(new PropertyValueFactory<>("A_no"));
+-
+-			TableColumn colAName = new TableColumn("상 호 명");
+-			colAName.setPrefWidth(90);
+-			colAName.setStyle("-fx-allignment: CENTER");
+-			colAName.setCellValueFactory(new PropertyValueFactory<>("A_name"));
+-
+-			TableColumn colABusinessNumber = new TableColumn("사업자 번호");
+-			colABusinessNumber.setPrefWidth(90);
+-			colABusinessNumber.setStyle("-fx-allignment: CENTER");
+-			colABusinessNumber.setCellValueFactory(new PropertyValueFactory<>("A_businessNumber"));
+-
+-			TableColumn colARepredent = new TableColumn("대 표 명");
+-			colARepredent.setPrefWidth(90);
+-			colARepredent.setStyle("-fx-allignment: CENTER");
+-			colARepredent.setCellValueFactory(new PropertyValueFactory<>("A_represent"));
+-
+-			TableColumn colARepredentPhone = new TableColumn("대표자 번호");
+-			colARepredentPhone.setPrefWidth(90);
+-			colARepredentPhone.setStyle("-fx-allignment: CENTER");
+-			colARepredentPhone.setCellValueFactory(new PropertyValueFactory<>("A_representPhone"));
+-
+-			TableColumn colACharge = new TableColumn("담 당 자");
+-			colACharge.setPrefWidth(90);
+-			colACharge.setStyle("-fx-allignment: CENTER");
+-			colACharge.setCellValueFactory(new PropertyValueFactory<>("A_charge"));
+-
+-			TableColumn colAChargePhone = new TableColumn("담당자 번호");
+-			colAChargePhone.setPrefWidth(90);
+-			colAChargePhone.setStyle("-fx-allignment: CENTER");
+-			colAChargePhone.setCellValueFactory(new PropertyValueFactory<>("A_chargePhone"));
+-
+-			TableColumn colAAddress = new TableColumn("주	소");
+-			colAAddress.setPrefWidth(90);
+-			colAAddress.setStyle("-fx-allignment: CENTER");
+-			colAAddress.setCellValueFactory(new PropertyValueFactory<>("A_address"));
+-
+-			TableColumn colAEmail = new TableColumn("이 메 일");
+-			colAEmail.setPrefWidth(90);
+-			colAEmail.setStyle("-fx-allignment: CENTER");
+-			colAEmail.setCellValueFactory(new PropertyValueFactory<>("A_email"));
+-
+-			TableColumn colABusiness = new TableColumn("업	태");
+-			colABusiness.setPrefWidth(90);
+-			colABusiness.setStyle("-fx-allignment: CENTER");
+-			colABusiness.setCellValueFactory(new PropertyValueFactory<>("A_business"));
+-
+-			TableColumn colACollect = new TableColumn("매입 미지급액");
+-			colACollect.setPrefWidth(90);
+-			colACollect.setStyle("-fx-allignment: CENTER");
+-			colACollect.setCellValueFactory(new PropertyValueFactory<>("A_collect"));
+-
+-			AccountTableView.setItems(accountDataList);
++			TableColumn colANo = new TableColumn("거래처 번호");// 컬럼명 설정
++			colANo.setPrefWidth(90);// 컬럼 길이 설정
++			colANo.setStyle("-fx-allignment: CENTER");// 컬럼명 위치 설정
++			colANo.setCellValueFactory(new PropertyValueFactory<>("A_no"));// 걸럼값 불러오기
++
++			TableColumn colAName = new TableColumn("상 호 명");// 컬럼명 설정
++			colAName.setPrefWidth(90);// 컬럼 길이 설정
++			colAName.setStyle("-fx-allignment: CENTER");// 컬럼명 위치 설정
++			colAName.setCellValueFactory(new PropertyValueFactory<>("A_name"));// 걸럼값 불러오기
++
++			TableColumn colABusinessNumber = new TableColumn("사업자 번호");// 컬럼명 설정
++			colABusinessNumber.setPrefWidth(90);// 컬럼 길이 설정
++			colABusinessNumber.setStyle("-fx-allignment: CENTER");// 컬럼명 위치 설정
++			colABusinessNumber.setCellValueFactory(new PropertyValueFactory<>("A_businessNumber"));// 걸럼값 불러오기
++
++			TableColumn colARepredent = new TableColumn("대 표 명");// 컬럼명 설정
++			colARepredent.setPrefWidth(90);// 컬럼 길이 설정
++			colARepredent.setStyle("-fx-allignment: CENTER");// 컬럼명 위치 설정
++			colARepredent.setCellValueFactory(new PropertyValueFactory<>("A_represent"));// 걸럼값 불러오기
++
++			TableColumn colARepredentPhone = new TableColumn("대표자 번호");// 컬럼명 설정
++			colARepredentPhone.setPrefWidth(90);// 컬럼 길이 설정
++			colARepredentPhone.setStyle("-fx-allignment: CENTER");// 컬럼명 위치 설정
++			colARepredentPhone.setCellValueFactory(new PropertyValueFactory<>("A_representPhone"));// 걸럼값 불러오기
++
++			TableColumn colACharge = new TableColumn("담 당 자");// 컬럼명 설정
++			colACharge.setPrefWidth(90);// 컬럼 길이 설정
++			colACharge.setStyle("-fx-allignment: CENTER");// 컬럼명 위치 설정
++			colACharge.setCellValueFactory(new PropertyValueFactory<>("A_charge"));// 걸럼값 불러오기
++
++			TableColumn colAChargePhone = new TableColumn("담당자 번호");// 컬럼명 설정
++			colAChargePhone.setPrefWidth(90);// 컬럼 길이 설정
++			colAChargePhone.setStyle("-fx-allignment: CENTER");// 컬럼명 위치 설정
++			colAChargePhone.setCellValueFactory(new PropertyValueFactory<>("A_chargePhone"));// 걸럼값 불러오기
++
++			TableColumn colAAddress = new TableColumn("주	소");// 컬럼명 설정
++			colAAddress.setPrefWidth(90);// 컬럼 길이 설정
++			colAAddress.setStyle("-fx-allignment: CENTER");// 컬럼명 위치 설정
++			colAAddress.setCellValueFactory(new PropertyValueFactory<>("A_address"));// 걸럼값 불러오기
++
++			TableColumn colAEmail = new TableColumn("이 메 일");// 컬럼명 설정
++			colAEmail.setPrefWidth(90);// 컬럼 길이 설정
++			colAEmail.setStyle("-fx-allignment: CENTER");// 컬럼명 위치 설정
++			colAEmail.setCellValueFactory(new PropertyValueFactory<>("A_email"));// 걸럼값 불러오기
++
++			TableColumn colABusiness = new TableColumn("업	태");// 컬럼명 설정
++			colABusiness.setPrefWidth(90);// 컬럼 길이 설정
++			colABusiness.setStyle("-fx-allignment: CENTER");// 컬럼명 위치 설정
++			colABusiness.setCellValueFactory(new PropertyValueFactory<>("A_business"));// 걸럼값 불러오기
++
++			TableColumn colACollect = new TableColumn("매입 미지급액");// 컬럼명 설정
++			colACollect.setPrefWidth(90);// 컬럼 길이 설정
++			colACollect.setStyle("-fx-allignment: CENTER");// 컬럼명 위치 설정
++			colACollect.setCellValueFactory(new PropertyValueFactory<>("A_collect"));// 걸럼값 불러오기
++
++			AccountTableView.setItems(accountDataList);// db에서 불러온값 저장
++
++			// 설정한 컬럼 테이블에 입력
+ 			AccountTableView.getColumns().addAll(colANo, colAName, colABusinessNumber, colARepredent,
+ 					colARepredentPhone, colACharge, colAChargePhone, colAAddress, colAEmail, colABusiness, colACollect);
+ 
