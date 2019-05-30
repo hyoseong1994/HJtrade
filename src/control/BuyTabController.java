@@ -402,9 +402,13 @@ public class BuyTabController implements Initializable {
 
 			String selectedNameIndex = cbx_b_importion2.getSelectionModel().getSelectedItem().toString();
 			System.out.println(selectedNameIndex);
+
 			ImportionTabDAO idao = new ImportionTabDAO();
+
 			ArrayList<ImportionVO> list = new ArrayList();
 			// 상호명을 가져오는 메소드를 list에 저장
+			ArrayList<BuyVO> list2 = new ArrayList<>();
+			BuyVO bvo = new BuyVO();
 
 			ImportionVO ivo = new ImportionVO();
 			list = idao.getImportionInfo(selectedNameIndex);
@@ -412,6 +416,14 @@ public class BuyTabController implements Initializable {
 			txt_i_address.setText(list.get(0).getI_address());
 			txt_i_business.setText(list.get(0).getI_business());
 			txt_i_representPhone.setText(list.get(0).getI_representPhone());
+
+			list2 = idao.getselectTotalList(selectedNameIndex);
+
+			buyDataList.removeAll(buyDataList);
+			for (int index = 0; index < list2.size(); index++) {
+				bvo = list2.get(index);
+				buyDataList.add(bvo);
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -715,6 +727,16 @@ public class BuyTabController implements Initializable {
 				alert.showAndWait();
 				// 등록후 초기화
 
+				txt_b_buydate.clear();
+				txt_b_code.clear();
+				txt_b_number.clear();
+				txt_b_kg.clear();
+				txt_b_cost.clear();
+				cbx_b_importion.getSelectionModel().clearSelection();
+				
+					
+				
+				
 			}
 
 		} catch (Exception e) {
