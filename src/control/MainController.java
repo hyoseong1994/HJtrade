@@ -47,7 +47,7 @@ public class MainController implements Initializable {
 	@FXML
 	private Tab money;
 	@FXML
-	private Tab receipe;
+	private Tab buy;
 	@FXML
 	private Tab product;
 
@@ -96,7 +96,7 @@ public class MainController implements Initializable {
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-					} else if (newValue == receipe) {
+					} else if (newValue == buy) {
 						try {
 							BuyTabController.BuyTotalList();
 							BuyTabController.DealTotalList();

@@ -70,9 +70,9 @@
 						<fx:include fx:id="moneyTab" source="moneyTab.fxml" />
 					</content>
 				</Tab>
-				<Tab text="전	표 " fx:id="receipe">
+				<Tab text="전	표 " fx:id="buy">
 					<content>
-						<fx:include fx:id="receipeTab" source="receipeTab.fxml" />
+						<fx:include fx:id="buyTab" source="buyTab.fxml" />
 					</content>
 				</Tab>
 				<Tab text="재	고" fx:id="product">
