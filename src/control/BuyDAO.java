@@ -23,7 +23,8 @@ public class BuyDAO {
 		ArrayList<BuyVO> list = new ArrayList<>();
 
 		String sql = "select b.b_no, b.b_buyDate, b.b_date, i.i_name, b.b_code, p.p_type, p.p_origin, p.p_brand, p.p_part, b.b_number, b.b_kg , b.b_cost, b.b_totalmoney,s.s_state"
-				+ " from buy b, product p, importion i, stock s" + " where b.p_no = p.p_no and b.i_no = i.i_no and b.s_no = s.s_no ";
+				+ " from buy b, product p, importion i, stock s"
+				+ " where b.p_no = p.p_no and b.i_no = i.i_no and b.s_no = s.s_no ";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -125,7 +126,7 @@ public class BuyDAO {
 		}
 	}
 
-	//재고 목록
+	// 재고 목록
 	public ArrayList<StockVO> getStockTotalList() {
 		ArrayList<StockVO> list = new ArrayList<>();
 
@@ -185,15 +186,15 @@ public class BuyDAO {
 	public boolean getStock(String s_number, String s_kg, String s_cost, String s_state, int p_no, int b_no) {
 
 		System.out.println(p_no);
-		String sql = "insert into stock" + "(s_no, s_number, s_kg, s_cost, s_totalmoney ,s_state, p_no)"
-				+ " values " + "(stock_seq.nextval, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into stock" + "(s_no, s_number, s_kg, s_cost, s_totalmoney ,s_state, p_no)" + " values "
+				+ "(stock_seq.nextval, ?, ?, ?, ?, ?, ?)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean StockUpdateSucess = false;
 
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement(sql);	
+			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, Integer.parseInt(s_number));
 			pstmt.setDouble(2, Double.parseDouble(s_kg));
 			pstmt.setInt(3, Integer.parseInt(s_cost));
@@ -577,6 +578,44 @@ public class BuyDAO {
 
 		return list;
 
+	}
+
+	public String b_no(String b_code) {
+
+		String sql = "select b_no from product where b_code ?";
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		String result = null;
+
+		try {
+
+			con = DBUtil.getConnection();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, b_code);
+
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getString("b_no");
+			}
+
+		} catch (SQLException se) {
+			System.out.println(se);
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException se) {
+			}
+		}
+		return result;
 	}
 
 }

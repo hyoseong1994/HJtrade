@@ -35,7 +35,7 @@ public class ProductTotalTabController implements Initializable {
 	@FXML
 	private TextField txt_p_part; // 부위
 	@FXML
-	private Button btn_p_register; // 등록버튼 
+	private Button btn_p_register; // 등록버튼
 	@FXML
 	private TableView<ProductVO> productTableView = new TableView<>();
 	@FXML
@@ -65,7 +65,7 @@ public class ProductTotalTabController implements Initializable {
 	@FXML
 	private String part;
 	private String b_no;
-	
+	private String b_code;
 
 	public static ObservableList<ProductVO> productDataList = FXCollections.observableArrayList();
 	ObservableList<ProductVO> selectProduct = null; // 테이블에서 선택한 정보저장
@@ -386,14 +386,13 @@ public class ProductTotalTabController implements Initializable {
 				double selectedS_kg = selectStock.get(0).getS_kg();
 				int selectedS_cost = selectStock.get(0).getS_cost();
 				String selectedS_state = selectStock.get(0).getS_state();
-				String selectedB_code = selectStock.get(0).getB_code();
-				
+
 				System.out.println(selectedStockIndex);
-				
+
 				origin = selectStock.get(0).getP_origin();
 				brand = selectStock.get(0).getP_brand();
 				part = selectStock.get(0).getP_part();
-				b_no = selectStock.get(0).getB_code();
+				b_code = selectStock.get(0).getB_code();
 
 				txt_S_number.setText(selectedS_number + "");
 				txt_S_kg.setText(selectedS_kg + "");
@@ -418,6 +417,18 @@ public class ProductTotalTabController implements Initializable {
 		}
 	}
 
+	// 식별번호로 입고번호 찾기
+	public void b_no(String b_code) {
+		try {
+			BuyDAO bDAO = new BuyDAO();
+			
+			b_no = bDAO.b_no(b_code);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+	}
+
 	// 출고
 	public void deal() {
 		try {
@@ -426,10 +437,10 @@ public class ProductTotalTabController implements Initializable {
 
 			StockDAO sDao = new StockDAO();
 			sucess = sDao.getDeal(txt_S_dealDate.getText().trim(), txt_S_number.getText().trim(),
-					txt_S_kg.getText().trim(), txt_S_cost.getText().trim(), selectedStockIndex,
-					S_state, p_no, a_no,b_no);
+					txt_S_kg.getText().trim(), txt_S_cost.getText().trim(), selectedStockIndex, S_state, p_no, a_no,
+					b_no);
 			if (sucess) {
-				
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -441,12 +452,12 @@ public class ProductTotalTabController implements Initializable {
 			boolean sucess;
 
 			StockDAO sDao = new StockDAO();
-			sucess = sDao.getStockUpdateStock(txt_S_number.getText().trim(),
-					txt_S_kg.getText().trim(), selectedStockIndex);
+			sucess = sDao.getStockUpdateStock(txt_S_number.getText().trim(), txt_S_kg.getText().trim(),
+					selectedStockIndex);
 			if (sucess) {
 				stockDataList.removeAll(stockDataList);
 				stockTotalList();
-				
+
 				txt_S_dealDate.clear();
 				txt_S_number.clear();
 				txt_S_kg.clear();

@@ -118,6 +118,7 @@ public class StockDAO {
 	// 출고
 	public boolean getDeal(String d_dealDate, String d_number, String d_kg, String d_cost, int selectedStockIndex,
 			String s_state, String p_no, String a_no, String b_no) {
+		
 		String sql = "insert into deal"
 				+ " (d_no, d_date, d_dealDate, a_no, s_no, p_no, d_number, d_kg, d_cost, d_totalmoney, b_no)" + " values "
 				+ " (Deal_seq.nextval, sysdate, ?,  ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -156,7 +157,7 @@ public class StockDAO {
 				alert.showAndWait();
 			}
 		} catch (SQLException e) {
-			System.out.println("e=[" + e + "]");
+			System.out.println("e=[" + e + "]1");
 		} catch (Exception e) {
 			System.out.println("e=[" + e + "]");
 			e.printStackTrace();
