@@ -14,7 +14,7 @@ public class JoinDAO {
 	// 직원 등록
 	public boolean getManagerRegiste(JoinVO jvo) throws Exception {
 		// sql문
-		String sql = "insert into employee2 " + "(id, password, e_name, e_adress, e_phone)" + " values "
+		String sql = "insert into employee " + "(id, password, e_name, e_adress, e_phone)" + " values "
 				+ "(?, ?, ?, ?, ?)";
 
 		// connection, preparedstatement null값 초기화
@@ -74,7 +74,7 @@ public class JoinDAO {
 	// 아이디 중복 체크
 	public boolean getIdOverlap(String idOverlap) throws Exception {
 		// sql문
-		String sql = "select * from employee2 where id = ?";
+		String sql = "select * from employee where id = ?";
 
 		// connection, preparedstatement, ResultSet null값 초기화
 		Connection con = null;

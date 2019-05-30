@@ -10,7 +10,7 @@ public class LoginDAO {
 	// 로그인 쿼리문
 	public boolean getLogin(String loginId, String loginPassword) throws Exception {
 		// sql문
-		String sql = "select * from employee2 where id = ? and password = ?";
+		String sql = "select * from employee where id = ? and password = ?";
 
 		// connection, preparedstatement, ResultSet null값 초기화
 		Connection con = null;
@@ -56,7 +56,7 @@ public class LoginDAO {
 	// 이름 찾기 퀴리문
 	public String getLoginName(String loginId) throws Exception {
 		// sql문
-		String sql = "select e_name from employee2 where id = ?";
+		String sql = "select e_name from employee where id = ?";
 
 		// connection, preparedstatement, ResultSet null값 초기화
 		Connection con = null;
