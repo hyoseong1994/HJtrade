@@ -45,7 +45,6 @@ public class StockDAO {
 				sVo.setS_kg(rs.getDouble("s_kg"));
 				sVo.setS_cost(rs.getInt("s_cost"));
 				sVo.setS_totalMoney(rs.getInt("s_totalMoney"));
-				sVo.setS_state(rs.getString("s_state"));
 
 				// 필드값을 설정해준후 arraylist배열에 객체를 추가한다.
 				list.add(sVo);
@@ -117,7 +116,7 @@ public class StockDAO {
 
 	// 출고
 	public boolean getDeal(String d_dealDate, String d_number, String d_kg, String d_cost, int selectedStockIndex,
-			String s_state, String p_no, String a_no, String b_no) {
+			 String p_no, String a_no, String b_no) {
 		String sql = "insert into deal"
 				+ " (d_no, d_date, d_dealDate, a_no, s_no, p_no, d_number, d_kg, d_cost, d_totalmoney, b_no)"
 				+ " values " + " (Deal_seq.nextval, sysdate, ?,  ?, ?, ?, ?, ?, ?, ?, ?)";

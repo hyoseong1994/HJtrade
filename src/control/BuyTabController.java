@@ -31,6 +31,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import model.AccountVO;
 import model.BuyVO;
 import model.DealVO;
@@ -70,8 +71,6 @@ public class BuyTabController implements Initializable {
 	private RadioButton typePig;
 	@FXML
 	private Button btn_b_order; // 입고 버튼
-	@FXML
-	private Button btn_b_return; // 반품 버튼
 	@FXML
 	private Label txt_i_address;
 	@FXML
@@ -150,6 +149,7 @@ public class BuyTabController implements Initializable {
 		cbx_b_brand.setDisable(true);
 		cbx_b_part.setDisable(true);
 
+
 		productOrigin();
 		productBrand();
 		importionName();
@@ -158,7 +158,6 @@ public class BuyTabController implements Initializable {
 		try {
 
 			btn_b_order.setDisable(false);
-			btn_b_return.setDisable(false);
 
 			// 입고 테이블 뷰 컬럼이름 설정
 			TableColumn col_B_No = new TableColumn("입고번호");
@@ -225,15 +224,10 @@ public class BuyTabController implements Initializable {
 			col_B_totalMoney.setStyle("-fx-allignment:CENTER");
 			col_B_totalMoney.setCellValueFactory(new PropertyValueFactory<>("b_totalMoney"));
 
-			TableColumn col_S_stock = new TableColumn("상태");
-			col_S_stock.setPrefWidth(70);
-			col_S_stock.setStyle("-fx-allignment:CENTER");
-			col_S_stock.setCellValueFactory(new PropertyValueFactory<>("s_stock"));
 
 			BuyTableView.setItems(buyDataList);
 			BuyTableView.getColumns().addAll(col_B_No, col_B_buyDate, col_B_date, col_I_name, col_B_code, col_P_type,
-					col_P_origin, col_P_brand, col_P_part, col_B_number, col_B_kg, col_B_cost, col_B_totalMoney,
-					col_S_stock);
+					col_P_origin, col_P_brand, col_P_part, col_B_number, col_B_kg, col_B_cost, col_B_totalMoney);
 
 			// 매입 전체 목록
 			BuyTotalList();
@@ -303,14 +297,10 @@ public class BuyTabController implements Initializable {
 			col_D_totalMoney1.setStyle("-fx-allignment:CENTER");
 			col_D_totalMoney1.setCellValueFactory(new PropertyValueFactory<>("d_totalMoney"));
 
-			TableColumn col_S_state1 = new TableColumn("상태");
-			col_S_state1.setPrefWidth(50);
-			col_S_state1.setStyle("-fx-allignment:CENTER");
-			col_S_state1.setCellValueFactory(new PropertyValueFactory<>("s_stock"));
 			DealTableView.setItems(dealDataList);
 			DealTableView.getColumns().addAll(col_D_No, col_D_dealDate, col_D_date, col_A_name, col_B_code1,
 					col_P_type1, col_P_origin1, col_P_brand1, col_P_part1, col_D_number, col_D_kg, col_D_cost,
-					col_D_totalMoney1, col_S_state1);
+					col_D_totalMoney1);
 
 			// 출고전체목록
 			DealTotalList();
@@ -335,7 +325,6 @@ public class BuyTabController implements Initializable {
 
 			// 상픔 입고 등록 버튼
 			btn_b_order.setOnAction(event -> handlerBtn_b_orderAction(event));
-			btn_b_return.setOnAction(event -> handlerBtn_b_returnAction(event));
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -362,7 +351,7 @@ public class BuyTabController implements Initializable {
 		}
 	}
 
-//브랜드 콤보박스 선택 이벤트
+	// 브랜드 콤보박스 선택 이벤트
 	public void handlerCbx_b_brandAction(ActionEvent event) {
 		selectedBrand = cbx_b_brand.getValue().toString();
 		System.out.println(selectedBrand);
@@ -428,10 +417,6 @@ public class BuyTabController implements Initializable {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	// 반품 버튼
-	public void handlerBtn_b_returnAction(ActionEvent event) {
 	}
 
 	// 거래처 상호명 가져오기
@@ -725,6 +710,29 @@ public class BuyTabController implements Initializable {
 				alert.setHeaderText("상품이 추가되었습니다");
 				alert.setContentText("다음 상품을 입력하세요");
 				alert.showAndWait();
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// 미입금액 추가
+		try {
+			// 결과값 저장을 위한 변수선언
+			boolean sucess;
+			// 인스턴스 선언
+			ImportionTabDAO iDAO = new ImportionTabDAO();
+
+			// 결과 값 저장
+			sucess = iDAO.Updatepayment(i_no, txt_b_cost.getText().trim(), txt_b_kg.getText().trim());
+
+			// 결과값이 true 일경우 실행
+			if (sucess) {
+				// 데이터 초기화
+				buyDataList.removeAll(buyDataList);
+				// 전체리스트 호출
+				BuyTotalList();
+
 				// 등록후 초기화
 
 				txt_b_buydate.clear();
@@ -733,15 +741,11 @@ public class BuyTabController implements Initializable {
 				txt_b_kg.clear();
 				txt_b_cost.clear();
 				cbx_b_importion.getSelectionModel().clearSelection();
-				
-					
-				
-				
+
 			}
-
+			// 미입금금액 수정중 오류 발생시 오류 출력
 		} catch (Exception e) {
-			e.printStackTrace();
-
+			// TODO: handle exception
 		}
 
 	}

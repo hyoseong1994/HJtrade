@@ -175,14 +175,9 @@ public class ProductTotalTabController implements Initializable {
 			col_S_totalmoney.setStyle("-fx-allignment:CENTER");
 			col_S_totalmoney.setCellValueFactory(new PropertyValueFactory<>("s_totalMoney"));
 
-			TableColumn col_S_state = new TableColumn("상태");
-			col_S_state.setPrefWidth(50);
-			col_S_state.setStyle("-fx-allignment:CENTER");
-			col_S_state.setCellValueFactory(new PropertyValueFactory<>("s_state"));
-
 			stockTableView.setItems(stockDataList);
 			stockTableView.getColumns().addAll(col_S_No, col_B_date, col_S_code, col_P_type1, col_P_origin1,
-					col_P_brand1, col_P_part1, col_S_number, col_S_kg, col_S_cost, col_S_totalmoney, col_S_state);
+					col_P_brand1, col_P_part1, col_S_number, col_S_kg, col_S_cost, col_S_totalmoney);
 
 			// 재고 전체 목록
 			stockTotalList();
@@ -385,7 +380,6 @@ public class ProductTotalTabController implements Initializable {
 				int selectedS_number = selectStock.get(0).getS_number();
 				double selectedS_kg = selectStock.get(0).getS_kg();
 				int selectedS_cost = selectStock.get(0).getS_cost();
-				String selectedS_state = selectStock.get(0).getS_state();
 
 				origin = selectStock.get(0).getP_origin();
 				brand = selectStock.get(0).getP_brand();
@@ -395,7 +389,6 @@ public class ProductTotalTabController implements Initializable {
 				txt_S_number.setText(selectedS_number + "");
 				txt_S_kg.setText(selectedS_kg + "");
 				txt_S_cost.setText(selectedS_cost + "");
-				S_state = selectedS_state;
 
 				btn_s_deal.setDisable(false);
 
@@ -458,7 +451,7 @@ public class ProductTotalTabController implements Initializable {
 
 			StockDAO sDao = new StockDAO();
 			sucess = sDao.getDeal(txt_S_dealDate.getText().trim(), txt_S_number.getText().trim(),
-					txt_S_kg.getText().trim(), txt_S_cost.getText().trim(), selectedStockIndex, S_state, p_no, a_no,
+					txt_S_kg.getText().trim(), txt_S_cost.getText().trim(), selectedStockIndex, p_no, a_no,
 					b_no);
 			if (sucess) {
 
@@ -470,22 +463,38 @@ public class ProductTotalTabController implements Initializable {
 		// 재고 수량 변경
 		try {
 
-			boolean sucess;
-
 			StockDAO sDao = new StockDAO();
-			sucess = sDao.getStockUpdateStock(txt_S_number.getText().trim(), txt_S_kg.getText().trim(),
-					selectedStockIndex);
+			sDao.getStockUpdateStock(txt_S_number.getText().trim(), txt_S_kg.getText().trim(), selectedStockIndex);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// 미수금액 추가
+		try {
+			// 결과값 저장을 위한 변수선언
+			boolean sucess;
+			// 인스턴스 선언
+			AccountTabDAO aDAO = new AccountTabDAO();
+
+			// 결과 값 저장
+			sucess = aDAO.UpdateCollect(Integer.parseInt(a_no), txt_S_cost.getText().trim(), txt_S_kg.getText().trim());
+
+			// 결과값이 true 일경우 실행
 			if (sucess) {
+				// 데이터 초기화
 				stockDataList.removeAll(stockDataList);
+				// 전체리스트 호출
 				stockTotalList();
 
+				// 등록후 초기화
 				txt_S_dealDate.clear();
 				txt_S_number.clear();
 				txt_S_kg.clear();
 				txt_S_cost.clear();
 			}
+			// 미수금액 수정중 오류 발생시 오류 출력
 		} catch (Exception e) {
-			e.printStackTrace();
+			// TODO: handle exception
 		}
 
 	}

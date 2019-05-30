@@ -530,11 +530,13 @@ public class ImportionTabDAO {
 
 		return list;
 	}
+
 	public ArrayList<BuyVO> getselectTotalList(String i_name) throws Exception {
 		ArrayList<BuyVO> list = new ArrayList<>();
 
 		String sql = "select b.b_no, b.b_buyDate, b.b_date, i.i_name, b.b_code, p.p_type, p.p_origin, p.p_brand, p.p_part, b.b_number, b.b_kg , b.b_cost, b.b_totalmoney,s.s_state"
-				+ " from buy b, product p, importion i, stock s" + " where b.p_no = p.p_no and b.i_no = i.i_no and b.s_no = s.s_no and i.i_name=?";
+				+ " from buy b, product p, importion i, stock s"
+				+ " where b.p_no = p.p_no and b.i_no = i.i_no and b.s_no = s.s_no and i.i_name=?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -584,5 +586,64 @@ public class ImportionTabDAO {
 			}
 		}
 		return list;
+	}
+
+	public boolean Updatepayment(int I_no, String B_cost, String B_kg) throws Exception {
+
+		System.out.println(I_no);
+		System.out.println(B_cost);
+		System.out.println(B_kg);
+		// 쿼리문
+		String sql = "update importion set I_payment = I_payment + ? where I_no = ?";
+
+		// connection, preparedstatement null값 초기화
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean accountUpdateSucess = false;
+
+		int total = Integer.parseInt(B_cost) * Integer.parseInt(B_kg);
+
+		System.out.println(total);
+		try {
+			// DB 연결
+			con = DBUtil.getConnection();
+			// PreparedStatement 에 쿼리문 저장
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, total);
+			pstmt.setInt(2, I_no);
+
+			// 결과 값 변수에 저장
+			int i = pstmt.executeUpdate();
+
+			if (i == 1) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("미입금금액 수정");
+				alert.setHeaderText(" 미입금금액 수정 완료.");
+				alert.setContentText("미입금금액 수정 성공!!!");
+				alert.showAndWait();
+				accountUpdateSucess = true;
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("미입금금액 수정");
+				alert.setHeaderText("미입금금액 수정 실패.");
+				alert.setContentText("미입금금액 수정 실패!!!");
+				alert.showAndWait();
+			}
+		} catch (SQLException e) {
+			System.out.println("e=[" + e + "]");
+		} catch (Exception e) {
+			System.out.println("e=[" + e + "]");
+		} finally {
+			try {
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+			}
+		}
+		// 결과값 accountUpdateSucess 반환
+		return accountUpdateSucess;
 	}
 }

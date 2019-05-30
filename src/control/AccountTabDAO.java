@@ -554,4 +554,59 @@ public class AccountTabDAO {
 		return list;
 	}
 
+	public boolean UpdateCollect(int A_no, String S_cost, String S_kg) throws Exception {
+
+		// 쿼리문
+		String sql = "update account set A_collect = A_collect + ? where A_no = ?";
+
+		// connection, preparedstatement null값 초기화
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		boolean accountUpdateSucess = false;
+
+		int total = Integer.parseInt(S_cost) * Integer.parseInt(S_kg);
+
+		System.out.println(total);
+		try {
+			// DB 연결
+			con = DBUtil.getConnection();
+			// PreparedStatement 에 쿼리문 저장
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, total);
+			pstmt.setInt(2, A_no);
+
+			// 결과 값 변수에 저장
+			int i = pstmt.executeUpdate();
+
+			if (i == 1) {
+				Alert alert = new Alert(AlertType.INFORMATION);
+				alert.setTitle("미수금액 수정");
+				alert.setHeaderText(" 미수금액 수정 완료.");
+				alert.setContentText("미수금액 수정 성공!!!");
+				alert.showAndWait();
+				accountUpdateSucess = true;
+			} else {
+				Alert alert = new Alert(AlertType.WARNING);
+				alert.setTitle("미수금액 수정");
+				alert.setHeaderText("미수금액 수정 실패.");
+				alert.setContentText("미수금액 수정 실패!!!");
+				alert.showAndWait();
+			}
+		} catch (SQLException e) {
+			System.out.println("e=[" + e + "]");
+		} catch (Exception e) {
+			System.out.println("e=[" + e + "]");
+		} finally {
+			try {
+				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
+				if (pstmt != null)
+					pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+			}
+		}
+		// 결과값 accountUpdateSucess 반환
+		return accountUpdateSucess;
+	}
 }

@@ -51,7 +51,6 @@
 				<TextField fx:id="txt_b_cost" promptText="숫자만 입력" />
 				<HBox>
 					<Button fx:id="btn_b_order" text="입고주문" />
-					<Button fx:id="btn_b_return" text="반품" />
 				</HBox>
 			</VBox>
 			<VBox>
@@ -106,7 +105,6 @@
 			</children>
 			<VBox prefWidth="100">
 				<HBox alignment="BOTTOM_RIGHT">
-					<Button>반품</Button>
 				</HBox>
 			</VBox>
 		</VBox>

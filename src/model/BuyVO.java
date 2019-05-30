@@ -17,17 +17,11 @@ public class BuyVO {
 	private double b_kg; // 매입 중량
 	private int b_cost; // 매입 단가
 	private int b_totalMoney; // 매입 총 금액
-	private String s_state;
-
-	
 
 	public BuyVO() {
 		super();
 	}
 
-	
-	
-	
 	public BuyVO(String b_buyDate, int i_no, String i_name, String b_code, int p_no, String p_type, String p_origin,
 			String p_brand, String p_part, int b_number, double b_kg, int b_cost) {
 		super();
@@ -45,12 +39,9 @@ public class BuyVO {
 		this.b_cost = b_cost;
 	}
 
-
-
-
 	public BuyVO(int b_no, String b_buyDate, String b_date, int i_no, String i_name, String b_code, int p_no, int s_no,
 			String p_type, String p_origin, String p_brand, String p_part, int b_number, double b_kg, int b_cost,
-			int b_totalMoney, String s_state) {
+			int b_totalMoney) {
 		super();
 		this.b_no = b_no;
 		this.b_buyDate = b_buyDate;
@@ -68,11 +59,7 @@ public class BuyVO {
 		this.b_kg = b_kg;
 		this.b_cost = b_cost;
 		this.b_totalMoney = b_totalMoney;
-		this.s_state = s_state;
 	}
-
-
-
 
 	public int getB_no() {
 		return b_no;
@@ -200,14 +187,6 @@ public class BuyVO {
 
 	public void setB_totalMoney(int b_totalMoney) {
 		this.b_totalMoney = b_totalMoney;
-	}
-
-	public String getS_state() {
-		return s_state;
-	}
-
-	public void setS_state(String s_state) {
-		this.s_state = s_state;
 	}
 
 	public double getB_totalMoney(double d) {

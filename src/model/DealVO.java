@@ -17,7 +17,6 @@ public class DealVO {
 	private double d_kg; // 매입 중량
 	private int d_cost; // 매입 단가
 	private int d_totalMoney; // 매입 총 금액
-	private String s_state;
 
 	public DealVO() {
 		super();
@@ -25,7 +24,7 @@ public class DealVO {
 
 	public DealVO(int d_no, String d_dealDate, String d_date, int a_no, String a_name, String b_code, int p_no,
 			int s_no, String p_type, String p_origin, String p_brand, String p_part, int d_number, double d_kg,
-			int d_cost, int d_totalMoney, String s_state) {
+			int d_cost, int d_totalMoney) {
 		super();
 		this.d_no = d_no;
 		this.d_dealDate = d_dealDate;
@@ -43,12 +42,10 @@ public class DealVO {
 		this.d_kg = d_kg;
 		this.d_cost = d_cost;
 		this.d_totalMoney = d_totalMoney;
-		this.s_state = s_state;
 	}
 
 	public DealVO(int d_no, String d_dealDate, String d_date, String a_name, String b_code, String p_type,
-			String p_origin, String p_brand, String p_part, int d_number, double d_kg, int d_cost, int d_totalMoney,
-			String s_state) {
+			String p_origin, String p_brand, String p_part, int d_number, double d_kg, int d_cost, int d_totalMoney) {
 		super();
 		this.d_no = d_no;
 		this.d_dealDate = d_dealDate;
@@ -63,7 +60,6 @@ public class DealVO {
 		this.d_kg = d_kg;
 		this.d_cost = d_cost;
 		this.d_totalMoney = d_totalMoney;
-		this.s_state = s_state;
 	}
 
 	public int getD_no() {
@@ -192,14 +188,6 @@ public class DealVO {
 
 	public void setD_totalMoney(int d_totalMoney) {
 		this.d_totalMoney = d_totalMoney;
-	}
-
-	public String getS_state() {
-		return s_state;
-	}
-
-	public void setS_state(String s_state) {
-		this.s_state = s_state;
 	}
 
 }

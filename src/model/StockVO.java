@@ -12,7 +12,6 @@ public class StockVO {
 	private double s_kg; // 매입 중량
 	private int s_cost; // 매입 단가
 	private int s_totalMoney; // 매입 총 금액
-	private String s_state; // 반품여부
 	private int p_no;//상품 일련번호
 
 	// 디폴트 생성자
@@ -22,7 +21,7 @@ public class StockVO {
 
 	// 전체 생성자
 	public StockVO(int s_no, String b_date, String b_code, String p_type, String p_origin, String p_brand,
-			String p_part, int s_number, double s_kg, int s_cost, int s_totalMoney, String s_state) {
+			String p_part, int s_number, double s_kg, int s_cost, int s_totalMoney) {
 		super();
 		this.s_no = s_no;
 		this.b_date = b_date;
@@ -35,7 +34,6 @@ public class StockVO {
 		this.s_kg = s_kg;
 		this.s_cost = s_cost;
 		this.s_totalMoney = s_totalMoney;
-		this.s_state = s_state;
 	}
 
 	// getter and setter
@@ -125,14 +123,6 @@ public class StockVO {
 
 	public void setS_totalMoney(int s_totalMoney) {
 		this.s_totalMoney = s_totalMoney;
-	}
-
-	public String getS_state() {
-		return s_state;
-	}
-
-	public void setS_state(String s_state) {
-		this.s_state = s_state;
 	}
 
 	public int getP_no() {

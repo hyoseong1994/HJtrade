@@ -131,7 +131,7 @@ public class BuyDAO {
 		ArrayList<StockVO> list = new ArrayList<>();
 
 		String sql = "select s.s_no, b.b_date, b.b_code, p.p_type, p.p_origin, p.p_brand, p.p_part,"
-				+ " s.s_number, s.s_kg, s.s_cost, s.s_totalMoney, s.s_state" + " from stock s, buy b, product p"
+				+ " s.s_number, s.s_kg, s.s_cost, s.s_totalMoney" + " from stock s, buy b, product p"
 				+ " where s.s_no = b.s_no and s.p_no = p.p_no and s.s_no = b.s_no" + " order by s.s_no";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -158,7 +158,6 @@ public class BuyDAO {
 				sVo.setS_kg(rs.getDouble("s_kg"));
 				sVo.setS_cost(rs.getInt("s_cost"));
 				sVo.setS_totalMoney(rs.getInt("s_totalMoney"));
-				sVo.setS_state(rs.getString("s_state"));
 
 				// 필드값을 설정해준후 arraylist배열에 객체를 추가한다.
 				list.add(sVo);

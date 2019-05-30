@@ -16,7 +16,7 @@ public class DealDAO {
 		ArrayList<DealVO> list = new ArrayList<>();
 
 		String sql = "select d_no, d_number, d_kg, d_cost, d_dealDate, d_totalMoney,"
-				+ " s_state, a_name, b_code,  p_type, p_origin, p_brand,  p_part, d_date"
+				+ " a_name, b_code,  p_type, p_origin, p_brand,  p_part, d_date"
 				+ " from deal d, account a, product p, stock s, buy b"
 				+ " where d.a_no = a.a_no and d.s_no = s.s_no and d.p_no = p.p_no and d.b_no = b.b_no"
 				+ " order by d_no";
@@ -47,7 +47,6 @@ public class DealDAO {
 				dVo.setD_kg(rs.getDouble("d_kg"));
 				dVo.setD_cost(rs.getInt("d_cost"));
 				dVo.setD_totalMoney(rs.getInt("d_totalMoney"));
-				dVo.setS_state(rs.getString("s_state"));
 
 				// 필드값을 설정해준후 arraylist배열에 객체를 추가한다.
 				list.add(dVo);
