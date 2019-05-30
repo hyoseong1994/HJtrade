@@ -166,42 +166,42 @@ public class BuyTabController implements Initializable {
 			col_B_No.setStyle("-fx-allignment:CENTER");
 			col_B_No.setCellValueFactory(new PropertyValueFactory<>("b_no"));
 			TableColumn col_B_buyDate = new TableColumn("주문일자");
-			col_B_buyDate.setPrefWidth(120);
+			col_B_buyDate.setPrefWidth(70);
 			col_B_buyDate.setStyle("-fx-allignment:CENTER");
 			col_B_buyDate.setCellValueFactory(new PropertyValueFactory<>("b_buyDate"));
 
 			TableColumn col_B_date = new TableColumn("거래일자");
-			col_B_date.setPrefWidth(130);
+			col_B_date.setPrefWidth(70);
 			col_B_date.setStyle("-fx-allignment:CENTER");
 			col_B_date.setCellValueFactory(new PropertyValueFactory<>("b_date"));
 
 			TableColumn col_I_name = new TableColumn("상호명");
-			col_I_name.setPrefWidth(100);
+			col_I_name.setPrefWidth(70);
 			col_I_name.setStyle("-fx-allignment:CENTER");
 			col_I_name.setCellValueFactory(new PropertyValueFactory<>("i_name"));
 
 			TableColumn col_B_code = new TableColumn("식별번호");
-			col_B_code.setPrefWidth(90);
+			col_B_code.setPrefWidth(70);
 			col_B_code.setStyle("-fx-allignment:CENTER");
 			col_B_code.setCellValueFactory(new PropertyValueFactory<>("b_code"));
 
 			TableColumn col_P_type = new TableColumn("분류");
-			col_P_type.setPrefWidth(50);
+			col_P_type.setPrefWidth(70);
 			col_P_type.setStyle("-fx-allignment:CENTER");
 			col_P_type.setCellValueFactory(new PropertyValueFactory<>("p_type"));
 
 			TableColumn col_P_origin = new TableColumn("원산지");
-			col_P_origin.setPrefWidth(60);
+			col_P_origin.setPrefWidth(70);
 			col_P_origin.setStyle("-fx-allignment:CENTER");
 			col_P_origin.setCellValueFactory(new PropertyValueFactory<>("p_origin"));
 
 			TableColumn col_P_brand = new TableColumn("브랜드");
-			col_P_brand.setPrefWidth(80);
+			col_P_brand.setPrefWidth(70);
 			col_P_brand.setStyle("-fx-allignment:CENTER");
 			col_P_brand.setCellValueFactory(new PropertyValueFactory<>("p_brand"));
 
 			TableColumn col_P_part = new TableColumn("부위");
-			col_P_part.setPrefWidth(90);
+			col_P_part.setPrefWidth(80);
 			col_P_part.setStyle("-fx-allignment:CENTER");
 			col_P_part.setCellValueFactory(new PropertyValueFactory<>("p_part"));
 
