@@ -286,22 +286,22 @@ public class BuyTabController implements Initializable {
 			TableColumn col_D_number = new TableColumn("수량");
 			col_D_number.setPrefWidth(70);
 			col_D_number.setStyle("-fx-allignment:CENTER");
-			col_D_number.setCellValueFactory(new PropertyValueFactory<>("b_number"));
+			col_D_number.setCellValueFactory(new PropertyValueFactory<>("d_number"));
 
 			TableColumn col_D_kg = new TableColumn("중량");
 			col_D_kg.setPrefWidth(70);
 			col_D_kg.setStyle("-fx-allignment:CENTER");
-			col_D_kg.setCellValueFactory(new PropertyValueFactory<>("b_kg"));
+			col_D_kg.setCellValueFactory(new PropertyValueFactory<>("d_kg"));
 
 			TableColumn col_D_cost = new TableColumn("단가");
 			col_D_cost.setPrefWidth(70);
 			col_D_cost.setStyle("-fx-allignment:CENTER");
-			col_D_cost.setCellValueFactory(new PropertyValueFactory<>("b_cost"));
+			col_D_cost.setCellValueFactory(new PropertyValueFactory<>("d_cost"));
 
 			TableColumn col_D_totalMoney1 = new TableColumn("총 금액");
 			col_D_totalMoney1.setPrefWidth(80);
 			col_D_totalMoney1.setStyle("-fx-allignment:CENTER");
-			col_D_totalMoney1.setCellValueFactory(new PropertyValueFactory<>("b_totalMoney"));
+			col_D_totalMoney1.setCellValueFactory(new PropertyValueFactory<>("d_totalMoney"));
 
 			TableColumn col_S_state1 = new TableColumn("상태");
 			col_S_state1.setPrefWidth(50);
@@ -469,8 +469,6 @@ public class BuyTabController implements Initializable {
 		try {
 
 			i_no = importion.getImportionNum(selectedNameIndex);
-			System.out.println(selectedNameIndex);
-			System.out.println(i_no);
 
 		} catch (Exception e) {
 			System.out.println(e);
