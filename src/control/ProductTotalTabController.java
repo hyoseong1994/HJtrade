@@ -415,6 +415,27 @@ public class ProductTotalTabController implements Initializable {
 		}
 	}
 
+	// 콤보박스 선택 거래처 번호 가져오기
+	public void hacdlercbx_ccountChoiceAction(ActionEvent event) {
+		a_no();
+	}
+
+	public void a_no() {
+
+		// 선택된 직원명 인덱스값
+		String selectedNameIndex = cbx_ccountChoice.getSelectionModel().getSelectedItem();
+
+		AccountTabDAO account = new AccountTabDAO();
+
+		try {
+
+			a_no = account.getaccountNum(selectedNameIndex);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e);
+		}
+	}
+
 	// 식별번호로 입고번호 찾기
 	public void b_no(String b_code) {
 		try {
@@ -430,6 +451,7 @@ public class ProductTotalTabController implements Initializable {
 	// 출고
 	public void deal() {
 		b_no(b_code);
+		a_no();
 		try {
 
 			boolean sucess;
@@ -466,23 +488,6 @@ public class ProductTotalTabController implements Initializable {
 			e.printStackTrace();
 		}
 
-	}
-
-	// 콤보박스 선택 거래처 번호 가져오기
-	public void hacdlercbx_ccountChoiceAction(ActionEvent event) {
-
-		// 선택된 직원명 인덱스값
-		String selectedNameIndex = cbx_ccountChoice.getSelectionModel().getSelectedItem();
-
-		AccountTabDAO account = new AccountTabDAO();
-
-		try {
-
-			a_no = account.getaccountNum(selectedNameIndex);
-		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println(e);
-		}
 	}
 
 	// 판매처 이름 가져오기
