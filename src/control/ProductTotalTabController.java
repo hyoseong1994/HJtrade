@@ -387,8 +387,6 @@ public class ProductTotalTabController implements Initializable {
 				int selectedS_cost = selectStock.get(0).getS_cost();
 				String selectedS_state = selectStock.get(0).getS_state();
 
-				System.out.println(selectedStockIndex);
-
 				origin = selectStock.get(0).getP_origin();
 				brand = selectStock.get(0).getP_brand();
 				part = selectStock.get(0).getP_part();
@@ -421,7 +419,7 @@ public class ProductTotalTabController implements Initializable {
 	public void b_no(String b_code) {
 		try {
 			BuyDAO bDAO = new BuyDAO();
-			
+
 			b_no = bDAO.b_no(b_code);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -431,6 +429,7 @@ public class ProductTotalTabController implements Initializable {
 
 	// 출고
 	public void deal() {
+		b_no(b_code);
 		try {
 
 			boolean sucess;

@@ -206,16 +206,16 @@ public class BuyDAO {
 
 			if (i == 1) {
 				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("입고 확인");
-				alert.setHeaderText(" 입고 완료.");
-				alert.setContentText("입고 성공!!!");
+				alert.setTitle("출고 확인");
+				alert.setHeaderText(" 출고 완료.");
+				alert.setContentText("출고 성공!!!");
 				alert.showAndWait();
 				StockUpdateSucess = true;
 			} else {
 				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("입고 확인");
-				alert.setHeaderText("입고 실패.");
-				alert.setContentText("입고 실패!!!");
+				alert.setTitle("출고 확인");
+				alert.setHeaderText("출고 실패.");
+				alert.setContentText("출고 실패!!!");
 				alert.showAndWait();
 			}
 		} catch (SQLException e) {
@@ -582,7 +582,7 @@ public class BuyDAO {
 
 	public String b_no(String b_code) {
 
-		String sql = "select b_no from product where b_code ?";
+		String sql = "select b_no from buy where b_code = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
