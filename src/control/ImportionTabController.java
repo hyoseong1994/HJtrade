@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.RadioButton;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -69,6 +71,52 @@ public class ImportionTabController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
+
+			// 사업자 번호 숫자만 입력가능
+			txt_I_businessNumber.textProperty().addListener(new ChangeListener<String>() {
+
+				@Override
+				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+					if (!newValue.matches("\\d*")) {
+						txt_I_businessNumber.setText(newValue.replaceAll("[^\\d]", ""));
+					}
+				}
+
+			});
+			// 대표자 번호 숫자만 입력가능
+			txt_I_representPhone.textProperty().addListener(new ChangeListener<String>() {
+
+				@Override
+				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+					if (!newValue.matches("\\d*")) {
+						txt_I_representPhone.setText(newValue.replaceAll("[^\\d]", ""));
+					}
+				}
+
+			});
+			// 담당자 번호 숫자만 입력가능
+			txt_I_chargePhone.textProperty().addListener(new ChangeListener<String>() {
+
+				@Override
+				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+					if (!newValue.matches("\\d*")) {
+						txt_I_chargePhone.setText(newValue.replaceAll("[^\\d]", ""));
+					}
+				}
+
+			});
+			// 매입금 숫자만 입력가능
+			txt_I_payment.textProperty().addListener(new ChangeListener<String>() {
+
+				@Override
+				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+					if (!newValue.matches("\\d*")) {
+						txt_I_payment.setText(newValue.replaceAll("[^\\d]", ""));
+					}
+				}
+
+			});
+
 			// 매입 거래처 버튼 초기화
 			btn_I_register.setDisable(true);// 등록버튼 비활성화
 			btn_I_update.setDisable(true);// 수정버튼 비활성화

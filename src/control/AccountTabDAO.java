@@ -14,9 +14,9 @@ import model.DealVO;
 
 public class AccountTabDAO {
 
-	// 전체 리스트
+	// 판매거래처 전체 리스트
 	public ArrayList<AccountVO> getaccountVOTotalList() throws Exception {
-		// ARrayList 에 VO 넣기
+		// ArrayList 에 VO 넣기
 		ArrayList<AccountVO> list = new ArrayList<>();
 
 		// 쿼리문
@@ -249,7 +249,7 @@ public class AccountTabDAO {
 		return accountUpdateSucess;
 	}
 
-	// 판매거래처 번호
+	// 판매거래처상호명으로 일련번호
 	public String getaccountNum(String A_name) throws Exception {
 
 		// 쿼리문
@@ -295,7 +295,7 @@ public class AccountTabDAO {
 		return A_no;
 	}
 
-	// 거래처 삭제
+	// 판매 거래처 삭제
 	public boolean getaccountDelete(int A_no) throws Exception {
 
 		// 쿼리문
@@ -349,7 +349,7 @@ public class AccountTabDAO {
 		return imporiontDeleteSucess;
 	}
 
-	// 아이디 중복 체크
+	// 사업자 번호 중복 검사
 	public boolean getOverlapBN(String searchBN) throws Exception {
 
 		// 쿼리문
@@ -574,7 +574,6 @@ public class AccountTabDAO {
 			pstmt.setString(1, a_name);
 			// jvo에서 변수들을 가져와서 sql문에 넣어준다.
 			rs = pstmt.executeQuery();
-			// sql을 날리고 불러온 값이 있으면 로그인결과변수 true
 			while (rs.next()) {
 				avo = new AccountVO();
 
@@ -606,12 +605,11 @@ public class AccountTabDAO {
 
 		return list;
 	}
-	
-	
-	//콤보박스 거래처 선택시 해당되는 거래처의 출고내역확인
+
+	// 콤보박스 거래처 선택시 해당되는 거래처의 출고내역확인
 	public ArrayList<DealVO> getSelectTotalList(String a_name) throws Exception {
 		ArrayList<DealVO> list = new ArrayList<>();
-
+		// 쿼리문
 		String sql = "select d_no, d_dealDate,d_date , a_name, b_code, p_type, p_origin, p_brand, p_part, d_number, d_kg, d_cost, d_totalMoney"
 				+ " from deal d, account a, product p, stock s, buy b"
 				+ " where d.a_no = a.a_no and d.s_no = s.s_no and d.p_no = p.p_no and a.a_name =?" + " order by d_no";
@@ -665,7 +663,7 @@ public class AccountTabDAO {
 		}
 		return list;
 	}
-
+	//판매거래처에 미수금 올리기
 	public boolean UpdateCollect(int A_no, String S_cost, String S_kg) throws Exception {
 
 		// 쿼리문
@@ -675,7 +673,7 @@ public class AccountTabDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean accountUpdateSucess = false;
-
+		//총금액은 = 단가 * 총 중량
 		int total = Integer.parseInt(S_cost) * Integer.parseInt(S_kg);
 
 		System.out.println(total);

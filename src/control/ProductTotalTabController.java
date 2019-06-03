@@ -1,9 +1,11 @@
-	package control;
+package control;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -37,35 +39,33 @@ public class ProductTotalTabController implements Initializable {
 	@FXML
 	private Button btn_p_register; // 등록버튼
 	@FXML
-	private TableView<ProductVO> productTableView = new TableView<>();
+	private TableView<ProductVO> productTableView = new TableView<>(); // 상품 테이블
 	@FXML
-	private TextField txt_S_dealDate;
+	private TextField txt_S_dealDate; // 출고 주문날짜
 	@FXML
-	private TextField txt_S_number;
+	private TextField txt_S_number; // 출고 수량
 	@FXML
-	private TextField txt_S_kg;
+	private TextField txt_S_kg; // 출고 중량
 	@FXML
-	private TextField txt_S_cost;
+	private TextField txt_S_cost; // 출고 단가
 	@FXML
-	private TableView<StockVO> stockTableView = new TableView<>();
+	private TableView<StockVO> stockTableView = new TableView<>(); //재고 테이블 
 	@FXML
-	private Button btn_s_deal;
+	private Button btn_s_deal; // 출고 버튼
 	@FXML
-	private String S_state;
+	private String p_no; // 상품 일련번호
 	@FXML
-	private String p_no;
+	private String a_no; // 판매거래처 일련번호
 	@FXML
-	private String a_no;
+	private ComboBox<String> cbx_ccountChoice; // 판매 거래처 콤보박스
 	@FXML
-	private ComboBox<String> cbx_ccountChoice;
+	private String origin; // 상품 원산지
 	@FXML
-	private String origin;
+	private String brand; // 상품 브랜드
 	@FXML
-	private String brand;
-	@FXML
-	private String part;
-	private String b_no;
-	private String b_code;
+	private String part; // 상품 부위
+	private String b_no; // 입고 일련번호
+	private String b_code; // 입고 상품 식별번호
 
 	public static ObservableList<ProductVO> productDataList = FXCollections.observableArrayList();
 	ObservableList<ProductVO> selectProduct = null; // 테이블에서 선택한 정보저장
@@ -87,6 +87,42 @@ public class ProductTotalTabController implements Initializable {
 			btn_s_deal.setDisable(true);
 			stockTableView.setEditable(false);
 
+			// 출고 수량 숫자만 입력가능
+			txt_S_number.textProperty().addListener(new ChangeListener<String>() {
+
+				@Override
+				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+					if (!newValue.matches("\\d*")) {
+						txt_S_number.setText(newValue.replaceAll("[^\\d]", ""));
+					}
+				}
+
+			});
+
+			// 출고 중량 숫자만 입력가능
+			txt_S_kg.textProperty().addListener(new ChangeListener<String>() {
+
+				@Override
+				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+					if (!newValue.matches("\\d*")) {
+						txt_S_kg.setText(newValue.replaceAll("[^\\d]", ""));
+					}
+				}
+
+			});
+			
+			// 출고 단가 숫자만 입력가능
+			txt_S_cost.textProperty().addListener(new ChangeListener<String>() {
+
+				@Override
+				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+					if (!newValue.matches("\\d*")) {
+						txt_S_cost.setText(newValue.replaceAll("[^\\d]", ""));
+					}
+				}
+
+			});
+			
 			// 상품 테이블 뷰 컬림 이름 설정
 			TableColumn col_P_No = new TableColumn("상품번호");
 			col_P_No.setPrefWidth(90);
@@ -187,10 +223,10 @@ public class ProductTotalTabController implements Initializable {
 			txt_p_origin.setOnKeyPressed(event -> handlerTxt_p_originKeyPressed(event)); // 원산지
 			txt_p_brand.setOnKeyPressed(event -> handlerTxt_p_brandKeyPressed(event)); // 브랜드
 			txt_p_part.setOnKeyPressed(event -> handlerTxt_p_partKeyPressed(event)); // 부위
-			txt_S_dealDate.setOnKeyPressed(event -> handlertxt_S_dealDateKeyPressed(event));
-			txt_S_number.setOnKeyPressed(event -> handlertxt_S_numberKeyPressed(event));
-			txt_S_kg.setOnKeyPressed(event -> handlertxt_S_kgKeyPressed(event));
-			txt_S_cost.setOnKeyPressed(event -> handlertxt_S_costKeyPressed(event));
+			txt_S_dealDate.setOnKeyPressed(event -> handlertxt_S_dealDateKeyPressed(event));// 주문날짜
+			txt_S_number.setOnKeyPressed(event -> handlertxt_S_numberKeyPressed(event));// 출고 수량
+			txt_S_kg.setOnKeyPressed(event -> handlertxt_S_kgKeyPressed(event)); // 출고 중량
+			txt_S_cost.setOnKeyPressed(event -> handlertxt_S_costKeyPressed(event)); // 출고 단가
 
 			// 상품등록버튼 이벤트
 			btn_p_register.setOnAction(event -> handlerBtn_p_registerAction(event));
@@ -214,19 +250,21 @@ public class ProductTotalTabController implements Initializable {
 		deal();
 	}
 
-	// 엔터키 이벤트 핸들러
+	// 주문날짜 텍스트 필드 키 이벤트
 	public void handlertxt_S_dealDateKeyPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			txt_S_number.requestFocus();
 		}
 	}
 
+	// 출고수량 텍스트 필드 키 이벤트
 	public void handlertxt_S_numberKeyPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			txt_S_kg.requestFocus();
 		}
 	}
 
+	// 출고중량 텍스트 필드 키 이벤트
 	public void handlertxt_S_kgKeyPressed(KeyEvent event) {
 		// TODO Auto-generated method stub
 		if (event.getCode() == KeyCode.ENTER) {
@@ -234,6 +272,7 @@ public class ProductTotalTabController implements Initializable {
 		}
 	}
 
+	// 출고 단가 텍스트 필드 키 이벤트
 	public void handlertxt_S_costKeyPressed(KeyEvent event) {
 		// TODO Auto-generated method stub
 		if (event.getCode() == KeyCode.ENTER) {
@@ -241,25 +280,28 @@ public class ProductTotalTabController implements Initializable {
 		}
 	}
 
-	// ENTER 하면 다음 텍스트필드로
+	// 상품 종류 텍스트 필드 키 이벤트
 	public void handlerTxt_p_typeKeyPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			txt_p_origin.requestFocus();
 		}
 	}
 
+	// 상품 원산지 텍스트 필드 키 이벤트
 	public void handlerTxt_p_originKeyPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			txt_p_brand.requestFocus();
 		}
 	}
 
+	// 상품 브랜드 텍스트 필드 키 이벤트
 	public void handlerTxt_p_brandKeyPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			txt_p_part.requestFocus();
 		}
 	}
 
+	// 상품 부위 텍스트 필드 키 이벤트
 	public void handlerTxt_p_partKeyPressed(KeyEvent event) {
 		if (event.getCode() == KeyCode.ENTER) {
 			btn_p_register.requestFocus();
@@ -451,8 +493,7 @@ public class ProductTotalTabController implements Initializable {
 
 			StockDAO sDao = new StockDAO();
 			sucess = sDao.getDeal(txt_S_dealDate.getText().trim(), txt_S_number.getText().trim(),
-					txt_S_kg.getText().trim(), txt_S_cost.getText().trim(), selectedStockIndex, p_no, a_no,
-					b_no);
+					txt_S_kg.getText().trim(), txt_S_cost.getText().trim(), selectedStockIndex, p_no, a_no, b_no);
 			if (sucess) {
 
 			}

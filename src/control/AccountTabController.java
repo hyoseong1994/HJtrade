@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.RadioButton;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -62,13 +64,59 @@ public class AccountTabController implements Initializable {
 	private Button btn_A_clear;// 초가화버튼
 
 	public static ObservableList<AccountVO> accountDataList = FXCollections.observableArrayList();
-	ObservableList<AccountVO> selectAccount = null; // 매입거래처 테이블에서 선택한 정보 저장
+	ObservableList<AccountVO> selectAccount = null; // 판매거래처 테이블에서 선택한 정보 저장
 	int selectedIndex; // 테이블에서 선택한 거래처 정보 인덱스 저장
 
 	// 초기설정
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		try {
+
+			// 사업자 번호 숫자만 입력가능
+			txt_A_businessNumber.textProperty().addListener(new ChangeListener<String>() {
+
+				@Override
+				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+					if (!newValue.matches("\\d*")) {
+						txt_A_businessNumber.setText(newValue.replaceAll("[^\\d]", ""));
+					}
+				}
+
+			});
+			// 대표자 번호 숫자만 입력가능
+			txt_A_representPhone.textProperty().addListener(new ChangeListener<String>() {
+
+				@Override
+				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+					if (!newValue.matches("\\d*")) {
+						txt_A_representPhone.setText(newValue.replaceAll("[^\\d]", ""));
+					}
+				}
+
+			});
+			// 담당자 번호 숫자만 입력가능
+			txt_A_chargePhone.textProperty().addListener(new ChangeListener<String>() {
+
+				@Override
+				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+					if (!newValue.matches("\\d*")) {
+						txt_A_chargePhone.setText(newValue.replaceAll("[^\\d]", ""));
+					}
+				}
+
+			});
+			//수금액 숫자만 입력가능
+			txt_A_collect.textProperty().addListener(new ChangeListener<String>() {
+
+				@Override
+				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+					if (!newValue.matches("\\d*")) {
+						txt_A_collect.setText(newValue.replaceAll("[^\\d]", ""));
+					}
+				}
+
+			});
+			
 			// 판매 거래처 버튼 초기화
 			btn_A_collect.setDisable(true);// 수금버튼 비활성화
 			btn_A_register.setDisable(true);// 등록버튼 비활성화

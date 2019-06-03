@@ -6,20 +6,18 @@ public class SellVO {
 	private int cost;
 	private String buyDate;
 	private double totalMoney;
-	private String state;
 
 	public SellVO() {
 		super();
 	}
 
-	public SellVO(int number, double kg, int cost, String buyDate, double totalMoney, String state) {
+	public SellVO(int number, double kg, int cost, String buyDate, double totalMoney) {
 		super();
 		this.number = number;
 		this.kg = kg;
 		this.cost = cost;
 		this.buyDate = buyDate;
 		this.totalMoney = totalMoney;
-		this.state = state;
 	}
 
 	public int getNumber() {
@@ -60,14 +58,6 @@ public class SellVO {
 
 	public void setTotalMoney(double totalMoney) {
 		this.totalMoney = totalMoney;
-	}
-
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
 	}
 
 }

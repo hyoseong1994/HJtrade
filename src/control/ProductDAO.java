@@ -16,7 +16,7 @@ public class ProductDAO {
 	// 상품목록
 	public ArrayList<ProductVO> getProductTotalList() {
 		ArrayList<ProductVO> list = new ArrayList<>();
-
+		//쿼리문
 		String sql = "select * from product order by p_no";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -140,7 +140,7 @@ public class ProductDAO {
 
 	// 상품 인덱스 가져오기
 	public String getproductNum(String origin, String brand, String part) {
-
+		//쿼리문
 		String sql = "select P_no from product " + "where p_origin = ? and p_brand = ? and p_part = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
