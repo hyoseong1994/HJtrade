@@ -22,7 +22,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.util.Callback;
 import model.AccountVO;
 import model.ProductVO;
 import model.StockVO;
@@ -49,7 +48,7 @@ public class ProductTotalTabController implements Initializable {
 	@FXML
 	private TextField txt_S_cost; // 출고 단가
 	@FXML
-	private TableView<StockVO> stockTableView = new TableView<>(); //재고 테이블 
+	private TableView<StockVO> stockTableView = new TableView<>(); // 재고 테이블
 	@FXML
 	private Button btn_s_deal; // 출고 버튼
 	@FXML
@@ -110,7 +109,7 @@ public class ProductTotalTabController implements Initializable {
 				}
 
 			});
-			
+
 			// 출고 단가 숫자만 입력가능
 			txt_S_cost.textProperty().addListener(new ChangeListener<String>() {
 
@@ -122,7 +121,7 @@ public class ProductTotalTabController implements Initializable {
 				}
 
 			});
-			
+
 			// 상품 테이블 뷰 컬림 이름 설정
 			TableColumn col_P_No = new TableColumn("상품번호");
 			col_P_No.setPrefWidth(90);
@@ -266,7 +265,6 @@ public class ProductTotalTabController implements Initializable {
 
 	// 출고중량 텍스트 필드 키 이벤트
 	public void handlertxt_S_kgKeyPressed(KeyEvent event) {
-		// TODO Auto-generated method stub
 		if (event.getCode() == KeyCode.ENTER) {
 			txt_S_cost.requestFocus();
 		}
@@ -274,7 +272,6 @@ public class ProductTotalTabController implements Initializable {
 
 	// 출고 단가 텍스트 필드 키 이벤트
 	public void handlertxt_S_costKeyPressed(KeyEvent event) {
-		// TODO Auto-generated method stub
 		if (event.getCode() == KeyCode.ENTER) {
 			deal();
 		}
@@ -444,7 +441,6 @@ public class ProductTotalTabController implements Initializable {
 
 				p_no = pDao.getproductNum(origin, brand, part);
 			} catch (Exception e) {
-				// TODO: handle exception
 				System.out.println(e);
 			}
 		}
@@ -466,7 +462,6 @@ public class ProductTotalTabController implements Initializable {
 
 			a_no = account.getaccountNum(selectedNameIndex);
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e);
 		}
 	}
@@ -478,7 +473,6 @@ public class ProductTotalTabController implements Initializable {
 
 			b_no = bDAO.b_no(b_code);
 		} catch (Exception e) {
-			// TODO: handle exception
 			System.out.println(e);
 		}
 	}
@@ -535,16 +529,14 @@ public class ProductTotalTabController implements Initializable {
 			}
 			// 미수금액 수정중 오류 발생시 오류 출력
 		} catch (Exception e) {
-			// TODO: handle exception
 		}
 
 	}
 
 	// 판매처 이름 가져오기
 	public void accountName() {
-		// TODO Auto-generated method stub
 		// 배열 생성
-		ArrayList<AccountVO> list = new ArrayList();
+		ArrayList<AccountVO> list = new ArrayList<>();
 		ObservableList<String> AccountDataList = FXCollections.observableArrayList();
 		AccountVO aVo = null;
 

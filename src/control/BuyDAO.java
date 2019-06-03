@@ -7,14 +7,9 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.itextpdf.text.log.SysoCounter;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.TextField;
 import model.BuyVO;
-import model.ImportionVO;
-import model.ProductVO;
 import model.StockVO;
 
 public class BuyDAO {
@@ -24,8 +19,7 @@ public class BuyDAO {
 		ArrayList<BuyVO> list = new ArrayList<>();
 		// 쿼리문
 		String sql = "select b.b_no, b.b_buyDate, b.b_date, i.i_name, b.b_code, p.p_type, p.p_origin, p.p_brand, p.p_part, b.b_number, b.b_kg , b.b_cost, b.b_totalmoney "
-				+ " from buy b, product p, importion i, stock s"
-				+ " where b.p_no = p.p_no and b.i_no = i.i_no and b.s_no = s.s_no ";
+				+ " from buy b, product p, importion i" + " where b.p_no = p.p_no and b.i_no = i.i_no";
 
 		// connection, preparedstatement, resultset VO null값 초기화
 		Connection con = null;
@@ -87,7 +81,7 @@ public class BuyDAO {
 		// 쿼리문
 		String sql = "insert into buy"
 				+ "(B_no , B_buyDate , B_date, B_code ,B_number, B_kg, B_cost, B_totalmoney, I_no, P_no, S_no)"
-				+ "values" + "(buy_seq.nextval, ?, sysdate, ?, ?, ?, ?, ?, ?, ?,stock_seq.nextval-1)";
+				+ "values" + "(buy_seq.nextval, ?, sysdate, ?, ?, ?, ?, ?, ?, ?, stock_seq.nextval-1)";
 		// connection, preparedstatement null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -209,8 +203,12 @@ public class BuyDAO {
 			pstmt.setDouble(2, Double.parseDouble(s_kg));
 			pstmt.setInt(3, Integer.parseInt(s_cost));
 			pstmt.setDouble(4, Double.parseDouble(s_kg) * Integer.parseInt(s_cost));
+<<<<<<< HEAD
 			pstmt.setString(5, s_state);
 			pstmt.setInt(6, p_no);
+=======
+			pstmt.setInt(5, p_no);
+>>>>>>> 5504e6c7b18004d49e7f6378ced2af7b88bf52dc
 
 			int i = pstmt.executeUpdate();
 
@@ -286,13 +284,12 @@ public class BuyDAO {
 	// 매입거래처의 상호명 가져오기
 	public ArrayList<String> getImportion() throws Exception {
 		// arraylist list에 string으로 담겠다
-		ArrayList<String> list = new ArrayList();
+		ArrayList<String> list = new ArrayList<>();
 
 		String sql = "select i_name from Importion";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ImportionVO ivo = null;
 
 		try {
 			// DB연동
@@ -418,13 +415,12 @@ public class BuyDAO {
 	// 상품의 원산지 중복되지않게 가져오기
 	public ArrayList<String> getOrigin() throws Exception {
 		// arraylist list에 string으로 담겠다
-		ArrayList<String> list = new ArrayList();
+		ArrayList<String> list = new ArrayList<>();
 		// 쿼리문
 		String sql = "select DISTINCT p_origin from Product";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ProductVO pvo = null;
 
 		try {
 			// DB연동
@@ -463,13 +459,12 @@ public class BuyDAO {
 	// 상품의 브랜드 중복되지않게 가져오기
 	public ArrayList<String> getProductInfo() throws Exception {
 		// 배열 list에 string으로 담겠다
-		ArrayList<String> list = new ArrayList();
+		ArrayList<String> list = new ArrayList<>();
 
 		String sql = "select DISTINCT p_brand from product";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ProductVO pvo = null;
 
 		try {
 			// DB연동
@@ -509,13 +504,12 @@ public class BuyDAO {
 	// 상품 소에 해당되는 부위 중복되지 않게 가져오기
 	public ArrayList<String> getcowPart() throws Exception {
 		// 배열 list에 string으로 담겠다
-		ArrayList<String> list = new ArrayList();
+		ArrayList<String> list = new ArrayList<>();
 		// 쿼리문
 		String sql = "select DISTINCT p_part from product where p_type ='소'";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ProductVO pvo = null;
 
 		try {
 			// DB연동
@@ -555,13 +549,12 @@ public class BuyDAO {
 	// 상품 돼지에 해당되는 부위 중복되지 않게 가져오기
 	public ArrayList<String> getpigPart() throws Exception {
 		// 배열 list에 string으로 담겠다
-		ArrayList<String> list = new ArrayList();
+		ArrayList<String> list = new ArrayList<>();
 		// 쿼리문
 		String sql = "select DISTINCT p_part from product where p_type ='돼지'";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ProductVO pvo = null;
 
 		try {
 			// DB연동

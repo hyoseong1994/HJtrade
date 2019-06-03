@@ -12,7 +12,7 @@ public class StockVO {
 	private double s_kg; // 매입 중량
 	private int s_cost; // 매입 단가
 	private int s_totalMoney; // 매입 총 금액
-	private int p_no;//상품 일련번호
+	private int p_no;// 상품 일련번호
 
 	// 디폴트 생성자
 	public StockVO() {

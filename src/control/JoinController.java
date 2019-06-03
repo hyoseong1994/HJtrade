@@ -155,7 +155,6 @@ public class JoinController implements Initializable {
 			mainMtage.show();
 			// 로그인 UI로 이동중 오류 발생시 오류내용 출력
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.err.println("오류" + e);
 		}
 	}

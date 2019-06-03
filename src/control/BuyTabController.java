@@ -19,18 +19,15 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import model.AccountVO;
 import model.BuyVO;
 import model.DealVO;
 import model.ImportionVO;
-import model.ProductVO;
 
 public class BuyTabController implements Initializable {
 	@FXML

@@ -14,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -123,7 +122,6 @@ public class LoginController implements Initializable {
 					mainMtage.show();
 					// 로그인 UI 실행중 오류시 오류내용출력
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					System.err.println("오류" + e);
 				}
 				// 로그인 실패시 출력
@@ -170,10 +168,9 @@ public class LoginController implements Initializable {
 			// 텍스트 필드에 있는 직원코드 입력
 			code = ldao.getLoginName(txtId.getText());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		// 결과값 name 반화
-		return name;
+		return code;
 	}
 }
