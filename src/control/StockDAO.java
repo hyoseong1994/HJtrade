@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import model.StockVO;
 
@@ -15,20 +14,24 @@ public class StockDAO {
 
 	// 재고 테이블 전체 리스트
 	public ArrayList<StockVO> getStockTotalList() {
+		// ArrayList 에 VO 넣기
 		ArrayList<StockVO> list = new ArrayList<>();
-
+		// 쿼리문
 		String sql = "select s.s_no, b.b_date, b.b_code, p.p_type, p.p_origin, p.p_brand, p.p_part,"
 				+ " s.s_number, s.s_kg, s.s_cost, s.s_totalMoney" + " from stock s, buy b, product p"
 				+ " where s.s_no = b.s_no and s.p_no = p.p_no and s.s_no = b.s_no" + " order by s.s_no";
+		// connection, preparedstatement, resultset VO null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		StockVO sVo = null;
 
 		try {
-
+			// DB연결
 			con = DBUtil.getConnection();
+			// PreparedStatement 에 쿼리문 저장
 			pstmt = con.prepareStatement(sql);
+			// ResultSet 결과값 저장
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				// 인스턴스 생성
@@ -116,13 +119,7 @@ public class StockDAO {
 
 	// 출고
 	public boolean getDeal(String d_dealDate, String d_number, String d_kg, String d_cost, int selectedStockIndex,
-			 String p_no, String a_no, String b_no) {
-		
-		System.out.println(d_dealDate);
-		System.out.println(a_no);System.out.println(selectedStockIndex);
-		System.out.println(p_no);System.out.println(d_number);
-		System.out.println(d_kg);System.out.println(d_cost);
-		System.out.println(b_no);System.out.println();
+			String p_no, String a_no, String b_no) {
 		String sql = "insert into deal"
 				+ " (d_no, d_date, d_dealDate, a_no, s_no, p_no, d_number, d_kg, d_cost, d_totalmoney, b_no)"
 				+ " values " + " (Deal_seq.nextval, sysdate, ?,  ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -161,9 +158,9 @@ public class StockDAO {
 				alert.showAndWait();
 			}
 		} catch (SQLException e) {
-			System.out.println("e=[" + e + "]3");
+			System.out.println("e=[" + e + "]1");
 		} catch (Exception e) {
-			System.out.println("e=[" + e + "]4");
+			System.out.println("e=[" + e + "]");
 			e.printStackTrace();
 		} finally {
 			try {

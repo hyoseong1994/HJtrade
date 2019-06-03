@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 public class AccountVO {
 	private int a_no;// 판매거래처 일련번호
 	private String a_name;// 판매거래처 상호명

@@ -506,7 +506,6 @@ public class AccountTabDAO {
 
 	// 상호명을 DB에서 가져오는 쿼리문
 	public ArrayList<AccountVO> getaccountName() {
-		// TODO Auto-generated method stub
 		ArrayList<AccountVO> list = new ArrayList<>();
 
 		// 쿼리문
@@ -558,7 +557,7 @@ public class AccountTabDAO {
 	// 콤보박스에서 상호명 클릭시 거래처 주소 ,업태 ,대표자 번호 정보 가져오기
 	public ArrayList<AccountVO> getAcccountInfo(String a_name) throws Exception {
 
-		ArrayList<AccountVO> list = new ArrayList();
+		ArrayList<AccountVO> list = new ArrayList<>();
 
 		String sql = "select a_address , a_business ,a_representPhone from Account where a_name = ? ";
 		Connection con = null;

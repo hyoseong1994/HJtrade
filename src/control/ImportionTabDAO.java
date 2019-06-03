@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import model.AccountVO;
 import model.BuyVO;
 import model.ImportionVO;
 
@@ -440,7 +439,6 @@ public class ImportionTabDAO {
 
 	// 상호명을 DB에서 가져오는 쿼리문
 	public ArrayList<ImportionVO> getimportionName() {
-		// TODO Auto-generated method stub
 		ArrayList<ImportionVO> list = new ArrayList<>();
 
 		String sql = "select i_name from importion";
@@ -482,7 +480,7 @@ public class ImportionTabDAO {
 	// 거래처 정보 가져오기
 	public ArrayList<ImportionVO> getImportionInfo(String i_name) throws Exception {
 
-		ArrayList<ImportionVO> list = new ArrayList();
+		ArrayList<ImportionVO> list = new ArrayList<>();
 
 		String sql = "select i_address , i_business ,i_representPhone from Importion where i_name = ? ";
 		Connection con = null;
