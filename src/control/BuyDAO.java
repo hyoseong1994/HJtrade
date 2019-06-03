@@ -187,11 +187,11 @@ public class BuyDAO {
 	}
 
 	// 재고등록
-	public boolean getStock(String s_number, String s_kg, String s_cost, String s_state, int p_no, int b_no) {
+	public boolean getStock(String s_number, String s_kg, String s_cost, int p_no, int b_no) {
 
 		System.out.println(p_no);
-		String sql = "insert into stock" + "(s_no, s_number, s_kg, s_cost, s_totalmoney ,s_state, p_no)" + " values "
-				+ "(stock_seq.nextval, ?, ?, ?, ?, ?, ?)";
+		String sql = "insert into stock" + "(s_no, s_number, s_kg, s_cost, s_totalmoney, p_no)" + " values "
+				+ "(stock_seq.nextval, ?, ?, ?, ?, ?)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		boolean StockUpdateSucess = false;
