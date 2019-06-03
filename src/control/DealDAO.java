@@ -11,14 +11,14 @@ import oracle.net.aso.d;
 
 public class DealDAO {
 
-	// 재고 리스트 DB에서 호출
+	// 수금 리스트 DB에서 호출
 	public ArrayList<DealVO> getDealVOTotalList() {
 		ArrayList<DealVO> list = new ArrayList<>();
-		//쿼리문 작성
+
 		String sql = "select d_no, d_number, d_kg, d_cost, d_dealDate, d_totalMoney,"
 				+ " a_name, b_code,  p_type, p_origin, p_brand,  p_part, d_date"
-				+ " from deal d, account a, product p, stock s, buy b"
-				+ " where d.a_no = a.a_no and d.s_no = s.s_no and d.p_no = p.p_no and d.b_no = b.b_no"
+				+ " from deal d, account a, product p, buy b"
+				+ " where d.a_no = a.a_no and d.p_no = p.p_no and d.b_no = b.b_no"
 				+ " order by d_no";
 		Connection con = null;
 		PreparedStatement pstmt = null;

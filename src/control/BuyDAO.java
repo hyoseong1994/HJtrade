@@ -18,27 +18,21 @@ import model.ProductVO;
 import model.StockVO;
 
 public class BuyDAO {
-	// 입고 전체 목록
+	// 입고 목록
 	public ArrayList<BuyVO> getbuyTotalList() throws Exception {
-		// ArrayList 에 VO 넣기
 		ArrayList<BuyVO> list = new ArrayList<>();
-		// 쿼리문
-		String sql = "select b.b_no, b.b_buyDate, b.b_date, i.i_name, b.b_code, p.p_type, p.p_origin, p.p_brand, p.p_part, b.b_number, b.b_kg , b.b_cost, b.b_totalmoney "
-				+ " from buy b, product p, importion i, stock s"
-				+ " where b.p_no = p.p_no and b.i_no = i.i_no and b.s_no = s.s_no ";
 
-		// connection, preparedstatement, resultset VO null값 초기화
+		String sql = "select b.b_no, b.b_buyDate, b.b_date, i.i_name, b.b_code, p.p_type, p.p_origin, p.p_brand, p.p_part, b.b_number, b.b_kg , b.b_cost, b.b_totalmoney"
+				+ " from buy b, product p, importion i"
+				+ " where b.p_no = p.p_no and b.i_no = i.i_no";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		BuyVO bVo = null;
 
 		try {
-			// DB 연결
 			con = DBUtil.getConnection();
-			// PreparedStatement 에 쿼리문 저장
 			pstmt = con.prepareStatement(sql);
-			// ResultSet 결과값 저장
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 
@@ -77,24 +71,19 @@ public class BuyDAO {
 
 			}
 		}
-		// 결과값 list로 반환
 		return list;
 	}
 
-	// 입고 전표 등록
+	// 입고 등록
 	public void getBuyRegiste(BuyVO bvo) throws Exception {
 
-		// 쿼리문
 		String sql = "insert into buy"
 				+ "(B_no , B_buyDate , B_date, B_code ,B_number, B_kg, B_cost, B_totalmoney, I_no, P_no, S_no)"
-				+ "values" + "(buy_seq.nextval, ?, sysdate, ?, ?, ?, ?, ?, ?, ?,stock_seq.nextval-1)";
-		// connection, preparedstatement null값 초기화
+				+ "values" + "(buy_seq.nextval, ?, sysdate,?,?,?,?,?,?,?,stock_seq.nextval-1)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			// DB연결
 			con = DBUtil.getConnection();
-			// PreparedStatement 에 쿼리문 저장
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, bvo.getB_buyDate());
 			pstmt.setString(2, bvo.getB_code());
@@ -121,9 +110,9 @@ public class BuyDAO {
 			}
 
 		} catch (SQLException e) {
-			System.out.println("e=[" + e + "]1");
+			System.out.println("e=[" + e + "]2");
 		} catch (Exception e) {
-			System.out.println("e=[" + e + "]");
+			System.out.println("e=[" + e + "]3");
 		} finally {
 			try {
 				// 데이터베이스와의 연결에 사용되었던 오브젝트를해제
@@ -175,9 +164,9 @@ public class BuyDAO {
 			}
 
 		} catch (SQLException se) {
-			System.out.println(se);
+			System.out.println(se+"7");
 		} catch (Exception e) {
-			System.out.println(e);
+			System.out.println(e+"8");
 		} finally {
 			try {
 				if (rs != null)
@@ -209,7 +198,7 @@ public class BuyDAO {
 			pstmt.setDouble(2, Double.parseDouble(s_kg));
 			pstmt.setInt(3, Integer.parseInt(s_cost));
 			pstmt.setDouble(4, Double.parseDouble(s_kg) * Integer.parseInt(s_cost));
-			pstmt.setInt(6, p_no);
+			pstmt.setInt(5, p_no);
 
 			int i = pstmt.executeUpdate();
 
@@ -282,9 +271,9 @@ public class BuyDAO {
 		return columnName;
 	}
 
-	// 매입거래처의 상호명 가져오기
+	// 거래처 상호명 가져오기
 	public ArrayList<String> getImportion() throws Exception {
-		// arraylist list에 string으로 담겠다
+
 		ArrayList<String> list = new ArrayList();
 
 		String sql = "select i_name from Importion";
@@ -328,25 +317,22 @@ public class BuyDAO {
 
 	}
 
-	// 매입거래처상호명으로 일련번호가져오기
+	// 상호명으로 번호 가져오기
 	public String getImportionNum(String i_name) throws Exception {
-		// 쿼리문
+
 		String sql = "select i_no from Importion where i_name = ?";
-		// connection, preparedstatement, resultset null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-		// 결과값 저장을 위한 변수 선언
 		String i_no = "";
 
 		try {
-			// db연결
+
 			con = DBUtil.getConnection();
-			// PreparedStatement 에 쿼리문 저장
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, i_name);
-			// ResultSet 결과값 저장
+
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				i_no = rs.getString("i_no");
@@ -358,7 +344,6 @@ public class BuyDAO {
 			System.out.println(e);
 		} finally {
 			try {
-				// 데이터베이스와의 연결에 사용되었던 오브젝트를 해제
 				if (rs != null)
 					rs.close();
 				if (pstmt != null)
@@ -368,19 +353,17 @@ public class BuyDAO {
 			} catch (SQLException se) {
 			}
 		}
-		// 결과값 i_no 반환
 		return i_no;
 	}
 
-	// 원산지 , 브랜드, 부위 선택시 해당되는 상품번호 가져오기
+	// 콤보박스로 상품번호 가져오기
 	public int getProductNumber(String origin, String brand, String part) throws Exception {
-		// 쿼리문
+
 		String sql = "select p_no from product where p_origin=? and p_brand=? and p_part=?";
-		// connection, preparedstatement, resultset null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		// result 값 초기화
+
 		int result = 0;
 
 		try {
@@ -414,11 +397,10 @@ public class BuyDAO {
 		return result;
 	}
 
-	// 상품의 원산지 중복되지않게 가져오기
 	public ArrayList<String> getOrigin() throws Exception {
-		// arraylist list에 string으로 담겠다
+
 		ArrayList<String> list = new ArrayList();
-		// 쿼리문
+
 		String sql = "select DISTINCT p_origin from Product";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -459,9 +441,9 @@ public class BuyDAO {
 
 	}
 
-	// 상품의 브랜드 중복되지않게 가져오기
+	// 상품 선택시 브랜드 정보 가져오기
 	public ArrayList<String> getProductInfo() throws Exception {
-		// 배열 list에 string으로 담겠다
+
 		ArrayList<String> list = new ArrayList();
 
 		String sql = "select DISTINCT p_brand from product";
@@ -505,11 +487,11 @@ public class BuyDAO {
 
 	}
 
-	// 상품 소에 해당되는 부위 중복되지 않게 가져오기
+	// 소 클릭시 소 부위 가져오기
 	public ArrayList<String> getcowPart() throws Exception {
-		// 배열 list에 string으로 담겠다
+
 		ArrayList<String> list = new ArrayList();
-		// 쿼리문
+
 		String sql = "select DISTINCT p_part from product where p_type ='소'";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -551,11 +533,10 @@ public class BuyDAO {
 
 	}
 
-	// 상품 돼지에 해당되는 부위 중복되지 않게 가져오기
 	public ArrayList<String> getpigPart() throws Exception {
-		// 배열 list에 string으로 담겠다
+
 		ArrayList<String> list = new ArrayList();
-		// 쿼리문
+
 		String sql = "select DISTINCT p_part from product where p_type ='돼지'";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -597,11 +578,9 @@ public class BuyDAO {
 
 	}
 
-	// 입고할때의 식별코드로 입고번호 가져오기
 	public String b_no(String b_code) {
-		// 쿼리문
+
 		String sql = "select b_no from buy where b_code = ?";
-		// connection, preparedstatement,ResultSet null값 초기화
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
