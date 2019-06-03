@@ -684,7 +684,7 @@ public class BuyTabController implements Initializable {
 
 			BuyDAO bDao = new BuyDAO();
 			sucess = bDao.getStock(txt_b_number.getText().trim(), txt_b_kg.getText().trim(),
-					txt_b_cost.getText().trim(), s_state, p_no, b_no);
+					txt_b_cost.getText().trim(), p_no, b_no);
 			if (sucess) {
 
 			}
