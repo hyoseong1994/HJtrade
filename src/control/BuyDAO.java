@@ -203,12 +203,7 @@ public class BuyDAO {
 			pstmt.setDouble(2, Double.parseDouble(s_kg));
 			pstmt.setInt(3, Integer.parseInt(s_cost));
 			pstmt.setDouble(4, Double.parseDouble(s_kg) * Integer.parseInt(s_cost));
-<<<<<<< HEAD
-			pstmt.setString(5, s_state);
-			pstmt.setInt(6, p_no);
-=======
 			pstmt.setInt(5, p_no);
->>>>>>> 5504e6c7b18004d49e7f6378ced2af7b88bf52dc
 
 			int i = pstmt.executeUpdate();
 
