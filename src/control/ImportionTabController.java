@@ -665,8 +665,6 @@ public class ImportionTabController implements Initializable {
 			// 결과가 true일 경우 실행
 			if (sucess) {
 
-				// 초기화 이벤트 핸들러 호출
-				handlerbtn_I_clearAction(event);
 			}
 			// 거래처 입금중 오류시 오류내용 출력
 		} catch (Exception e) {

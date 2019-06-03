@@ -452,7 +452,6 @@ public class AccountTabDAO {
 
 	// 거래처 미수금액 수정
 	public boolean getaccountUpdateCollect(int A_no, String A_collect) throws Exception {
-
 		// 쿼리문
 		String sql = "update account set A_collect = A_collect-? where A_no=?";
 

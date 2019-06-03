@@ -677,8 +677,6 @@ public class AccountTabController implements Initializable {
 			// 결과가 true일 경우 실행
 			if (sucess) {
 
-				// 초기화 이벤트 핸들러 호출
-				handlerbtn_A_clearAction(event);
 			}
 			// 거래처 수금중 오류시 오류내용 출력
 		} catch (Exception e) {
@@ -692,6 +690,7 @@ public class AccountTabController implements Initializable {
 
 			// 인스턴스 선언
 			AccountTabDAO aDao = new AccountTabDAO();
+			System.out.println(txt_A_collect.getText().trim());
 			// 객체에 텍스트필드값 저장
 			sucess = aDao.getaccountUpdateCollect(selectedIndex, txt_A_collect.getText().trim());
 			// 반환된 값이 true일 경우
