@@ -14,7 +14,7 @@ public class JoinDAO {
 	// 직원 등록
 	public boolean getManagerRegiste(JoinVO jvo) throws Exception {
 		// sql문
-		String sql = "insert into employee " + "(id, password, e_name, e_adress, e_phone)" + " values "
+		String sql = "insert into employee " + "(id, password, e_name, e_address, e_phone)" + " values "
 				+ "(?, ?, ?, ?, ?)";
 
 		// connection, preparedstatement null값 초기화
@@ -32,7 +32,7 @@ public class JoinDAO {
 			pstmt.setString(1, jvo.getId());
 			pstmt.setString(2, jvo.getPassword());
 			pstmt.setString(3, jvo.getName());
-			pstmt.setString(4, jvo.getAdress());
+			pstmt.setString(4, jvo.getAddress());
 			pstmt.setString(5, jvo.getPhone());
 
 			// 결과값 변수에 저장

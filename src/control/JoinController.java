@@ -29,7 +29,7 @@ public class JoinController implements Initializable {
 	@FXML
 	private TextField txtName;// 이름
 	@FXML
-	private TextField txtAdress;// 주소
+	private TextField txtAddress;// 주소
 	@FXML
 	private TextField txtPhone;// 핸드폰번호
 	@FXML
@@ -53,7 +53,7 @@ public class JoinController implements Initializable {
 		txtPassword.setEditable(false);// 패스워드수정불가
 		txtPasswordRepeat.setEditable(false);// 패스워드 확인 수정불가
 		txtName.setEditable(false);// 이름 수정불가
-		txtAdress.setEditable(false);// 주소 수정불가
+		txtAddress.setEditable(false);// 주소 수정불가
 		txtPhone.setEditable(false);// 핸드폰번호 수정불가
 
 		// 버튼 이벤트 등록
@@ -97,7 +97,7 @@ public class JoinController implements Initializable {
 				txtPassword.setEditable(true);
 				txtPasswordRepeat.setEditable(true);
 				txtName.setEditable(true);
-				txtAdress.setEditable(true);
+				txtAddress.setEditable(true);
 				txtPhone.setEditable(true);
 				txtPassword.requestFocus();
 
@@ -175,7 +175,7 @@ public class JoinController implements Initializable {
 
 			// VO 에 텍스트필드값 입력
 			jvo = new JoinVO(txtId.getText().trim(), txtPassword.getText().trim(), txtName.getText().trim(),
-					txtAdress.getText().trim(), txtPhone.getText().trim());
+					txtAddress.getText().trim(), txtPhone.getText().trim());
 			// DAO 인스턴스 생성
 			jdao = new JoinDAO();
 			try {

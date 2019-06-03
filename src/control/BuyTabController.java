@@ -1,14 +1,8 @@
 package control;
 
 import java.net.URL;
-import java.text.DecimalFormat;
-import java.text.ParsePosition;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.ResourceBundle;
-import java.util.Set;
-
-import com.sun.javafx.scene.control.skin.LabeledText;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -102,6 +96,8 @@ public class BuyTabController implements Initializable {
 	@FXML
 	private String p_part; // 상품 부위
 	@FXML
+	private String s_state; // 상태
+	@FXML
 	private TableView<DealVO> DealTableView = new TableView<>(); // 판매 테이블 뷰
 
 	static ObservableList<BuyVO> buyDataList = FXCollections.observableArrayList();
@@ -121,10 +117,10 @@ public class BuyTabController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		// 콤보박스안에 들어갈 메소드 호출
-		productOrigin(); //상품 원산지 
+		productOrigin(); // 상품 원산지
 		productBrand(); // 상품 브랜드
 		importionName(); // 좌촉 콤보박스 매입 상호명
-		importionName2(); //우측 콤보박스 매입 상호명
+		importionName2(); // 우측 콤보박스 매입 상호명
 		accountName(); // 판매 상호명
 
 		try {
@@ -443,9 +439,9 @@ public class BuyTabController implements Initializable {
 	// 원산지 선택 콤보박스
 	public void handlerCbx_b_originAction(ActionEvent event) {
 		try {
-			selectedOrigin = cbx_b_origin.getValue().toString(); //콤보박스의 선택된 값selectedOrigin에 저장
+			selectedOrigin = cbx_b_origin.getValue().toString(); // 콤보박스의 선택된 값selectedOrigin에 저장
 			if (!(selectedOrigin.equals(""))) { // 저장값이 공백이 아니라면
-				cbx_b_brand.setDisable(false); // 상품 브랜드 콤보박스  활성화
+				cbx_b_brand.setDisable(false); // 상품 브랜드 콤보박스 활성화
 			} else {
 				Alert alert = new Alert(AlertType.WARNING);
 				alert.setTitle("상품등록 실패");
@@ -460,8 +456,8 @@ public class BuyTabController implements Initializable {
 
 	// 브랜드 콤보박스 선택 이벤트
 	public void handlerCbx_b_brandAction(ActionEvent event) {
-		selectedBrand = cbx_b_brand.getValue().toString(); //콤보박스 선택된 값 selectedBrand에 저장
-		if (!(cbx_b_brand.equals(""))) { //공백이 아니라면
+		selectedBrand = cbx_b_brand.getValue().toString(); // 콤보박스 선택된 값 selectedBrand에 저장
+		if (!(cbx_b_brand.equals(""))) { // 공백이 아니라면
 			cbx_b_part.setDisable(false); // 상품 부위 콤보박스 활성화
 		} else {
 			Alert alert = new Alert(AlertType.WARNING);
@@ -474,12 +470,12 @@ public class BuyTabController implements Initializable {
 
 	// 부위 콤보박스 선택 이벤트
 	public void handlerCbx_b_partAction(ActionEvent event) {
-		//부위콤보박스에 선택된 값 selectedPart저장
+		// 부위콤보박스에 선택된 값 selectedPart저장
 		selectedPart = cbx_b_part.getValue().toString();
 		if (!(cbx_b_part.equals(""))) {
 			BuyDAO bdao = new BuyDAO();
 			try {
-				//선택된 , 원산지 , 브랜드 , 부위로 상품번호 알아오기
+				// 선택된 , 원산지 , 브랜드 , 부위로 상품번호 알아오기
 				selectedBuyIndex = bdao.getProductNumber(selectedOrigin, selectedBrand, selectedPart);
 				p_no = selectedBuyIndex;
 			} catch (Exception e) {
@@ -497,19 +493,19 @@ public class BuyTabController implements Initializable {
 	// 테이블뷰 위에있는 거래처선택 콤보박스
 	public void handlerCbx_b_importion2Action(ActionEvent event) {
 		try {
-			//콤보박스에 선택된 값 selectedNameIndex에 저장
+			// 콤보박스에 선택된 값 selectedNameIndex에 저장
 			String selectedNameIndex = cbx_b_importion2.getSelectionModel().getSelectedItem().toString();
 			// 인스턴스 선언
 			ImportionTabDAO idao = new ImportionTabDAO();
 
 			ArrayList<ImportionVO> list = new ArrayList();
-			
+
 			ArrayList<BuyVO> list2 = new ArrayList<>();
 			BuyVO bvo = new BuyVO();
 
 			ImportionVO ivo = new ImportionVO();
 			list = idao.getImportionInfo(selectedNameIndex);
-				
+
 			txt_i_address.setText(list.get(0).getI_address());
 			txt_i_business.setText(list.get(0).getI_business());
 			txt_i_representPhone.setText(list.get(0).getI_representPhone());
@@ -691,7 +687,7 @@ public class BuyTabController implements Initializable {
 
 			BuyDAO bDao = new BuyDAO();
 			sucess = bDao.getStock(txt_b_number.getText().trim(), txt_b_kg.getText().trim(),
-					txt_b_cost.getText().trim(), p_no, b_no);
+					txt_b_cost.getText().trim(), s_state, p_no, b_no);
 			if (sucess) {
 
 			}

@@ -24,7 +24,7 @@ public class ProductDAO {
 		ProductVO pVo = null;
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement(sql);
+			pstmt = con.prepareStatement(sql);	
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				pVo = new ProductVO();

@@ -42,7 +42,7 @@ fx:controller="control.JoinController"
 			</HBox>
 			<HBox alignment="CENTER">
 				<Label text="주	   소 : " />
-				<TextField fx:id="txtAdress" />
+				<TextField fx:id="txtAddress" />
 			</HBox>
 			<HBox alignment="CENTER">
 				<Label text="전화번호 : " />

@@ -5,7 +5,7 @@ public class JoinVO {
 	String id;// 아이디
 	String password;// 패스워드
 	String name;// 직원명
-	String adress;// 직원 주소
+	String address;// 직원 주소
 	String phone;// 핸드폰번호
 
 	// 디폴트 생성자
@@ -27,24 +27,24 @@ public class JoinVO {
 	}
 
 	// 주소, 전화번호 제외한 생성자
-	public JoinVO(String id, String password, String name) {
+	public JoinVO(String id, String password, String name, String phone) {
 		super();
 		this.id = id;
 		this.password = password;
 		this.name = name;
-	}
-
-	// 전체 생성자
-	public JoinVO(String id, String password, String name, String adress, String phone) {
-		super();
-		this.id = id;
-		this.password = password;
-		this.name = name;
-		this.adress = adress;
 		this.phone = phone;
 	}
 
-	// getter and setter
+	// 전체 생성자
+	public JoinVO(String id, String password, String name, String address, String phone) {
+		super();
+		this.id = id;
+		this.password = password;
+		this.name = name;
+		this.address = address;
+		this.phone = phone;
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -69,12 +69,12 @@ public class JoinVO {
 		this.name = name;
 	}
 
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setAdress(String adress) {
-		this.adress = adress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getPhone() {
