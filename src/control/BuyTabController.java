@@ -149,8 +149,8 @@ public class BuyTabController implements Initializable {
 
 			});
 			// 콤보박스 브랜드 및 부위 비활성화
-			//cbx_b_brand.setDisable(true);
-			//cbx_b_part.setDisable(true);
+			cbx_b_brand.setDisable(true);
+			cbx_b_part.setDisable(true);
 
 			// 입고 테이블 뷰 컬럼이름 설정
 			TableColumn col_B_No = new TableColumn("입고번호"); // 컬럼명설정
