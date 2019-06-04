@@ -106,7 +106,7 @@ public class MainController implements Initializable {
 							buyTabController.productOrigin();
 							buyTabController.productBrand(); // 상품 브랜드
 							buyTabController.importionName2(); // 우측 콤보박스 매입 상호명
-							buyTabController.accountName(); // 판매 상호명
+							//buyTabController.accountName(); // 판매 상호명
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
