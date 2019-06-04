@@ -111,14 +111,7 @@ public class BuyTabController implements Initializable {
 
 	// 초기설정
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-
-		// 콤보박스안에 들어갈 메소드 호출
-		productOrigin(); // 상품 원산지
-		productBrand(); // 상품 브랜드
-		importionName(); // 좌촉 콤보박스 매입 상호명
-		importionName2(); // 우측 콤보박스 매입 상호명
-		accountName(); // 판매 상호명
+	public void initialize(URL arg0, ResourceBundle arg1){
 
 		try {
 
@@ -156,8 +149,8 @@ public class BuyTabController implements Initializable {
 
 			});
 			// 콤보박스 브랜드 및 부위 비활성화
-			cbx_b_brand.setDisable(true);
-			cbx_b_part.setDisable(true);
+			//cbx_b_brand.setDisable(true);
+			//cbx_b_part.setDisable(true);
 
 			// 입고 테이블 뷰 컬럼이름 설정
 			TableColumn col_B_No = new TableColumn("입고번호"); // 컬럼명설정
@@ -424,7 +417,7 @@ public class BuyTabController implements Initializable {
 
 			for (int i = 0; i < list.size(); i++) {
 				aVo = list.get(i);
-				AccountDataList.addAll(aVo.getA_name());
+				AccountDataList.add(aVo.getA_name());
 				cbx_d_account.setItems(AccountDataList); // 판매거래처의 콤보박스에 저장된 상호명들을 담는다
 			}
 
@@ -435,19 +428,16 @@ public class BuyTabController implements Initializable {
 
 	// 원산지 선택 콤보박스
 	public void handlerCbx_b_originAction(ActionEvent event) {
-		try {
-			selectedOrigin = cbx_b_origin.getValue().toString(); // 콤보박스의 선택된 값selectedOrigin에 저장
-			if (!(selectedOrigin.equals(""))) { // 저장값이 공백이 아니라면
-				cbx_b_brand.setDisable(false); // 상품 브랜드 콤보박스 활성화
-			} else {
-				Alert alert = new Alert(AlertType.WARNING);
-				alert.setTitle("상품등록 실패");
-				alert.setHeaderText("원산지를 체크하세요");
-				alert.setContentText("다시입력해주세요");
-				alert.showAndWait();
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		selectedOrigin = cbx_b_origin.getValue().toString(); // 콤보박스의 선택된 값selectedOrigin에 저장
+
+		if (!(selectedOrigin.equals(""))) { // 저장값이 공백이 아니라면
+			cbx_b_brand.setDisable(false); // 상품 브랜드 콤보박스 활성화
+		} else {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("상품등록 실패");
+			alert.setHeaderText("원산지를 체크하세요");
+			alert.setContentText("다시입력해주세요");
+			alert.showAndWait();
 		}
 	}
 
@@ -495,7 +485,7 @@ public class BuyTabController implements Initializable {
 			// 인스턴스 선언
 			ImportionTabDAO idao = new ImportionTabDAO();
 
-			ArrayList<ImportionVO> list = new ArrayList();
+			ArrayList<ImportionVO> list = new ArrayList<>();
 
 			ArrayList<BuyVO> list2 = new ArrayList<>();
 			BuyVO bvo = new BuyVO();
@@ -572,7 +562,7 @@ public class BuyTabController implements Initializable {
 		try {
 			ImportionTabDAO idao = new ImportionTabDAO();
 
-			// 직원명을 가져오는 메소드를 list에 저장
+			// 상호명을 가져오는 메소드를 list에 저장
 			list = idao.getimportionName();
 
 			for (int i = 0; i < list.size(); i++) {
@@ -660,7 +650,7 @@ public class BuyTabController implements Initializable {
 	}
 
 	// 입고 전체 리스트
-	public static void BuyTotalList() throws Exception {
+	public void BuyTotalList() throws Exception {
 
 		buyDataList.removeAll(buyDataList);
 		BuyDAO bDao = new BuyDAO();
@@ -675,6 +665,7 @@ public class BuyTabController implements Initializable {
 			bVo = list.get(index);
 			buyDataList.add(bVo);
 		}
+
 	}
 
 	public void stock() {
@@ -694,7 +685,7 @@ public class BuyTabController implements Initializable {
 	}
 
 	// 출고전체리스트
-	public static void DealTotalList() {
+	public void DealTotalList() {
 
 		dealDataList.removeAll(dealDataList);
 		DealDAO dDao = new DealDAO();
@@ -752,10 +743,9 @@ public class BuyTabController implements Initializable {
 		if (alert != null) {
 			return;
 		}
-		// 주문 버튼 클릭시 재고 테이블에도 입력되게 메소드 호출
+		// 주문 버튼 클릭시 재고 테이블에도 저장되게 메소드 호출
 		stock();
 		try {
-			buyDataList.removeAll(buyDataList);
 
 			BuyVO bvo = null;
 			BuyDAO bdao = null;
@@ -794,10 +784,6 @@ public class BuyTabController implements Initializable {
 
 			// 결과값이 true 일경우 실행
 			if (sucess) {
-				// 데이터 초기화
-				buyDataList.removeAll(buyDataList);
-				// 전체리스트 호출
-				BuyTotalList();
 
 				// 등록후 초기화
 
@@ -807,10 +793,13 @@ public class BuyTabController implements Initializable {
 				txt_b_kg.clear();
 				txt_b_cost.clear();
 				cbx_b_importion.getSelectionModel().clearSelection();
-
+				cbx_b_origin.getSelectionModel().clearSelection();
+				cbx_b_brand.getSelectionModel().clearSelection();
+				cbx_b_part.getSelectionModel().clearSelection();
 			}
 			// 미입금금액 수정중 오류 발생시 오류 출력
 		} catch (Exception e) {
+			System.out.println("111111111111");
 			// TODO: handle exception
 		}
 
