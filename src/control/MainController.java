@@ -65,6 +65,8 @@ public class MainController implements Initializable {
 	private AccountTabController accountTabController;
 	@FXML
 	private BuyTabController buyTabController;
+	@FXML
+	ProductTotalTabController productTotalTabController;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -104,7 +106,7 @@ public class MainController implements Initializable {
 							buyTabController.productBrand(); // 상품 브랜드
 							buyTabController.importionName(); // 좌촉 콤보박스 매입 상호명
 							buyTabController.importionName2(); // 우측 콤보박스 매입 상호명
-							buyTabController.accountName(); // 판매 상호명
+							//buyTabController.accountName(); // 판매 상호명
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -112,6 +114,7 @@ public class MainController implements Initializable {
 						try {
 							ProductTotalTabController.productTotalList();
 							ProductTotalTabController.stockTotalList();
+							productTotalTabController.accountName();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
