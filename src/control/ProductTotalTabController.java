@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import org.apache.poi.ss.formula.functions.Now;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -417,7 +419,7 @@ public class ProductTotalTabController implements Initializable {
 				selectStock = stockTableView.getSelectionModel().getSelectedItems();
 				selectedStockIndex = selectStock.get(0).getS_no();
 				int selectedS_number = selectStock.get(0).getS_number();
-				double selectedS_kg = selectStock.get(0).getS_kg();
+				int selectedS_kg = (int) selectStock.get(0).getS_kg();
 				int selectedS_cost = selectStock.get(0).getS_cost();
 
 				origin = selectStock.get(0).getP_origin();
