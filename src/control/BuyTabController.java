@@ -379,7 +379,7 @@ public class BuyTabController implements Initializable {
 
 			AccountTabDAO adao = new AccountTabDAO();
 			// 상호명을 가져오는 메소드를 list에 저장
-			ArrayList<AccountVO> list = new ArrayList();
+			ArrayList<AccountVO> list = new ArrayList<>();
 			// 상호명을 가져오는 메소드를 list에 저장
 			ArrayList<DealVO> list2 = new ArrayList<>();
 			DealVO dvo = new DealVO();
