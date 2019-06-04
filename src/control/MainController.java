@@ -65,6 +65,8 @@ public class MainController implements Initializable {
 	private AccountTabController accountTabController;
 	@FXML
 	private BuyTabController buyTabController;
+	@FXML
+	private MoneyTabController moneyTabController;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -91,18 +93,18 @@ public class MainController implements Initializable {
 						}
 					} else if (newValue == money) {
 						try {
-							MoneyTabController.CollectTotalList();
-							MoneyTabController.PaymentTotalList();
+							moneyTabController.CollectTotalList();
+							moneyTabController.PaymentTotalList();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
 					} else if (newValue == buy) {
 						try {
-							BuyTabController.BuyTotalList();
-							BuyTabController.DealTotalList();
+							buyTabController.BuyTotalList();
+							buyTabController.DealTotalList();
+							buyTabController.importionName(); // 좌촉 콤보박스 매입 상호명
 							buyTabController.productOrigin();
 							buyTabController.productBrand(); // 상품 브랜드
-							buyTabController.importionName(); // 좌촉 콤보박스 매입 상호명
 							buyTabController.importionName2(); // 우측 콤보박스 매입 상호명
 							buyTabController.accountName(); // 판매 상호명
 						} catch (Exception e) {

@@ -310,7 +310,7 @@ public class MoneyTabController implements Initializable {
 		}
 	}
 
-	static void PaymentTotalList() {
+	void PaymentTotalList() {
 		paymentDataList.removeAll(paymentDataList);
 
 		PaymentTabDAO pDao = new PaymentTabDAO();
@@ -432,7 +432,7 @@ public class MoneyTabController implements Initializable {
 		}
 	}
 
-	static void CollectTotalList() {
+	void CollectTotalList() {
 		collcetDataList.removeAll(collcetDataList);
 
 		CollectTabDAO cDao = new CollectTabDAO();
