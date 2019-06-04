@@ -63,6 +63,8 @@ public class MainController implements Initializable {
 	private ImportionTabController importionTabController;
 	@FXML
 	private AccountTabController accountTabController;
+	@FXML
+	private BuyTabController buyTabController;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -98,6 +100,11 @@ public class MainController implements Initializable {
 						try {
 							BuyTabController.BuyTotalList();
 							BuyTabController.DealTotalList();
+							buyTabController.productOrigin();
+							buyTabController.productBrand(); // 상품 브랜드
+							buyTabController.importionName(); // 좌촉 콤보박스 매입 상호명
+							buyTabController.importionName2(); // 우측 콤보박스 매입 상호명
+							buyTabController.accountName(); // 판매 상호명
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
