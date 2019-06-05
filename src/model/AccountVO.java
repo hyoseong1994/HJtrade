@@ -150,4 +150,13 @@ public class AccountVO {
 		this.a_collect = a_collect;
 	}
 
+	@Override
+	public String toString() {
+		return "AccountVO [a_no=" + a_no + ", a_name=" + a_name + ", a_businessNumber=" + a_businessNumber
+				+ ", a_represent=" + a_represent + ", a_representPhone=" + a_representPhone + ", a_charge=" + a_charge
+				+ ", a_chargePhone=" + a_chargePhone + ", a_address=" + a_address + ", a_email=" + a_email
+				+ ", a_business=" + a_business + ", a_collect=" + a_collect + "]";
+	}
+
+	
 }

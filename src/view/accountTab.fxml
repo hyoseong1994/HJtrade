@@ -16,7 +16,7 @@ fx:controller="control.AccountTabController">
 		<padding>
 			<Insets top="20" left="20" bottom="20" right="20" />
 		</padding>
-		<VBox prefWidth="300">
+		<VBox prefWidth="365">
 			<padding>
 				<Insets top="20" left="20" bottom="20" right="20" />
 			</padding>
@@ -51,7 +51,7 @@ fx:controller="control.AccountTabController">
 			</padding>
 			<children>
 				<Label text="판매업체 목록" />
-				<TableView prefHeight="550" prefWidth="990"
+				<TableView prefHeight="550" prefWidth="1330"
 					layoutX="350.0" fx:id="AccountTableView">
 				</TableView>
 			</children>

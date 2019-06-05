@@ -79,14 +79,14 @@
 
 				<children>
 					<Label text="입고 목록" />
-					<TableView prefHeight="200" prefWidth="1150"
+					<TableView prefHeight="300" prefWidth="1150"
 						fx:id="BuyTableView">
 					</TableView>
 				</children>
 			</VBox>
 
 		</HBox>
-		<Separator prefHeight="50" prefWidth="500" />
+		<Separator prefHeight="50" prefWidth="450" />
 
 		<VBox>
 			<padding>
@@ -114,7 +114,7 @@
 			</HBox>
 			<children>
 				<Label text="출고 목록" />
-				<TableView prefHeight="200" prefWidth="1000"
+				<TableView prefHeight="200" prefWidth="600"
 					fx:id="DealTableView">
 				</TableView>
 			</children>

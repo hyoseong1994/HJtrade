@@ -92,17 +92,7 @@ public class ImportionTabController implements Initializable {
 				}
 
 			});
-			// 담당자 번호 숫자만 입력가능
-			txt_I_chargePhone.textProperty().addListener(new ChangeListener<String>() {
 
-				@Override
-				public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-					if (!newValue.matches("\\d*")) {
-						txt_I_chargePhone.setText(newValue.replaceAll("[^\\d]", ""));
-					}
-				}
-
-			});
 			// 매입금 숫자만 입력가능
 			txt_I_payment.textProperty().addListener(new ChangeListener<String>() {
 
@@ -142,12 +132,12 @@ public class ImportionTabController implements Initializable {
 			colINo.setCellValueFactory(new PropertyValueFactory<>("i_no"));// 걸럼값 불러오기
 
 			TableColumn colIName = new TableColumn("상 호 명");// 컬럼명 설정
-			colIName.setPrefWidth(90);// 컬럼 길이 설정
+			colIName.setPrefWidth(100);// 컬럼 길이 설정
 			colIName.setStyle("-fx-allignment: CENTER");// 컬럼명 위치 설정
 			colIName.setCellValueFactory(new PropertyValueFactory<>("i_name"));// 걸럼값 불러오기
 
 			TableColumn colIBusinessNumber = new TableColumn("사업자 번호");// 컬럼명 설정
-			colIBusinessNumber.setPrefWidth(90);// 컬럼 길이 설정
+			colIBusinessNumber.setPrefWidth(120);// 컬럼 길이 설정
 			colIBusinessNumber.setStyle("-fx-allignment: CENTER");// 컬럼명 위치 설정
 			colIBusinessNumber.setCellValueFactory(new PropertyValueFactory<>("i_businessNumber"));// 걸럼값 불러오기
 
@@ -157,7 +147,7 @@ public class ImportionTabController implements Initializable {
 			colIRepredent.setCellValueFactory(new PropertyValueFactory<>("i_represent"));// 걸럼값 불러오기
 
 			TableColumn colIRepredentPhone = new TableColumn("대표자 번호");// 컬럼명 설정
-			colIRepredentPhone.setPrefWidth(90);// 컬럼 길이 설정
+			colIRepredentPhone.setPrefWidth(150);// 컬럼 길이 설정
 			colIRepredentPhone.setStyle("-fx-allignment: CENTER");// 컬럼명 위치 설정
 			colIRepredentPhone.setCellValueFactory(new PropertyValueFactory<>("i_representPhone"));// 걸럼값 불러오기
 
@@ -167,17 +157,17 @@ public class ImportionTabController implements Initializable {
 			colICharge.setCellValueFactory(new PropertyValueFactory<>("i_charge"));// 걸럼값 불러오기
 
 			TableColumn colIChargePhone = new TableColumn("담당자 번호");// 컬럼명 설정
-			colIChargePhone.setPrefWidth(90);// 컬럼 길이 설정
+			colIChargePhone.setPrefWidth(120);// 컬럼 길이 설정
 			colIChargePhone.setStyle("-fx-allignment: CENTER");// 컬럼명 위치 설정
 			colIChargePhone.setCellValueFactory(new PropertyValueFactory<>("i_chargePhone"));// 걸럼값 불러오기
 
 			TableColumn colIAddress = new TableColumn("주	소");// 컬럼명 설정
-			colIAddress.setPrefWidth(90);// 컬럼 길이 설정
+			colIAddress.setPrefWidth(200);// 컬럼 길이 설정
 			colIAddress.setStyle("-fx-allignment: CENTER");// 컬럼명 위치 설정
 			colIAddress.setCellValueFactory(new PropertyValueFactory<>("i_address"));// 걸럼값 불러오기
 
 			TableColumn colIEmail = new TableColumn("이 메 일");// 컬럼명 설정
-			colIEmail.setPrefWidth(90);// 컬럼 길이 설정
+			colIEmail.setPrefWidth(160);// 컬럼 길이 설정
 			colIEmail.setStyle("-fx-allignment: CENTER");// 컬럼명 위치 설정
 			colIEmail.setCellValueFactory(new PropertyValueFactory<>("i_email"));// 걸럼값 불러오기
 
@@ -187,7 +177,7 @@ public class ImportionTabController implements Initializable {
 			colIBusiness.setCellValueFactory(new PropertyValueFactory<>("i_business"));// 걸럼값 불러오기
 
 			TableColumn colIPayment = new TableColumn("매입 미지급액");// 컬럼명 설정
-			colIPayment.setPrefWidth(90);// 컬럼 길이 설정
+			colIPayment.setPrefWidth(120);// 컬럼 길이 설정
 			colIPayment.setStyle("-fx-allignment: CENTER");// 컬럼명 위치 설정
 			colIPayment.setCellValueFactory(new PropertyValueFactory<>("i_payment"));// 걸럼값 불러오기
 

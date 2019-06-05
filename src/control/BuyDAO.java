@@ -208,11 +208,6 @@ public class BuyDAO {
 			int i = pstmt.executeUpdate();
 
 			if (i == 1) {
-				Alert alert = new Alert(AlertType.INFORMATION);
-				alert.setTitle("출고 확인");
-				alert.setHeaderText(" 출고 완료.");
-				alert.setContentText("출고 성공!!!");
-				alert.showAndWait();
 				StockUpdateSucess = true;
 			} else {
 				Alert alert = new Alert(AlertType.WARNING);
