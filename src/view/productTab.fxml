@@ -46,7 +46,7 @@
 			</HBox>
 			<Separator prefHeight="50" prefWidth="400" />
 			<HBox>
-				<VBox prefWidth="150">
+				<VBox prefWidth="175">
 					<padding>
 						<Insets top="10" left="10" bottom="10" right="20" />
 					</padding>
@@ -69,7 +69,7 @@
 						<Insets top="20" left="20" bottom="20" right="20" />
 					</padding>
 					<Label text="재고 목록" />
-					<TableView prefHeight="200" prefWidth="970"
+					<TableView prefHeight="200" prefWidth="960"
 					fx:id="stockTableView">
 					</TableView>
 				</VBox>

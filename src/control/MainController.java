@@ -67,6 +67,8 @@ public class MainController implements Initializable {
 	private BuyTabController buyTabController;
 	@FXML
 	private MoneyTabController moneyTabController;
+	@FXML
+	private ProductTotalTabController productTotalTabController;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -83,8 +85,7 @@ public class MainController implements Initializable {
 							e.printStackTrace();
 						}
 
-					}
-					if (newValue == account) {
+					} else if (newValue == account) {
 						System.out.println("DB 연결 성공");
 						try {
 							accountTabController.AccountTotalList();
@@ -106,7 +107,7 @@ public class MainController implements Initializable {
 							buyTabController.productOrigin();
 							buyTabController.productBrand(); // 상품 브랜드
 							buyTabController.importionName2(); // 우측 콤보박스 매입 상호명
-							//buyTabController.accountName(); // 판매 상호명
+							buyTabController.accountName(); // 판매 상호명
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

@@ -23,7 +23,7 @@
 <?import javafx.scene.control.PasswordField?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/"
 	fx:controller="control.MainController" prefHeight="1000.0"
-	prefWidth="1500.0">
+	prefWidth="2000.0">
 	<top>
 		<VBox>
 			<children>

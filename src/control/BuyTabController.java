@@ -230,7 +230,7 @@ public class BuyTabController implements Initializable {
 			col_D_No.setStyle("-fx-allignment:CENTER");// 컬럼명 위치 설정
 			col_D_No.setCellValueFactory(new PropertyValueFactory<>("d_no"));// 걸럼값 불러오기
 			TableColumn col_D_dealDate = new TableColumn("주문일자"); // 컬럼명 설정
-			col_D_dealDate.setPrefWidth(120); // 컬럼 길이 설정
+			col_D_dealDate.setPrefWidth(150); // 컬럼 길이 설정
 			col_D_dealDate.setStyle("-fx-allignment:CENTER"); // 컬럼명 위치 설정
 			col_D_dealDate.setCellValueFactory(new PropertyValueFactory<>("d_dealDate")); // 걸럼값 불러오기
 
@@ -240,22 +240,22 @@ public class BuyTabController implements Initializable {
 			col_D_date.setCellValueFactory(new PropertyValueFactory<>("d_date"));
 
 			TableColumn col_A_name = new TableColumn("상호명");
-			col_A_name.setPrefWidth(100);
+			col_A_name.setPrefWidth(130);
 			col_A_name.setStyle("-fx-allignment:CENTER");
 			col_A_name.setCellValueFactory(new PropertyValueFactory<>("a_name"));
 
 			TableColumn col_B_code1 = new TableColumn("식별번호");
-			col_B_code1.setPrefWidth(130);
+			col_B_code1.setPrefWidth(150);
 			col_B_code1.setStyle("-fx-allignment:CENTER");
 			col_B_code1.setCellValueFactory(new PropertyValueFactory<>("b_code"));
 
 			TableColumn col_P_type1 = new TableColumn("분류");
-			col_P_type1.setPrefWidth(50);
+			col_P_type1.setPrefWidth(80);
 			col_P_type1.setStyle("-fx-allignment:CENTER");
 			col_P_type1.setCellValueFactory(new PropertyValueFactory<>("p_type"));
 
 			TableColumn col_P_origin1 = new TableColumn("원산지");
-			col_P_origin1.setPrefWidth(60);
+			col_P_origin1.setPrefWidth(80);
 			col_P_origin1.setStyle("-fx-allignment:CENTER");
 			col_P_origin1.setCellValueFactory(new PropertyValueFactory<>("p_origin"));
 
@@ -270,22 +270,22 @@ public class BuyTabController implements Initializable {
 			col_P_part1.setCellValueFactory(new PropertyValueFactory<>("p_part"));
 
 			TableColumn col_D_number = new TableColumn("수량");
-			col_D_number.setPrefWidth(70);
+			col_D_number.setPrefWidth(80);
 			col_D_number.setStyle("-fx-allignment:CENTER");
 			col_D_number.setCellValueFactory(new PropertyValueFactory<>("d_number"));
 
 			TableColumn col_D_kg = new TableColumn("중량");
-			col_D_kg.setPrefWidth(70);
+			col_D_kg.setPrefWidth(80);
 			col_D_kg.setStyle("-fx-allignment:CENTER");
 			col_D_kg.setCellValueFactory(new PropertyValueFactory<>("d_kg"));
 
 			TableColumn col_D_cost = new TableColumn("단가");
-			col_D_cost.setPrefWidth(70);
+			col_D_cost.setPrefWidth(100);
 			col_D_cost.setStyle("-fx-allignment:CENTER");
 			col_D_cost.setCellValueFactory(new PropertyValueFactory<>("d_cost"));
 
 			TableColumn col_D_totalMoney1 = new TableColumn("총 금액");
-			col_D_totalMoney1.setPrefWidth(120);
+			col_D_totalMoney1.setPrefWidth(140);
 			col_D_totalMoney1.setStyle("-fx-allignment:CENTER");
 			col_D_totalMoney1.setCellValueFactory(new PropertyValueFactory<>("d_totalMoney"));
 
@@ -651,11 +651,13 @@ public class BuyTabController implements Initializable {
 
 	// 입고 전체 리스트
 	public void BuyTotalList() throws Exception {
-
+		// 데이터리스트 값 초기화
 		buyDataList.removeAll(buyDataList);
+		
 		BuyDAO bDao = new BuyDAO();
+		
 		BuyVO bVo = null;
-		ArrayList<String> title;
+		
 		ArrayList<BuyVO> list;
 
 		list = bDao.getbuyTotalList();
@@ -690,7 +692,6 @@ public class BuyTabController implements Initializable {
 		dealDataList.removeAll(dealDataList);
 		DealDAO dDao = new DealDAO();
 		DealVO dVo = null;
-		ArrayList<String> title;
 		ArrayList<DealVO> list;
 
 		list = dDao.getDealVOTotalList();
