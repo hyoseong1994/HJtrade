@@ -404,7 +404,7 @@ public class BuyTabController implements Initializable {
 	public void accountName() {
 		// ArrayList 에 VO 넣기
 		ArrayList<AccountVO> list = new ArrayList();
-
+		
 		// observablelist에 string으로 AccountDataList에 담겠다
 		ObservableList<String> AccountDataList = FXCollections.observableArrayList();
 		AccountVO aVo = null;
@@ -797,6 +797,8 @@ public class BuyTabController implements Initializable {
 				cbx_b_origin.getSelectionModel().clearSelection();
 				cbx_b_brand.getSelectionModel().clearSelection();
 				cbx_b_part.getSelectionModel().clearSelection();
+				cbx_b_brand.setDisable(true);
+				cbx_b_part.setDisable(true);
 			}
 			// 미입금금액 수정중 오류 발생시 오류 출력
 		} catch (Exception e) {

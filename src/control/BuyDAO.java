@@ -58,6 +58,7 @@ public class BuyDAO {
 		} catch (SQLException se) {
 			System.out.println(se);
 		} catch (Exception e) {
+			e.toString();
 			System.out.println(e);
 		} finally {
 			try {

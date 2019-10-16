@@ -183,7 +183,7 @@ public class MainController implements Initializable {
 
 	// PDF 파일 생성 메소드
 	public void handlerm_pdfFileDirAction(ActionEvent event) {
-		String txtSaveFileDir = "D:\\HJtrade\\backup\\PDF";
+		String txtSaveFileDir = "D:\\HJtrade\\HJtrade\\PDF";
 
 		try {
 
